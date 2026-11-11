@@ -1,0 +1,127 @@
+[
+  {
+    "id": "frontliner",
+    "name": "Frontliner",
+    "desc": "Heavy armor, heavy hits, the one in the middle of the fight. Frontliners take what the party cannot, and keep swinging.",
+    "hitDie": 10,
+    "primaryStats": ["STR", "CON"],
+    "saves": ["STR", "CON"],
+    "proficiencies": {
+      "armor": ["light", "medium", "heavy", "shields"],
+      "weapons": ["simple", "martial"],
+      "skills": 2,
+      "skillOptions": ["Acrobatics", "Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]
+    },
+    "coreFeatures": [
+      { "level": 5, "name": "Martial Chassis", "desc": "You use a d10 hit die. You begin with the armor and weapon proficiencies listed in your role. Your saves are with STR and CON." },
+      { "level": 25, "name": "Extra Attack", "desc": "When you take the Attack action, you may make one additional weapon attack." },
+      { "level": 55, "name": "Extra Attack (2)", "desc": "When you take the Attack action, you may make two additional weapon attacks." },
+      { "level": 90, "name": "Extra Attack (3)", "desc": "When you take the Attack action, you may make three additional weapon attacks." }
+    ]
+  },
+  {
+    "id": "striker",
+    "name": "Striker",
+    "desc": "Speed and precision. Strikers find the opening, hit the weak spot, and are somewhere else when the counterattack comes.",
+    "hitDie": 8,
+    "primaryStats": ["DEX"],
+    "saves": ["DEX", "INT"],
+    "proficiencies": {
+      "armor": ["light", "medium"],
+      "weapons": ["simple", "martial"],
+      "skills": 4,
+      "skillOptions": ["Acrobatics", "Athletics", "Deception", "Insight", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"]
+    },
+    "coreFeatures": [
+      { "level": 5, "name": "Agile Chassis", "desc": "You use a d8 hit die. You begin with the armor and weapon proficiencies listed in your role. Your saves are with DEX and INT." },
+      { "level": 5, "name": "Precise Blow (1d6)", "desc": "Once per turn when you hit a creature with a weapon attack and either have advantage or an ally is within 5 ft. of the target, deal an extra 1d6 damage of the weapon's type." },
+      { "level": 15, "name": "Precise Blow (2d6)", "desc": "Your Precise Blow damage increases to 2d6." },
+      { "level": 30, "name": "Precise Blow (3d6)", "desc": "Your Precise Blow damage increases to 3d6." },
+      { "level": 50, "name": "Precise Blow (4d6)", "desc": "Your Precise Blow damage increases to 4d6." },
+      { "level": 75, "name": "Precise Blow (5d6)", "desc": "Your Precise Blow damage increases to 5d6." }
+    ]
+  },
+  {
+    "id": "caster",
+    "name": "Caster",
+    "desc": "Mastery of arcane force. Casters bend magic directly, trading flesh for understanding.",
+    "hitDie": 6,
+    "primaryStats": ["INT", "WIS", "CHA"],
+    "saves": ["CON", "INT"],
+    "proficiencies": {
+      "armor": [],
+      "weapons": ["simple"],
+      "skills": 2,
+      "skillOptions": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Nature", "Perception", "Religion"]
+    },
+    "coreFeatures": [
+      { "level": 5, "name": "Arcane Chassis", "desc": "You use a d6 hit die. You begin with the proficiencies listed in your role. Your saves are with CON and INT. You gain a spellcasting ability (your class subtree specifies which stat and what list)." },
+      { "level": 5, "name": "MP Pool", "desc": "You have an MP pool of 10 + your casting modifier. Spend MP to cast spells per the standard MP cost table." },
+      { "level": 25, "name": "MP Expansion I", "desc": "Your MP maximum increases by 15." },
+      { "level": 55, "name": "MP Expansion II", "desc": "Your MP maximum increases by 20." },
+      { "level": 85, "name": "MP Expansion III", "desc": "Your MP maximum increases by 25." }
+    ]
+  },
+  {
+    "id": "divine",
+    "name": "Divine",
+    "desc": "Power channeled from something older, higher, or stranger. Divines wield magic through their relationship to a power, not through study.",
+    "hitDie": 8,
+    "primaryStats": ["WIS", "CHA"],
+    "saves": ["WIS", "CHA"],
+    "proficiencies": {
+      "armor": ["light", "medium", "shields"],
+      "weapons": ["simple"],
+      "skills": 2,
+      "skillOptions": ["History", "Insight", "Medicine", "Nature", "Persuasion", "Religion", "Survival"]
+    },
+    "coreFeatures": [
+      { "level": 5, "name": "Divine Chassis", "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with WIS and CHA. You gain a spellcasting ability (your class subtree specifies which stat and what list)." },
+      { "level": 5, "name": "MP Pool", "desc": "You have an MP pool of 10 + your casting modifier. Spend MP to cast spells per the standard MP cost table." },
+      { "level": 25, "name": "MP Expansion I", "desc": "Your MP maximum increases by 15." },
+      { "level": 55, "name": "MP Expansion II", "desc": "Your MP maximum increases by 20." },
+      { "level": 85, "name": "MP Expansion III", "desc": "Your MP maximum increases by 25." }
+    ]
+  },
+  {
+    "id": "support",
+    "name": "Support",
+    "desc": "The force that lifts others. Supports make everyone around them more capable, and tend to outlast fights that should have killed them.",
+    "hitDie": 8,
+    "primaryStats": ["CHA", "WIS"],
+    "saves": ["DEX", "CHA"],
+    "proficiencies": {
+      "armor": ["light"],
+      "weapons": ["simple"],
+      "skills": 3,
+      "skillOptions": ["any"]
+    },
+    "coreFeatures": [
+      { "level": 5, "name": "Support Chassis", "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with DEX and CHA." },
+      { "level": 5, "name": "Inspiration (d6)", "desc": "You have Inspiration dice (d6). As a bonus action, grant one to an ally within 30 ft. who can hear you. They may add it to any one check, attack, or save in the next minute. You have a number equal to your prof bonus, regained on a long rest." },
+      { "level": 25, "name": "Inspiration (d8)", "desc": "Your Inspiration dice become d8s." },
+      { "level": 50, "name": "Inspiration (d10)", "desc": "Your Inspiration dice become d10s." },
+      { "level": 75, "name": "Inspiration (d12)", "desc": "Your Inspiration dice become d12s." }
+    ]
+  },
+  {
+    "id": "specialist",
+    "name": "Specialist",
+    "desc": "The odd shape. Specialists don't fit cleanly into another role, but they bring something nobody else does. Artificers, invokers, planar scholars, strange hybrids.",
+    "hitDie": 8,
+    "primaryStats": ["INT", "WIS", "CHA"],
+    "saves": ["CON", "INT"],
+    "proficiencies": {
+      "armor": ["light", "medium"],
+      "weapons": ["simple"],
+      "skills": 2,
+      "skillOptions": ["Arcana", "History", "Investigation", "Medicine", "Nature", "Perception", "Religion", "Sleight of Hand"]
+    },
+    "coreFeatures": [
+      { "level": 5, "name": "Specialist Chassis", "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with CON and INT. You gain a spellcasting-adjacent ability (your class subtree specifies the shape)." },
+      { "level": 5, "name": "Flex MP Pool", "desc": "You have an MP pool of 8 + your choice of INT, WIS, or CHA modifier. Spend MP for spells, invocations, or infusions per your class subtree." },
+      { "level": 30, "name": "MP Expansion I", "desc": "Your MP maximum increases by 15." },
+      { "level": 70, "name": "MP Expansion II", "desc": "Your MP maximum increases by 20." }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "barbarian",
+    "name": "Barbarian",
+    "role": "frontliner",
+    "desc": "Rage, resilience, and the primal connection to something older than civilization. Barbarians turn fury into damage and damage into more fury."
+  },
+  {
+    "id": "monk",
+    "name": "Monk",
+    "role": "striker",
+    "desc": "Disciplined mastery of the body as a weapon. Monks channel ki into martial arts, swift movement, and impossible feats."
+  },
+  {
+    "id": "wizard",
+    "name": "Wizard",
+    "role": "caster",
+    "desc": "Scholars of the arcane. Wizards learn spells through study, preserve them in a spellbook, and prepare them each day."
+  },
+  {
+    "id": "cleric",
+    "name": "Cleric",
+    "role": "divine",
+    "desc": "Servants of a divine power. Clerics channel their god's will through prayer, healing, and the Channel Divinity feature."
+  },
+  {
+    "id": "rogue",
+    "name": "Rogue",
+    "role": "striker",
+    "desc": "Shadow-walkers, lockpickers, and sudden knives in the dark. Rogues trade raw power for precision and versatility."
+  }
+]

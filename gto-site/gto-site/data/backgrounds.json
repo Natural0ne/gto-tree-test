@@ -1,0 +1,52 @@
+[
+  {
+    "id": "acolyte",
+    "name": "Acolyte",
+    "desc": "You served a temple, a cause, or a faith. What began as devotion grows, over time, into something closer to authority."
+  },
+  {
+    "id": "criminal",
+    "name": "Criminal",
+    "desc": "You lived outside the law. Contacts, instincts, and skills from that life stay with you — and grow sharper the longer you walk this road."
+  },
+  {
+    "id": "folk_hero",
+    "name": "Folk Hero",
+    "desc": "You come from common stock. Your defining moment stood against injustice. The people remember, and the memory lends its own strange weight."
+  },
+  {
+    "id": "noble",
+    "name": "Noble",
+    "desc": "You were born into wealth and influence. Those doors remain open, and your inherited bearing becomes a tool in its own right."
+  },
+  {
+    "id": "sage",
+    "name": "Sage",
+    "desc": "You spent years in study. Ancient languages, forgotten texts, and lost lore are familiar ground, and you unearth more each year you spend in the world."
+  },
+  {
+    "id": "soldier",
+    "name": "Soldier",
+    "desc": "You served in a military force. Camp routines and battlefield instincts shaped you. The habits deepen the longer you fight."
+  },
+  {
+    "id": "outlander",
+    "name": "Outlander",
+    "desc": "You come from the wilds, far from any city. You know the land in a way town-dwellers never will, and the land seems to know you back."
+  },
+  {
+    "id": "entertainer",
+    "name": "Entertainer",
+    "desc": "You lived by performance. Crowds trusted you with their attention, and that attention becomes a resource you can wield in greater and greater ways."
+  },
+  {
+    "id": "guild_artisan",
+    "name": "Guild Artisan",
+    "desc": "You were trained in a craft. The guild's protection and your tradecraft support you; mastery of your craft grows over time until the work becomes legendary."
+  },
+  {
+    "id": "charlatan",
+    "name": "Charlatan",
+    "desc": "You lived by your wits and a smile. The art of becoming someone else at will grows subtler and more absolute the longer you practice."
+  }
+]
