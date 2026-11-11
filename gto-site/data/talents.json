@@ -2235,10 +2235,10 @@
     "region": "role:frontliner",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
-    "desc": "You use a d10 hit die. You begin with the armor and weapon proficiencies listed in your role. Your saves are with STR and CON."
+    "desc": "You use a d10 hit die. You begin with the armor and weapon proficiencies listed in your role."
   },
   {
     "id": "rolecore_frontliner_1",
@@ -2247,7 +2247,7 @@
     "region": "role:frontliner",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 25,
+    "levelReq": 5,
     "roleCore": true,
     "bypassable": false,
     "desc": "When you take the Attack action, you may make one additional weapon attack."
@@ -2259,7 +2259,7 @@
     "region": "role:frontliner",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 55,
+    "levelReq": 50,
     "roleCore": true,
     "bypassable": false,
     "desc": "When you take the Attack action, you may make two additional weapon attacks."
@@ -2271,37 +2271,25 @@
     "region": "role:frontliner",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 90,
+    "levelReq": 85,
     "roleCore": true,
     "bypassable": false,
     "desc": "When you take the Attack action, you may make three additional weapon attacks."
   },
   {
     "id": "rolecore_striker_0",
-    "name": "Agile Chassis",
+    "name": "Precise Blow",
     "branch": "Striker",
     "region": "role:striker",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
-    "desc": "You use a d8 hit die. You begin with the armor and weapon proficiencies listed in your role. Your saves are with DEX and INT."
+    "desc": "Once per turn when you hit a creature with a weapon attack and you have advantage, or an ally is within 5 ft. of the target, you deal an extra 1d6 damage."
   },
   {
     "id": "rolecore_striker_1",
-    "name": "Precise Blow (1d6)",
-    "branch": "Striker",
-    "region": "role:striker",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 5,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "Once per turn when you hit a creature with a weapon attack and either have advantage or an ally is within 5 ft. of the target, deal an extra 1d6 damage of the weapon's type."
-  },
-  {
-    "id": "rolecore_striker_2",
     "name": "Precise Blow (2d6)",
     "branch": "Striker",
     "region": "role:striker",
@@ -2313,7 +2301,7 @@
     "desc": "Your Precise Blow damage increases to 2d6."
   },
   {
-    "id": "rolecore_striker_3",
+    "id": "rolecore_striker_2",
     "name": "Precise Blow (3d6)",
     "branch": "Striker",
     "region": "role:striker",
@@ -2325,7 +2313,7 @@
     "desc": "Your Precise Blow damage increases to 3d6."
   },
   {
-    "id": "rolecore_striker_4",
+    "id": "rolecore_striker_3",
     "name": "Precise Blow (4d6)",
     "branch": "Striker",
     "region": "role:striker",
@@ -2337,164 +2325,200 @@
     "desc": "Your Precise Blow damage increases to 4d6."
   },
   {
-    "id": "rolecore_striker_5",
+    "id": "rolecore_striker_4",
     "name": "Precise Blow (5d6)",
     "branch": "Striker",
     "region": "role:striker",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 75,
+    "levelReq": 70,
     "roleCore": true,
     "bypassable": false,
     "desc": "Your Precise Blow damage increases to 5d6."
   },
   {
     "id": "rolecore_caster_0",
-    "name": "Arcane Chassis",
+    "name": "Spellcasting",
     "branch": "Caster",
     "region": "role:caster",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
-    "desc": "You use a d6 hit die. You begin with the proficiencies listed in your role. Your saves are with CON and INT. You gain a spellcasting ability (your class subtree specifies which stat and what list)."
+    "desc": "You can cast spells. Your spellcasting ability is set by your class subtree. You begin with an MP pool of 10 + your casting modifier."
   },
   {
     "id": "rolecore_caster_1",
-    "name": "MP Pool",
+    "name": "Cantrips",
     "branch": "Caster",
     "region": "role:caster",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
-    "desc": "You have an MP pool of 10 + your casting modifier. Spend MP to cast spells per the standard MP cost table."
+    "desc": "You know two cantrips, chosen from a list your class subtree provides."
   },
   {
     "id": "rolecore_caster_2",
-    "name": "MP Expansion I",
+    "name": "MP Expansion",
     "branch": "Caster",
     "region": "role:caster",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 25,
+    "levelReq": 10,
     "roleCore": true,
     "bypassable": false,
     "desc": "Your MP maximum increases by 15."
   },
   {
     "id": "rolecore_caster_3",
-    "name": "MP Expansion II",
+    "name": "Third Cantrip",
     "branch": "Caster",
     "region": "role:caster",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 55,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "Your MP maximum increases by 20."
-  },
-  {
-    "id": "rolecore_caster_4",
-    "name": "MP Expansion III",
-    "branch": "Caster",
-    "region": "role:caster",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 85,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "Your MP maximum increases by 25."
-  },
-  {
-    "id": "rolecore_divine_0",
-    "name": "Divine Chassis",
-    "branch": "Divine",
-    "region": "role:divine",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 5,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with WIS and CHA. You gain a spellcasting ability (your class subtree specifies which stat and what list)."
-  },
-  {
-    "id": "rolecore_divine_1",
-    "name": "MP Pool",
-    "branch": "Divine",
-    "region": "role:divine",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 5,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "You have an MP pool of 10 + your casting modifier. Spend MP to cast spells per the standard MP cost table."
-  },
-  {
-    "id": "rolecore_divine_2",
-    "name": "MP Expansion I",
-    "branch": "Divine",
-    "region": "role:divine",
     "rarity": "common",
     "cost": 0,
     "levelReq": 25,
     "roleCore": true,
     "bypassable": false,
-    "desc": "Your MP maximum increases by 15."
+    "desc": "You learn an additional cantrip from your class list."
   },
   {
-    "id": "rolecore_divine_3",
-    "name": "MP Expansion II",
+    "id": "rolecore_caster_4",
+    "name": "MP Expansion",
+    "branch": "Caster",
+    "region": "role:caster",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 50,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "Your MP maximum increases by 20."
+  },
+  {
+    "id": "rolecore_caster_5",
+    "name": "Fourth Cantrip",
+    "branch": "Caster",
+    "region": "role:caster",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 75,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "You learn an additional cantrip from your class list."
+  },
+  {
+    "id": "rolecore_divine_0",
+    "name": "Channeled Power",
     "branch": "Divine",
     "region": "role:divine",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 55,
+    "levelReq": 1,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "You can cast spells. Your spellcasting ability is set by your class subtree. You begin with an MP pool of 10 + your casting modifier."
+  },
+  {
+    "id": "rolecore_divine_1",
+    "name": "Divine Focus",
+    "branch": "Divine",
+    "region": "role:divine",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 1,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "You can use a holy symbol, druidic focus, or appropriate object as a spellcasting focus."
+  },
+  {
+    "id": "rolecore_divine_2",
+    "name": "Grace",
+    "branch": "Divine",
+    "region": "role:divine",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 10,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "Once per short rest, when you fail a saving throw you may reroll it. You must take the new result."
+  },
+  {
+    "id": "rolecore_divine_3",
+    "name": "MP Expansion",
+    "branch": "Divine",
+    "region": "role:divine",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 25,
     "roleCore": true,
     "bypassable": false,
     "desc": "Your MP maximum increases by 20."
   },
   {
     "id": "rolecore_divine_4",
-    "name": "MP Expansion III",
+    "name": "Greater Grace",
     "branch": "Divine",
     "region": "role:divine",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 85,
+    "levelReq": 50,
     "roleCore": true,
     "bypassable": false,
-    "desc": "Your MP maximum increases by 25."
+    "desc": "You may use Grace twice per short rest."
   },
   {
     "id": "rolecore_support_0",
-    "name": "Support Chassis",
+    "name": "Inspiration",
     "branch": "Support",
     "region": "role:support",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with DEX and CHA."
-  },
-  {
-    "id": "rolecore_support_1",
-    "name": "Inspiration (d6)",
-    "branch": "Support",
-    "region": "role:support",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
     "desc": "You have Inspiration dice (d6). As a bonus action, grant one to an ally within 30 ft. who can hear you. They may add it to any one check, attack, or save in the next minute. You have a number equal to your prof bonus, regained on a long rest."
   },
   {
-    "id": "rolecore_support_2",
+    "id": "rolecore_support_1",
     "name": "Inspiration (d8)",
+    "branch": "Support",
+    "region": "role:support",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 20,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "Your Inspiration dice become d8s."
+  },
+  {
+    "id": "rolecore_support_2",
+    "name": "Inspiration (d10)",
+    "branch": "Support",
+    "region": "role:support",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 40,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "Your Inspiration dice become d10s."
+  },
+  {
+    "id": "rolecore_support_3",
+    "name": "Inspiration (d12)",
+    "branch": "Support",
+    "region": "role:support",
+    "rarity": "common",
+    "cost": 0,
+    "levelReq": 60,
+    "roleCore": true,
+    "bypassable": false,
+    "desc": "Your Inspiration dice become d12s."
+  },
+  {
+    "id": "rolecore_support_4",
+    "name": "Jack of All Trades",
     "branch": "Support",
     "region": "role:support",
     "rarity": "common",
@@ -2502,103 +2526,79 @@
     "levelReq": 25,
     "roleCore": true,
     "bypassable": false,
-    "desc": "Your Inspiration dice become d8s."
-  },
-  {
-    "id": "rolecore_support_3",
-    "name": "Inspiration (d10)",
-    "branch": "Support",
-    "region": "role:support",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 50,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "Your Inspiration dice become d10s."
-  },
-  {
-    "id": "rolecore_support_4",
-    "name": "Inspiration (d12)",
-    "branch": "Support",
-    "region": "role:support",
-    "rarity": "common",
-    "cost": 0,
-    "levelReq": 75,
-    "roleCore": true,
-    "bypassable": false,
-    "desc": "Your Inspiration dice become d12s."
+    "desc": "You add half your proficiency bonus (rounded down) to any ability check that doesn't already include it."
   },
   {
     "id": "rolecore_specialist_0",
-    "name": "Specialist Chassis",
+    "name": "Signature Craft",
     "branch": "Specialist",
     "region": "role:specialist",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
-    "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with CON and INT. You gain a spellcasting-adjacent ability (your class subtree specifies the shape)."
+    "desc": "You have one signature practice (a spell, a construct, a ritual, a device) defined by your class subtree. The specifics are set by what you pick."
   },
   {
     "id": "rolecore_specialist_1",
-    "name": "Flex MP Pool",
+    "name": "Flex MP",
     "branch": "Specialist",
     "region": "role:specialist",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 5,
+    "levelReq": 1,
     "roleCore": true,
     "bypassable": false,
-    "desc": "You have an MP pool of 8 + your choice of INT, WIS, or CHA modifier. Spend MP for spells, invocations, or infusions per your class subtree."
+    "desc": "You begin with an MP pool of 8 + your choice of INT, WIS, or CHA modifier."
   },
   {
     "id": "rolecore_specialist_2",
-    "name": "MP Expansion I",
+    "name": "MP Expansion",
     "branch": "Specialist",
     "region": "role:specialist",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 30,
+    "levelReq": 25,
     "roleCore": true,
     "bypassable": false,
     "desc": "Your MP maximum increases by 15."
   },
   {
     "id": "rolecore_specialist_3",
-    "name": "MP Expansion II",
+    "name": "Second Signature",
     "branch": "Specialist",
     "region": "role:specialist",
     "rarity": "common",
     "cost": 0,
-    "levelReq": 70,
+    "levelReq": 50,
     "roleCore": true,
     "bypassable": false,
-    "desc": "Your MP maximum increases by 20."
+    "desc": "You gain a second signature practice from your class subtree."
   },
   {
     "id": "cls_barb_entry",
-    "name": "Barbarian Initiate",
+    "name": "Barbarian Entry",
     "branch": "Barbarian",
     "region": "class:barbarian",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
-    "chassisRole": "frontliner",
-    "desc": "You draw on the primal fury of the barbarian tradition. Picking this node unlocks further Barbarian features. Chassis role: Frontliner (d10, martial proficiencies, STR+CON saves). A character of another role may still take Barbarian features, but will lack the chassis."
+    "levelReq": 1,
+    "roleReq": "frontliner",
+    "desc": "You draw on the primal fury of the barbarian tradition. You may purchase further Barbarian features."
   },
   {
-    "id": "cls_barb_rage",
+    "id": "cls_barb_rage_1",
     "name": "Rage",
     "branch": "Barbarian",
     "region": "class:barbarian",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_barb_entry"
     ],
-    "desc": "As a bonus action, enter Rage: advantage on STR checks and saves, bonus damage on melee STR attacks, resistance to bludgeoning/piercing/slashing. Lasts 1 min. Uses per long rest and bonus damage scale with GTO level: 2 uses + 2 damage at GTO 5, 3 uses at 15, 4 at 30, 5 at 60, 6 at 85, unlimited at 100. Bonus damage: +2 at 5, +3 at 45, +4 at 80."
+    "desc": "As a bonus action, enter Rage. While raging: advantage on STR checks and saves, +2 to damage on STR-based melee attacks, resistance to bludgeoning/piercing/slashing damage. Lasts 1 min. 2 uses per long rest."
   },
   {
     "id": "cls_barb_unarmored_defense",
@@ -2607,11 +2607,11 @@
     "region": "class:barbarian",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_barb_entry"
     ],
-    "desc": "While not wearing armor, your AC equals 10 + DEX mod + CON mod. You may use a shield. If you wear armor, this feature does not apply."
+    "desc": "While not wearing armor, your AC equals 10 + DEX mod + CON mod. You may use a shield."
   },
   {
     "id": "cls_barb_reckless",
@@ -2620,9 +2620,9 @@
     "region": "class:barbarian",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
-      "cls_barb_rage"
+      "cls_barb_rage_1"
     ],
     "desc": "When you make your first attack on your turn, you may attack with advantage; attack rolls against you have advantage until your next turn."
   },
@@ -2633,22 +2633,22 @@
     "region": "class:barbarian",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_barb_entry"
     ],
     "desc": "Advantage on DEX saves against effects you can see (traps, spells)."
   },
   {
-    "id": "cls_barb_fast_movement",
+    "id": "cls_barb_rage_2",
     "name": "Fast Movement",
     "branch": "Barbarian",
     "region": "class:barbarian",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 25,
+    "levelReq": 5,
     "prereq": [
-      "cls_barb_rage"
+      "cls_barb_rage_1"
     ],
     "desc": "+10 ft. speed while not wearing heavy armor."
   },
@@ -2659,7 +2659,7 @@
     "region": "class:barbarian",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 35,
+    "levelReq": 7,
     "prereq": [
       "cls_barb_danger_sense"
     ],
@@ -2672,11 +2672,11 @@
     "region": "class:barbarian",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 45,
+    "levelReq": 9,
     "prereq": [
-      "cls_barb_fast_movement"
+      "cls_barb_rage_2"
     ],
-    "desc": "You roll one additional weapon damage die when determining extra damage for a critical hit with a melee attack. At GTO 65, this becomes two additional dice; at 85, three."
+    "desc": "You can roll one additional weapon damage die when determining extra damage for a critical hit with a melee attack."
   },
   {
     "id": "cls_barb_relentless",
@@ -2685,7 +2685,7 @@
     "region": "class:barbarian",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 55,
+    "levelReq": 11,
     "prereq": [
       "cls_barb_brutal_crit"
     ],
@@ -2698,9 +2698,9 @@
     "region": "class:barbarian",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 75,
+    "levelReq": 15,
     "prereq": [
-      "cls_barb_fast_movement"
+      "cls_barb_rage_2"
     ],
     "desc": "Your rage ends only if you fall unconscious or choose to end it. Rage uses now recharge on a short rest."
   },
@@ -2711,7 +2711,7 @@
     "region": "class:barbarian",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 90,
+    "levelReq": 18,
     "prereq": [
       "cls_barb_persistent_rage"
     ],
@@ -2724,11 +2724,11 @@
     "region": "class:barbarian",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
-      "cls_barb_rage"
+      "cls_barb_rage_1"
     ],
-    "desc": "Your rage draws on a bestial nature. When you rage, you grow natural weapons of your choice: bite (1d8 piercing + 1d10 temp HP once/turn), claws (1d6 slashing, extra attack when you Attack), or tail (1d8 piercing, 10 ft. reach, reaction +1d8 AC)."
+    "desc": "Your rage draws on a bestial nature. When you rage, grow natural weapons of your choice (bite 1d8 piercing + 1d10 temp HP once/turn; claws 1d6 slashing, extra attack when you Attack; tail 1d8 piercing, 10 ft. reach, reaction +1d8 AC)."
   },
   {
     "id": "cls_barb_beast_bestial_soul",
@@ -2737,7 +2737,7 @@
     "region": "class:barbarian",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_barb_beast_entry"
     ],
@@ -2750,7 +2750,7 @@
     "region": "class:barbarian",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 50,
+    "levelReq": 10,
     "prereq": [
       "cls_barb_beast_bestial_soul"
     ],
@@ -2763,7 +2763,7 @@
     "region": "class:barbarian",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 70,
+    "levelReq": 14,
     "prereq": [
       "cls_barb_beast_infectious_fury"
     ],
@@ -2776,11 +2776,11 @@
     "region": "class:barbarian",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
-      "cls_barb_rage"
+      "cls_barb_rage_1"
     ],
-    "desc": "You are a spirit-walker. Choose a totem spirit at purchase: Bear (resistance to all non-psychic damage while raging), Eagle (dash as bonus action while raging), or Wolf (allies within 5 ft. have advantage against enemies you can see while raging)."
+    "desc": "You are a spirit-walker. Choose a totem spirit at purchase: Bear (resistance to all non-psychic damage while raging), Eagle (dash as bonus action while raging), or Wolf (allies within 5 ft. have advantage against enemies you can see)."
   },
   {
     "id": "cls_barb_totem_aspect",
@@ -2789,11 +2789,11 @@
     "region": "class:barbarian",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_barb_totem_entry"
     ],
-    "desc": "Choose a totem permanent gift: Bear (carrying capacity doubled; advantage on STR checks to move objects), Eagle (see clearly at 1 mile; dim light doesn't impose Perception disadvantage), or Wolf (track at fast pace; stealthy pace at normal travel speed)."
+    "desc": "Choose: Bear (carrying capacity doubled; advantage on STR checks to move objects), Eagle (see clearly at 1 mile; dim light doesn't impose Perception disadvantage), or Wolf (track at fast pace; stealthy pace at normal travel speed)."
   },
   {
     "id": "cls_barb_totem_spirit_walker",
@@ -2802,7 +2802,7 @@
     "region": "class:barbarian",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 50,
+    "levelReq": 10,
     "prereq": [
       "cls_barb_totem_aspect"
     ],
@@ -2810,14 +2810,14 @@
   },
   {
     "id": "cls_monk_entry",
-    "name": "Monk Initiate",
+    "name": "Monk Entry",
     "branch": "Monk",
     "region": "class:monk",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
-    "chassisRole": "striker",
-    "desc": "You train in the disciplined martial arts of a monastic tradition. Picking this node unlocks further Monk features. Chassis role: Striker (d8, DEX-based, light/medium armor and martial weapons). A character of another role may still take Monk features, but will lack the chassis."
+    "levelReq": 1,
+    "roleReq": "striker",
+    "desc": "You train in the disciplined martial arts of a monastic tradition. You may purchase further Monk features."
   },
   {
     "id": "cls_monk_martial_arts",
@@ -2826,11 +2826,11 @@
     "region": "class:monk",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_monk_entry"
     ],
-    "desc": "Your unarmed strikes and monk weapons may use DEX instead of STR. When you take the Attack action with an unarmed strike or monk weapon, you can make one unarmed strike as a bonus action. Martial arts die scales with GTO level: d4 at 5, d6 at 25, d8 at 55, d10 at 85."
+    "desc": "Your unarmed strikes and monk weapons deal 1d4 damage and may use DEX instead of STR. When you take the Attack action with an unarmed strike or monk weapon, you can make one unarmed strike as a bonus action."
   },
   {
     "id": "cls_monk_unarmored_defense",
@@ -2839,7 +2839,7 @@
     "region": "class:monk",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_monk_entry"
     ],
@@ -2852,7 +2852,7 @@
     "region": "class:monk",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_monk_martial_arts"
     ],
@@ -2865,11 +2865,25 @@
     "region": "class:monk",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_monk_unarmored_defense"
     ],
-    "desc": "+10 ft. speed while unarmored. At GTO 45, you can move along vertical surfaces and liquids without falling. +5 ft. speed per step: 10 at GTO 10, 15 at 45, 20 at 70, 25 at 90."
+    "desc": "+10 ft. speed while unarmored. At level 9, you can move along vertical surfaces and liquids without falling."
+  },
+  {
+    "id": "cls_monk_martial_arts_up1",
+    "name": "Martial Arts (d6)",
+    "branch": "Monk",
+    "region": "class:monk",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 5,
+    "prereq": [
+      "cls_monk_martial_arts"
+    ],
+    "desc": "Your martial arts die becomes a d6.",
+    "evolving": true
   },
   {
     "id": "cls_monk_deflect_missiles",
@@ -2878,11 +2892,11 @@
     "region": "class:monk",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_monk_martial_arts"
     ],
-    "desc": "When hit by a ranged weapon attack, use your reaction to reduce the damage by 1d10 + DEX + character level. If reduced to 0, catch the missile; spend 1 ki to make a ranged attack with it (martial arts die + DEX, range 20/60)."
+    "desc": "When hit by a ranged weapon attack, use your reaction to reduce the damage by 1d10 + DEX + level. If reduced to 0, catch the missile; spend 1 ki to make a ranged attack with it (1d6 + DEX, range 20/60)."
   },
   {
     "id": "cls_monk_slow_fall",
@@ -2891,11 +2905,11 @@
     "region": "class:monk",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 20,
+    "levelReq": 4,
     "prereq": [
       "cls_monk_martial_arts"
     ],
-    "desc": "When you fall, you may use your reaction to reduce the damage by 5 x your character level."
+    "desc": "When you fall, you may use your reaction to reduce the damage by 5 x your level."
   },
   {
     "id": "cls_monk_stunning_strike",
@@ -2904,11 +2918,25 @@
     "region": "class:monk",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 25,
+    "levelReq": 5,
     "prereq": [
       "cls_monk_ki"
     ],
     "desc": "When you hit a creature with a melee weapon attack, spend 1 ki to force a CON save (DC 8 + prof + WIS) or be stunned until the end of your next turn."
+  },
+  {
+    "id": "cls_monk_martial_arts_up2",
+    "name": "Martial Arts (d8)",
+    "branch": "Monk",
+    "region": "class:monk",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 11,
+    "prereq": [
+      "cls_monk_martial_arts_up1"
+    ],
+    "desc": "Your martial arts die becomes a d8.",
+    "evolving": true
   },
   {
     "id": "cls_monk_evasion",
@@ -2917,7 +2945,7 @@
     "region": "class:monk",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 35,
+    "levelReq": 7,
     "prereq": [
       "cls_monk_unarmored_movement"
     ],
@@ -2930,7 +2958,7 @@
     "region": "class:monk",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 70,
+    "levelReq": 14,
     "prereq": [
       "cls_monk_evasion"
     ],
@@ -2943,7 +2971,7 @@
     "region": "class:monk",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 90,
+    "levelReq": 18,
     "prereq": [
       "cls_monk_diamond_soul"
     ],
@@ -2956,7 +2984,7 @@
     "region": "class:monk",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_monk_ki"
     ],
@@ -2969,11 +2997,11 @@
     "region": "class:monk",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_monk_dragon_entry"
     ],
-    "desc": "Choose a damage type (acid, cold, fire, lightning, poison). When you take the Attack action, replace one attack with a breath: 20-ft. cone or 30-ft. line, DEX save (DC 8 + prof + DEX), damage equal to 2 x martial arts dice on fail, half on success."
+    "desc": "Choose a damage type (acid, cold, fire, lightning, poison). When you take the Attack action, replace one attack with a breath: 20-ft. cone or 30-ft. line, DEX save (DC 8 + prof + DEX), 1d10 damage of chosen type on fail, half on success. Damage scales with level."
   },
   {
     "id": "cls_monk_elemental_infusion",
@@ -2982,7 +3010,7 @@
     "region": "class:monk",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_monk_dragon_breath"
     ],
@@ -2995,7 +3023,7 @@
     "region": "class:monk",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 55,
+    "levelReq": 11,
     "prereq": [
       "cls_monk_elemental_infusion"
     ],
@@ -3008,11 +3036,11 @@
     "region": "class:monk",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 85,
+    "levelReq": 17,
     "prereq": [
       "cls_monk_dragon_wings"
     ],
-    "desc": "Darkvision 60 ft. Your breath weapon deals additional damage equal to your martial arts die. Once per short rest when you drop a creature to 0 HP, you may regain hit points equal to your character level + CON."
+    "desc": "Darkvision 60 ft. Your breath weapon deals an additional 2d10 damage. Once per short rest when you drop a creature to 0 HP, you may regain hit points equal to your level + CON."
   },
   {
     "id": "cls_monk_openhand_entry",
@@ -3021,7 +3049,7 @@
     "region": "class:monk",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_monk_ki"
     ],
@@ -3034,11 +3062,11 @@
     "region": "class:monk",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_monk_openhand_entry"
     ],
-    "desc": "As an action, regain HP equal to 3 x your character level. Once per long rest."
+    "desc": "As an action, regain HP equal to 3 x your level. Once per long rest."
   },
   {
     "id": "cls_monk_openhand_tranquility",
@@ -3047,7 +3075,7 @@
     "region": "class:monk",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 55,
+    "levelReq": 11,
     "prereq": [
       "cls_monk_openhand_wholeness"
     ],
@@ -3060,7 +3088,7 @@
     "region": "class:monk",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 85,
+    "levelReq": 17,
     "prereq": [
       "cls_monk_openhand_tranquility"
     ],
@@ -3068,14 +3096,14 @@
   },
   {
     "id": "cls_wiz_entry",
-    "name": "Wizard Initiate",
+    "name": "Wizard Entry",
     "branch": "Wizard",
     "region": "class:wizard",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
-    "chassisRole": "caster",
-    "desc": "You are a student of the arcane arts. Picking this node unlocks further Wizard features. Chassis role: Caster (d6, INT-based, mental saves, MP pool from your role). A character of another role may still take Wizard features, but will lack the chassis."
+    "levelReq": 1,
+    "roleReq": "caster",
+    "desc": "You are a student of the arcane arts. You may purchase further Wizard features."
   },
   {
     "id": "cls_wiz_spellbook",
@@ -3084,11 +3112,11 @@
     "region": "class:wizard",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_wiz_entry"
     ],
-    "desc": "You own a spellbook. INT is your spellcasting ability. You begin with 6 1st-level wizard spells; you may prepare a number of spells equal to INT + character level each day. You may transcribe additional wizard spells into your spellbook with time and gold."
+    "desc": "You own a spellbook. INT is your spellcasting ability. You begin with 6 1st-level wizard spells; you may prepare a number of spells equal to INT + level each day. You may transcribe additional wizard spells into your spellbook with time and gold."
   },
   {
     "id": "cls_wiz_arcane_recovery",
@@ -3097,11 +3125,11 @@
     "region": "class:wizard",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_wiz_spellbook"
     ],
-    "desc": "Once per day, during a short rest, recover MP equal to half your character level (rounded up), minimum 1."
+    "desc": "Once per day, during a short rest, recover MP equal to half your level (rounded up), minimum 1."
   },
   {
     "id": "cls_wiz_ritual_casting",
@@ -3110,7 +3138,7 @@
     "region": "class:wizard",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_wiz_spellbook"
     ],
@@ -3123,7 +3151,7 @@
     "region": "class:wizard",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 90,
+    "levelReq": 18,
     "prereq": [
       "cls_wiz_arcane_recovery"
     ],
@@ -3136,7 +3164,7 @@
     "region": "class:wizard",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 100,
+    "levelReq": 20,
     "prereq": [
       "cls_wiz_spell_mastery"
     ],
@@ -3149,7 +3177,7 @@
     "region": "class:wizard",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_wiz_spellbook"
     ],
@@ -3162,7 +3190,7 @@
     "region": "class:wizard",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_wiz_evoc_entry"
     ],
@@ -3175,7 +3203,7 @@
     "region": "class:wizard",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_wiz_evoc_sculpt"
     ],
@@ -3188,7 +3216,7 @@
     "region": "class:wizard",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 50,
+    "levelReq": 10,
     "prereq": [
       "cls_wiz_evoc_potent"
     ],
@@ -3201,7 +3229,7 @@
     "region": "class:wizard",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 70,
+    "levelReq": 14,
     "prereq": [
       "cls_wiz_evoc_empowered"
     ],
@@ -3214,7 +3242,7 @@
     "region": "class:wizard",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_wiz_spellbook"
     ],
@@ -3227,11 +3255,11 @@
     "region": "class:wizard",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_wiz_div_entry"
     ],
-    "desc": "After a long rest, roll 2d20 (3d20 at GTO 70). Record them. You may replace any attack roll, save, or ability check (made by you or a creature you can see) with one of these rolls. Once used, the roll is spent."
+    "desc": "After a long rest, roll 2d20 (3d20 at level 14). Record them. You may replace any attack roll, save, or ability check (made by you or a creature you can see) with one of these rolls. Once used, the roll is spent."
   },
   {
     "id": "cls_wiz_div_expert",
@@ -3240,7 +3268,7 @@
     "region": "class:wizard",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_wiz_div_portent"
     ],
@@ -3248,14 +3276,14 @@
   },
   {
     "id": "cls_cleric_entry",
-    "name": "Cleric Initiate",
+    "name": "Cleric Entry",
     "branch": "Cleric",
     "region": "class:cleric",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
-    "chassisRole": "divine",
-    "desc": "You serve a divine power. Picking this node unlocks further Cleric features. Chassis role: Divine (d8, WIS-based, light/medium armor and shields, MP pool from your role). A character of another role may still take Cleric features, but will lack the chassis."
+    "levelReq": 1,
+    "roleReq": "divine",
+    "desc": "You serve a divine power. You may purchase further Cleric features."
   },
   {
     "id": "cls_cleric_spellcasting",
@@ -3264,11 +3292,11 @@
     "region": "class:cleric",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_cleric_entry"
     ],
-    "desc": "WIS is your spellcasting ability. You prepare a number of cleric spells equal to WIS + character level each morning from the cleric spell list."
+    "desc": "WIS is your spellcasting ability. You prepare a number of cleric spells equal to WIS + level each morning from the cleric spell list."
   },
   {
     "id": "cls_cleric_channel_divinity",
@@ -3277,11 +3305,11 @@
     "region": "class:cleric",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_cleric_spellcasting"
     ],
-    "desc": "You channel divine energy. You have one use per short rest (two at GTO 30, three at 90). Spend it to invoke an effect granted by your Divine Domain, or Turn Undead (10 ft./level radius, WIS save vs. DC 8 + prof + WIS, affected creatures must flee for 1 min)."
+    "desc": "You channel divine energy. You have one use per short rest. Spend it to invoke an effect granted by your Divine Domain, or Turn Undead (10 ft./level radius, WIS save vs. DC 8 + prof + WIS, affected creatures must flee for 1 min)."
   },
   {
     "id": "cls_cleric_destroy_undead",
@@ -3290,12 +3318,12 @@
     "region": "class:cleric",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 25,
-    "evolving": true,
+    "levelReq": 5,
     "prereq": [
       "cls_cleric_channel_divinity"
     ],
-    "desc": "Turned undead of CR equal to or less than a threshold are destroyed instead of turned. Threshold increases with GTO level: 1/2 at 25, 1 at 40, 2 at 55, 3 at 70, 4 at 85."
+    "desc": "Turned undead of CR equal to or less than a threshold are destroyed instead of turned. Threshold increases with level: 1/2 at 5th, 1 at 8th, 2 at 11th, 3 at 14th, 4 at 17th.",
+    "evolving": true
   },
   {
     "id": "cls_cleric_divine_intervention",
@@ -3304,7 +3332,7 @@
     "region": "class:cleric",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 50,
+    "levelReq": 10,
     "prereq": [
       "cls_cleric_destroy_undead"
     ],
@@ -3317,7 +3345,7 @@
     "region": "class:cleric",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_cleric_entry"
     ],
@@ -3330,7 +3358,7 @@
     "region": "class:cleric",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_cleric_life_entry"
     ],
@@ -3343,11 +3371,11 @@
     "region": "class:cleric",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_cleric_life_disciple"
     ],
-    "desc": "Channel Divinity option: as an action, allocate 5 x character level HP to creatures within 30 ft. No one may exceed half their max. Doesn't affect undead or constructs."
+    "desc": "Channel Divinity option: as an action, allocate 5 x level HP to creatures within 30 ft. No one may exceed half their max. Doesn't affect undead or constructs."
   },
   {
     "id": "cls_cleric_life_blessed_healer",
@@ -3356,7 +3384,7 @@
     "region": "class:cleric",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 30,
+    "levelReq": 6,
     "prereq": [
       "cls_cleric_life_preserve"
     ],
@@ -3369,7 +3397,7 @@
     "region": "class:cleric",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 85,
+    "levelReq": 17,
     "prereq": [
       "cls_cleric_life_blessed_healer"
     ],
@@ -3382,7 +3410,7 @@
     "region": "class:cleric",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_cleric_entry"
     ],
@@ -3395,7 +3423,7 @@
     "region": "class:cleric",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_cleric_war_entry"
     ],
@@ -3408,7 +3436,7 @@
     "region": "class:cleric",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
       "cls_cleric_war_priest"
     ],
@@ -3421,7 +3449,7 @@
     "region": "class:cleric",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 85,
+    "levelReq": 17,
     "prereq": [
       "cls_cleric_war_guided"
     ],
@@ -3429,27 +3457,27 @@
   },
   {
     "id": "cls_rogue_entry",
-    "name": "Rogue Initiate",
+    "name": "Rogue Entry",
     "branch": "Rogue",
     "region": "class:rogue",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
-    "chassisRole": "striker",
-    "desc": "You are a rogue, a specialist in stealth, trickery, and the sudden knife. Picking this node unlocks further Rogue features. Chassis role: Striker (d8, DEX-based, light/medium armor, Precise Blow scaling damage). A character of another role may still take Rogue features, but will lack the chassis."
+    "levelReq": 1,
+    "roleReq": "striker",
+    "desc": "You are a rogue, a specialist in stealth, trickery, and the sudden knife. You may purchase further Rogue features."
   },
   {
-    "id": "cls_rogue_sneak_upgrade",
-    "name": "Sneak Attack Mastery",
+    "id": "cls_rogue_sneak_attack",
+    "name": "Sneak Attack",
     "branch": "Rogue",
     "region": "class:rogue",
-    "rarity": "uncommon",
-    "cost": 3,
-    "levelReq": 5,
+    "rarity": "common",
+    "cost": 1,
+    "levelReq": 1,
     "prereq": [
       "cls_rogue_entry"
     ],
-    "desc": "Your signature attack is the Rogue's strike. If you have Striker's Precise Blow, treat your bonus damage die as one size larger (d6 becomes d8, d8 becomes d10, etc.). If you do not have Precise Blow, you may gain its base effect (+1d6 damage on a qualifying attack) through this node."
+    "desc": "Once per turn, when you hit with a finesse or ranged weapon and have advantage (or an ally is within 5 ft. of the target), deal +1d6 damage. Scales to 2d6 at 3rd, +1d6 per 2 levels after."
   },
   {
     "id": "cls_rogue_cunning_action",
@@ -3458,9 +3486,9 @@
     "region": "class:rogue",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 10,
+    "levelReq": 2,
     "prereq": [
-      "cls_rogue_entry"
+      "cls_rogue_sneak_attack"
     ],
     "desc": "On each of your turns, you may use a bonus action to Dash, Disengage, or Hide."
   },
@@ -3471,7 +3499,7 @@
     "region": "class:rogue",
     "rarity": "common",
     "cost": 1,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_rogue_entry"
     ],
@@ -3484,11 +3512,11 @@
     "region": "class:rogue",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 5,
+    "levelReq": 1,
     "prereq": [
       "cls_rogue_entry"
     ],
-    "desc": "Choose two skills you are proficient in. Double your proficiency bonus in them. Repeatable at GTO 30 for two more."
+    "desc": "Choose two skills you are proficient in. Double your proficiency bonus in them. Repeatable at level 6 for two more."
   },
   {
     "id": "cls_rogue_uncanny_dodge",
@@ -3497,7 +3525,7 @@
     "region": "class:rogue",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 25,
+    "levelReq": 5,
     "prereq": [
       "cls_rogue_cunning_action"
     ],
@@ -3510,7 +3538,7 @@
     "region": "class:rogue",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 35,
+    "levelReq": 7,
     "prereq": [
       "cls_rogue_uncanny_dodge"
     ],
@@ -3523,7 +3551,7 @@
     "region": "class:rogue",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 55,
+    "levelReq": 11,
     "prereq": [
       "cls_rogue_evasion"
     ],
@@ -3536,7 +3564,7 @@
     "region": "class:rogue",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 75,
+    "levelReq": 15,
     "prereq": [
       "cls_rogue_reliable_talent"
     ],
@@ -3549,7 +3577,7 @@
     "region": "class:rogue",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 100,
+    "levelReq": 20,
     "prereq": [
       "cls_rogue_slippery_mind"
     ],
@@ -3562,7 +3590,7 @@
     "region": "class:rogue",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_rogue_cunning_action"
     ],
@@ -3575,7 +3603,7 @@
     "region": "class:rogue",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_rogue_thief_entry"
     ],
@@ -3588,7 +3616,7 @@
     "region": "class:rogue",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 45,
+    "levelReq": 9,
     "prereq": [
       "cls_rogue_thief_fast_hands"
     ],
@@ -3601,7 +3629,7 @@
     "region": "class:rogue",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 85,
+    "levelReq": 17,
     "prereq": [
       "cls_rogue_thief_supreme"
     ],
@@ -3614,7 +3642,7 @@
     "region": "class:rogue",
     "rarity": "uncommon",
     "cost": 3,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_rogue_cunning_action"
     ],
@@ -3627,7 +3655,7 @@
     "region": "class:rogue",
     "rarity": "rare",
     "cost": 6,
-    "levelReq": 15,
+    "levelReq": 3,
     "prereq": [
       "cls_rogue_assassin_entry"
     ],
@@ -3640,7 +3668,7 @@
     "region": "class:rogue",
     "rarity": "epic",
     "cost": 12,
-    "levelReq": 45,
+    "levelReq": 9,
     "prereq": [
       "cls_rogue_assassin_assassinate"
     ],
@@ -3653,7 +3681,7 @@
     "region": "class:rogue",
     "rarity": "legendary",
     "cost": 45,
-    "levelReq": 85,
+    "levelReq": 17,
     "prereq": [
       "cls_rogue_assassin_infiltrate"
     ],

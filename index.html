@@ -8,11 +8,11 @@
   /* ============================================================
      GRAND TERRA ONLINE — TALENT / SOUL / TRAIT BUILDER
      Single file. Edit the data arrays near the top of <script>:
-        TALENT_NODES, FLAGS         -> Talents tab
+        TALENT_NODES, FLAGS          -> Talents tab
+        ROLES, BACKGROUNDS, CLASSES  -> Header selectors + regions
         SOUL_EFFECTS, SOUL_SYNERGIES,
         SOUL_CATEGORIES, SOUL_THEMES,
         SOUL_SLOT_AUTO, SOUL_SLOT_FLAGS -> Soul tab
-        TRAITS                      -> Trait tab
      No build tools, no server. Open in a browser.
      ============================================================ */
   :root{
@@ -53,6 +53,13 @@
   .pts.soulpts{background:rgba(185,166,220,.07)} .pts.soulpts input{color:var(--soul)}
   .pts.traitpts{background:rgba(95,166,160,.07)} .pts.traitpts input{color:var(--trait)}
   .pts.levelpts{background:rgba(160,140,200,.06)} .pts.levelpts input{color:#c9b8e0;width:38px}
+  .pts.rolepts{background:rgba(216,120,90,.06)} .pts.bgpts{background:rgba(95,166,160,.06)}
+  .pts .idsel{background:transparent;border:none;color:var(--ink);font:inherit;font-size:14px;padding:4px 0;outline:none;border-bottom:1px solid var(--line);max-width:120px}
+  .pts.rolepts .idsel{color:#e8a37a}
+  .pts.bgpts .idsel{color:#8ccfc7}
+  .pts .idsel option{background:#15111f;color:var(--ink)}
+  .infobtn{font:inherit;width:18px;height:18px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;font-size:10px;padding:0;line-height:1;transition:.15s}
+  .infobtn:hover{border-color:var(--ink);color:var(--ink)}
   .pts .sp{font-size:11px;color:var(--ink);letter-spacing:.04em;padding-left:7px;border-left:1px solid var(--line);opacity:.85}
   .pts .sp b{color:var(--gold);font-weight:700}
   .pts.soulpts .sp b{color:var(--soul)} .pts.traitpts .sp b{color:var(--trait)}
@@ -65,7 +72,14 @@
 
   /* sub-bar: filters (talent/soul) or nothing (trait) */
   .subbar{position:fixed;top:64px;left:0;right:0;z-index:18;display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:9px 22px;background:rgba(13,11,20,.82);border-bottom:1px solid var(--line-dim);backdrop-filter:blur(6px);min-height:42px}
+  .famlabel{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);margin:0 6px 0 10px;align-self:center;opacity:.6}
   .chip{font:inherit;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim);background:transparent;cursor:pointer;transition:.15s}
+  .chip.reg-role{border-color:#7a4a32;color:#e8a37a}
+  .chip.reg-class{border-color:#5a4a7a;color:#b9a6dc}
+  .chip.reg-heritage{border-color:#3a5078;color:#8ccfc7}
+  .chip.reg-role.active{background:#e8a37a;color:#2a1510;border-color:#e8a37a;font-weight:700}
+  .chip.reg-class.active{background:#b9a6dc;color:#15102a;border-color:#b9a6dc;font-weight:700}
+  .chip.reg-heritage.active{background:#8ccfc7;color:#102a28;border-color:#8ccfc7;font-weight:700}
   .chip:hover{color:var(--ink)}
   .chip.active{color:var(--bg);background:var(--gold);border-color:var(--gold);font-weight:700}
   .legend{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
@@ -94,6 +108,32 @@
   .node.locked{opacity:.55;filter:saturate(.5)}
   .node.available{border-color:var(--gold);box-shadow:0 0 0 1px rgba(216,177,90,.35),0 6px 22px rgba(216,177,90,.12)}
   .node.unlocked{border-color:var(--r-uncommon);background:linear-gradient(180deg,#13241a,#0e1a12)}
+  .node.bypassed{border-color:#d8b15a;border-style:dashed;background:linear-gradient(180deg,#201a0e,#17120a);opacity:.85}
+  .node.bypassed .cost{color:#d8b15a;font-style:italic}
+  .node.bypassed::after{content:"bypass";position:absolute;top:-9px;right:-6px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#d8b15a;background:#201a0e;padding:1px 6px;border-radius:3px;border:1px solid #d8b15a}
+  .node.rolecore{border-color:#e8a37a;background:linear-gradient(180deg,#2a1812,#1a0f0a)}
+  .node.rolecore.unlocked{border-color:#e8a37a;background:linear-gradient(180deg,#2a1812,#1a0f0a)}
+  .node.rolecore .cost{color:#e8a37a}
+  .node.rolecore::before{content:"core";position:absolute;top:-9px;left:-6px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#e8a37a;background:#2a1812;padding:1px 6px;border-radius:3px;border:1px solid #e8a37a}
+  .node.evolving .evo{color:#8ccfc7;font-style:italic;letter-spacing:.14em}
+  .node.evolving.unlocked::before{content:"evolving";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:#8ccfc7;background:#0e1a12;padding:1px 6px;border-radius:3px;border:1px solid #8ccfc7}
+  #detail button.bypass{background:transparent;border-color:#d8b15a;color:#d8b15a}
+  #detail button.bypass:hover:not(:disabled){background:rgba(216,177,90,.1)}
+  #detail .evobadge{display:inline-block;margin-left:6px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#8ccfc7;background:rgba(140,207,199,.1);padding:1px 6px;border-radius:3px;border:1px solid rgba(140,207,199,.4)}
+  #detail .corebadge{padding:10px;border:1px solid #e8a37a;border-radius:4px;background:rgba(232,163,122,.08);color:#e8a37a;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+  #detail .corebadge.locked{border-color:var(--line);color:var(--ink-dim);background:rgba(0,0,0,.2)}
+  #detail .chassis{font-size:11px;color:var(--ink-dim);border:1px dashed var(--line);border-radius:4px;padding:6px 9px;margin:6px 0 10px;background:rgba(216,120,90,.06)}
+  #detail .chassis.ok{color:#e8a37a;border-color:#7a4a32;background:rgba(216,120,90,.1)}
+  #detail .chassis b{color:#e8a37a}
+  #detail .infopop h3{margin:0 0 6px;font-size:18px}
+  #detail .infopop p{margin:0 0 10px;font-size:13px;color:#cfc7b4;line-height:1.5}
+  #detail .infopop .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:11.5px;color:var(--ink-dim);padding:8px 10px;background:rgba(0,0,0,.2);border-radius:5px;border:1px solid var(--line-dim);margin-bottom:10px}
+  #detail .infopop .info-grid b{color:var(--ink);text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;margin-right:6px;display:inline-block;min-width:60px}
+  #detail .infopop .info-cores{max-height:300px;overflow-y:auto}
+  #detail .infopop .info-core{padding:7px 9px;border:1px solid var(--line-dim);border-radius:4px;margin-bottom:6px;background:rgba(0,0,0,.15)}
+  #detail .infopop .info-core.ok{border-color:var(--r-uncommon);background:rgba(95,158,107,.08)}
+  #detail .infopop .info-core b{display:block;font-size:11.5px;color:var(--ink);margin-bottom:3px}
+  #detail .infopop .info-core span{font-size:11.5px;color:#cfc7b4;line-height:1.45}
   .node.unlocked .cost{color:var(--r-uncommon)}
   .node.unlocked::after{content:"\2713";position:absolute;top:-9px;right:-9px;width:22px;height:22px;border-radius:50%;background:var(--r-uncommon);color:#08120b;font-size:13px;font-weight:800;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.5)}
   .node.secret{border-style:dashed;border-color:#4a3f63;background:repeating-linear-gradient(45deg,#141020,#141020 8px,#171227 8px,#171227 16px)}
@@ -277,12 +317,12 @@
   <div class="tabs">
     <button class="tab active" data-tab="talents">Talents</button>
     <button class="tab soul" data-tab="soul">Soul</button>
-    <button class="tab trait" data-tab="trait">Trait</button>
   </div>
   <div class="pts levelpts" id="ptsLevel"><small>Level</small><input id="lvlInput" type="number" min="1" max="100" value="1"/></div>
+  <div class="pts rolepts" id="ptsRole"><small>Role</small><select id="roleInput" class="idsel"><option value="">—</option></select><button class="infobtn" id="roleInfo" title="Role details">?</button></div>
+  <div class="pts bgpts" id="ptsBg"><small>Background</small><select id="bgInput" class="idsel"><option value="">—</option></select><button class="infobtn" id="bgInfo" title="Background details">?</button></div>
   <div class="pts" id="ptsTalent"><small>Talent&nbsp;Pts</small><input id="tpInput" type="number" min="0" value="20"/><span class="sp" id="tpSpent">0 spent</span></div>
   <div class="pts soulpts" id="ptsSoul" style="display:none"><small>Soul&nbsp;Pts</small><input id="spInput" type="number" min="0" value="10"/><span class="sp" id="spSpent">0 spent</span></div>
-  <div class="pts traitpts" id="ptsTrait" style="display:none"><small>Trait&nbsp;Pts</small><input id="trpInput" type="number" min="0" value="6"/><span class="sp" id="trpSpent">0 spent</span></div>
   <div class="spacer"></div>
   <button class="tool dm" id="btnDM">DM &middot; Flags</button>
   <button class="tool" id="btnExport">Export</button>
@@ -309,10 +349,6 @@
 </div>
 
 <!-- TRAIT view -->
-<div id="traitView">
-  <div class="traitwrap" id="traitWrap"></div>
-</div>
-
 <div id="detail"></div>
 
 <div id="reslotModal"></div>
@@ -345,7 +381,7 @@
   document.body.appendChild(d);
 })();
 
-let FLAGS, TALENT_NODES, SOUL_CATEGORIES, SOUL_THEMES, SOUL_EFFECTS, SOUL_SYNERGIES, SOUL_SLOT_AUTO, SOUL_SLOT_FLAGS, TRAITS;
+let FLAGS, TALENT_NODES, SOUL_CATEGORIES, SOUL_THEMES, SOUL_EFFECTS, SOUL_SYNERGIES, SOUL_SLOT_AUTO, SOUL_SLOT_FLAGS, ROLES, BACKGROUNDS, CLASSES;
 
 async function bootData(){
   const files=[
@@ -356,7 +392,9 @@ async function bootData(){
     ['soul-effects.json','SOUL_EFFECTS'],
     ['soul-synergies.json','SOUL_SYNERGIES'],
     ['soul-slot-growth.json','SLOT_GROWTH'],
-    ['traits.json','TRAITS'],
+    ['roles.json','ROLES'],
+    ['backgrounds.json','BACKGROUNDS'],
+    ['classes.json','CLASSES'],
   ];
   const bootMsg=document.getElementById('bootMsg');
   const results={};
@@ -379,7 +417,9 @@ async function bootData(){
   SOUL_SYNERGIES=results.SOUL_SYNERGIES;
   SOUL_SLOT_AUTO=results.SLOT_GROWTH.auto||[];
   SOUL_SLOT_FLAGS=results.SLOT_GROWTH.flags||[];
-  TRAITS=results.TRAITS;
+  ROLES=results.ROLES;
+  BACKGROUNDS=results.BACKGROUNDS;
+  CLASSES=results.CLASSES;
   // Remove loading screen
   const loader=document.getElementById('bootLoader');
   if(loader)loader.remove();
@@ -399,7 +439,85 @@ const RARITY_ORDER=["common","uncommon","rare","epic","royal","relic","legendary
 const rarColor=r=>getComputedStyle(document.documentElement).getPropertyValue("--r-"+r).trim()||"#999";
 const flagById={}; FLAGS.forEach(f=>flagById[f.id]=f);
 const effectById={}; SOUL_EFFECTS.forEach(e=>effectById[e.id]=e);
-const traitById={}; TRAITS.forEach(t=>traitById[t.id]=t);
+const roleById={}; ROLES.forEach(r=>roleById[r.id]=r);
+const bgById={}; BACKGROUNDS.forEach(b=>bgById[b.id]=b);
+const classById={}; CLASSES.forEach(c=>classById[c.id]=c);
+
+function showRoleInfo(anchorEl){
+  if(!state.role){
+    openInfoAt(anchorEl, `<h3>No Role chosen</h3><p>Pick a Role in the header to see its chassis details. Your Role sets your hit die, saves, and base proficiencies. Role Core features marked with the orange tag auto-grant when your level reaches them.</p>`);
+    return;
+  }
+  const r=roleById[state.role]; if(!r){openInfoAt(anchorEl,`<h3>Role not found</h3>`);return;}
+  const prof=r.proficiencies||{};
+  const armor=(prof.armor&&prof.armor.length)?prof.armor.join(", "):"none";
+  const weapons=(prof.weapons||[]).join(", ")||"none";
+  const skillOpts=(prof.skillOptions||[]).join(", ")||"any";
+  const cores=(r.coreFeatures||[]).map(f=>{
+    const ok=(state.level||1)>=f.level;
+    return `<div class="info-core ${ok?'ok':''}"><b>GTO ${f.level} &middot; ${f.name}</b><span>${f.desc}</span></div>`;
+  }).join("");
+  openInfoAt(anchorEl, `
+    <h3 style="color:#e8a37a">${r.name}</h3>
+    <p style="margin-bottom:10px">${r.desc}</p>
+    <div class="info-grid">
+      <div><b>Hit die</b> d${r.hitDie}</div>
+      <div><b>Primary</b> ${(r.primaryStats||[]).join("/")}</div>
+      <div><b>Saves</b> ${(r.saves||[]).join(", ")}</div>
+      <div><b>Skills</b> ${prof.skills||0} from ${skillOpts.length>80?skillOpts.slice(0,80)+"...":skillOpts}</div>
+      <div style="grid-column:1/-1"><b>Armor</b> ${armor}</div>
+      <div style="grid-column:1/-1"><b>Weapons</b> ${weapons}</div>
+    </div>
+    <div class="info-cores">
+      <div class="rq-head">Core features (auto-granted by level)</div>
+      ${cores}
+    </div>
+  `);
+}
+function showBgInfo(anchorEl){
+  if(!state.background){
+    openInfoAt(anchorEl, `<h3>No Background chosen</h3><p>Pick a Background in the header. Picking one auto-grants its tier-1 Heritage node (free). You can deepen the chain by spending Talent Points on its later tiers.</p>`);
+    return;
+  }
+  const b=bgById[state.background]; if(!b){openInfoAt(anchorEl,`<h3>Background not found</h3>`);return;}
+  const chain=TALENT_NODES.filter(n=>n.region===`heritage:${b.id}`).sort((a,c)=>{
+    // Follow prereq chain order
+    const ai=a.prereq&&a.prereq.length?1:0, ci=c.prereq&&c.prereq.length?1:0;
+    return ai-ci;
+  });
+  const tiers=chain.map(n=>{
+    const have=state.talentUnlocked.has(n.id);
+    const c=rarColor(n.rarity);
+    return `<div class="info-core ${have?'ok':''}"><b><span class="dot" style="background:${c};display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px"></span>${n.rarity} &middot; ${n.name}${have?' (owned)':''}</b><span>${n.desc}</span></div>`;
+  }).join("");
+  openInfoAt(anchorEl, `
+    <h3 style="color:#8ccfc7">${b.name}</h3>
+    <p style="margin-bottom:10px">${b.desc}</p>
+    <div class="info-cores">
+      <div class="rq-head">Heritage chain</div>
+      ${tiers}
+    </div>
+  `);
+}
+function openInfoAt(anchorEl, html){
+  const detailEl=document.getElementById("detail");
+  detailEl.innerHTML=`<div class="infopop">${html}</div>`;
+  const r=anchorEl.getBoundingClientRect();
+  let x=r.right+12,y=r.bottom+8;
+  if(x+380>window.innerWidth)x=Math.max(8,window.innerWidth-390);
+  if(y+400>window.innerHeight)y=Math.max(120,window.innerHeight-410);
+  detailEl.style.left=x+"px";detailEl.style.top=y+"px";detailEl.style.display="block";
+}
+
+function regionDisplayName(region){
+  if(!region) return "";
+  if(region.startsWith("role:")){const r=roleById[region.split(":")[1]]; return r?r.name:"Role";}
+  if(region.startsWith("class:")){const c=classById[region.split(":")[1]]; return c?c.name:"Class";}
+  if(region.startsWith("heritage:")){const b=bgById[region.split(":")[1]]; return b?b.name:"Heritage";}
+  if(region==="feats") return "Feats";
+  if(region==="general") return "General";
+  return region;
+}
 
 const FLAG_TYPE_LABEL={quest:"Complete",boss:"Defeat",deed:"Accomplish",item:"Obtain",rank:"Reach",location:"Discover",story:"Story"};
 function flagLabelFor(f){const t=(f&&f.type)?f.type.toLowerCase():"story";return FLAG_TYPE_LABEL[t]||(t.charAt(0).toUpperCase()+t.slice(1));}
@@ -413,7 +531,21 @@ function makeTree(opts){
   const nodeById={}; opts.nodes.forEach(n=>nodeById[n.id]=n);
   function depthOf(n,seen={}){ if(seen[n.id]!==undefined)return seen[n.id]; if(!n.prereq||!n.prereq.length)return seen[n.id]=0; let d=0; n.prereq.forEach(pid=>{if(nodeById[pid])d=Math.max(d,depthOf(nodeById[pid],seen)+1)}); return seen[n.id]=d; }
   const dc={}; opts.nodes.forEach(n=>n._depth=depthOf(n,dc));
-  const branches=[...new Set(opts.nodes.map(n=>n.branch))];
+  // For soul tab (isSoul), keep legacy branch grouping. For talent tree, group by region.
+  const groupKey=opts.isSoul?"branch":"region";
+  const groupOrder=opts.isSoul
+    ? [...new Set(opts.nodes.map(n=>n.branch))]
+    : regionOrder(opts.nodes);
+  const branches=groupOrder;
+
+  function regionOrder(nodes){
+    // Preferred display order: role, class, feats, heritage, general
+    const seen=new Set(); const order=[];
+    const prefix=(p)=>{nodes.forEach(n=>{if(n.region && n.region.startsWith(p) && !seen.has(n.region)){seen.add(n.region);order.push(n.region);}});};
+    prefix("role:"); prefix("class:"); prefix("heritage:");
+    nodes.forEach(n=>{if(n.region && !seen.has(n.region)){seen.add(n.region);order.push(n.region);}});
+    return order;
+  }
   function layout(){
     /* Parent-anchored layout:
        - Nodes are placed depth by depth (left to right).
@@ -431,7 +563,7 @@ function makeTree(opts){
     let y=PAD_Y;
     branches.forEach(b=>{
       const branchTop=y;
-      const inB=opts.nodes.filter(n=>n.branch===b);
+      const inB=opts.nodes.filter(n=>n[groupKey]===b);
       const byD={}; inB.forEach(n=>{(byD[n._depth]=byD[n._depth]||[]).push(n)});
       const depths=Object.keys(byD).map(Number).sort((a,c)=>a-c);
       // Track placed y values per depth column so we can avoid overlaps.
@@ -482,21 +614,40 @@ function makeTree(opts){
     opts.worldEl._height=y;
   }
   layout();
-  function prereqMet(n){return (n.prereq||[]).every(pid=>opts.getUnlocked().has(pid))}
+  // A node's prereq is satisfied by either a full unlock OR a bypass purchase.
+  function prereqMet(n){return (n.prereq||[]).every(pid=>opts.getUnlocked().has(pid)||(state.bypassed&&state.bypassed.has(pid)))}
   function flagsMet(n){return (n.flags||[]).every(fid=>state.flags.has(fid))}
   function levelMet(n){return !n.levelReq || (state.level||1)>=n.levelReq}
-  function fullyMet(n){return prereqMet(n)&&flagsMet(n)&&levelMet(n)}
+  function roleMet(n){return !n.roleReq || state.role===n.roleReq}
+  function bgMet(n){
+    // Heritage region nodes require the matching background to be chosen.
+    if(!n.region||!n.region.startsWith("heritage:"))return true;
+    const bgId=n.region.split(":")[1];
+    return state.background===bgId;
+  }
+  function roleRegionMet(n){
+    // Role-region nodes only "apply" when your role matches; they stay shown but auto-unlock only for matching role.
+    if(!n.region||!n.region.startsWith("role:"))return true;
+    const rId=n.region.split(":")[1];
+    return state.role===rId;
+  }
+  function fullyMet(n){return prereqMet(n)&&flagsMet(n)&&levelMet(n)&&roleMet(n)&&bgMet(n)}
   function hiddenSecret(n){return n.secret&&!fullyMet(n)}
   function isGated(n){return n.flags&&n.flags.length>0}
 
+  function isRoleCore(n){ return n.roleCore===true; }
+  function autoUnlockedRoleCore(n){
+    // Role core nodes auto-unlock when the matching role is chosen AND level is met.
+    return isRoleCore(n) && roleRegionMet(n) && levelMet(n);
+  }
   function render(){
     const maxDepth=Math.max(...opts.nodes.map(n=>n._depth),0);
     let svg="";
     opts.nodes.forEach(n=>{
       if(hiddenSecret(n)&&(n.hideStyle||"blank")==="invisible")return;
       (n.prereq||[]).forEach(pid=>{const p=nodeById[pid];if(!p)return;if(hiddenSecret(p)&&(p.hideStyle||"blank")==="invisible")return;
-        const met=opts.getUnlocked().has(pid),x1=p._x,y1=p._y,x2=n._x,y2=n._y,mx=(x1+x2)/2;
-        svg+=`<path class="wire ${met?'met':''}" data-branch="${n.branch}" d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}"/>`;});
+        const met=opts.getUnlocked().has(pid)||(state.bypassed&&state.bypassed.has(pid)),x1=p._x,y1=p._y,x2=n._x,y2=n._y,mx=(x1+x2)/2;
+        svg+=`<path class="wire ${met?'met':''}" data-region="${n.region||n.branch}" d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}"/>`;});
     });
     opts.wiresEl.innerHTML=svg;
     opts.wiresEl.setAttribute("width",PAD_X+(maxDepth+1)*COL_W+200);
@@ -505,23 +656,57 @@ function makeTree(opts){
     opts.nodes.forEach(n=>{
       if(hiddenSecret(n)&&(n.hideStyle||"blank")==="invisible")return;
       const el=document.createElement("div");
-      const blank=hiddenSecret(n), unlocked=opts.getUnlocked().has(n.id), avail=!unlocked&&fullyMet(n)&&!blank;
-      el.className="node "+(blank?"secret ":"")+(isGated(n)?"gated ":"")+(unlocked?"unlocked":(avail?"available":"locked"));
+      const blank=hiddenSecret(n);
+      const unlocked=opts.getUnlocked().has(n.id) || (!opts.isSoul && autoUnlockedRoleCore(n));
+      const bypassed=!opts.isSoul && state.bypassed && state.bypassed.has(n.id);
+      const avail=!unlocked && !bypassed && fullyMet(n) && !blank && !isRoleCore(n);
+      const classes=["node"];
+      if(blank) classes.push("secret");
+      if(isGated(n)) classes.push("gated");
+      if(isRoleCore(n)) classes.push("rolecore");
+      if(n.evolving) classes.push("evolving");
+      if(unlocked) classes.push("unlocked");
+      else if(bypassed) classes.push("bypassed");
+      else if(avail) classes.push("available");
+      else classes.push("locked");
+      el.className=classes.join(" ");
+      el.setAttribute("data-id",n.id);
+      el.setAttribute("data-region",n.region||n.branch||"");
       el.style.left=n._x+"px"; el.style.top=n._y+"px";
-      if(blank){ el.innerHTML=`<div class="rar"><span class="dot"></span>Secret</div><div class="nm">${n.hint?"&#10022;":"? ? ?"}</div><div class="meta"><span class="cost">&mdash;</span><span class="br">${n.branch}</span></div>`; }
-      else { const c=rarColor(n.rarity); el.innerHTML=`<div class="rar"><span class="dot" style="background:${c}"></span>${n.rarity}</div><div class="nm">${n.name}</div><div class="meta"><span class="cost">${n.cost} ${opts.isSoul?'SP':'TP'}</span><span class="br">${n.branch}</span></div>`; }
+      const regionTag=n.region?regionLabel(n.region):n.branch;
+      if(blank){ el.innerHTML=`<div class="rar"><span class="dot"></span>Secret</div><div class="nm">${n.hint?"&#10022;":"? ? ?"}</div><div class="meta"><span class="cost">&mdash;</span><span class="br">${regionTag}</span></div>`; }
+      else { const c=rarColor(n.rarity);
+        const costText=isRoleCore(n)?'core':(n.cost===0?'free':`${n.cost} ${opts.isSoul?'SP':'TP'}`);
+        el.innerHTML=`<div class="rar"><span class="dot" style="background:${c}"></span>${n.rarity}${n.evolving?' &middot; <span class="evo">evolving</span>':''}</div><div class="nm">${n.name}</div><div class="meta"><span class="cost">${costText}</span><span class="br">${regionTag}</span></div>`;
+      }
       el.onclick=ev=>{ev.stopPropagation();openDetail(n,el,blank)};
       opts.worldEl.appendChild(el);
     });
     applyFilter();
   }
-  function spent(){let s=0;opts.getUnlocked().forEach(id=>{if(nodeById[id])s+=nodeById[id].cost});return s}
+  function regionLabel(region){
+    if(!region) return "";
+    if(region.startsWith("role:")){const r=(typeof roleById!=="undefined")?roleById[region.split(":")[1]]:null; return r?r.name:"Role";}
+    if(region.startsWith("class:")){const c=(typeof classById!=="undefined")?classById[region.split(":")[1]]:null; return c?c.name:"Class";}
+    if(region.startsWith("heritage:")){const b=(typeof bgById!=="undefined")?bgById[region.split(":")[1]]:null; return b?b.name:"Heritage";}
+    if(region==="feats") return "Feat";
+    if(region==="general") return "General";
+    return region;
+  }
+  function spent(){
+    let s=0;
+    opts.getUnlocked().forEach(id=>{if(nodeById[id])s+=nodeById[id].cost});
+    if(!opts.isSoul && state.bypassed) state.bypassed.forEach(id=>{if(nodeById[id])s+=nodeById[id].cost*2});
+    return s;
+  }
   function reqLines(n,blank){
     let rows=[];
     if(n.prereq&&n.prereq.length){const parts=n.prereq.map(pid=>{const p=nodeById[pid],ok=opts.getUnlocked().has(pid);const nm=p?((hiddenSecret(p)&&(p.hideStyle||'blank')!=='invisible')?'???':p.name):pid;return `<span class="${ok?'ok':'no'}">${nm}</span>`;});rows.push(`<span class="rq-label">Prerequisite${n.prereq.length>1?'s':''}</span> `+parts.join(", "));}
     if(n.flags&&n.flags.length){const parts=n.flags.map(fid=>{const f=flagById[fid],ok=state.flags.has(fid);const verb=flagLabelFor(f);const lbl=f?f.label:fid;const shown=ok?lbl:(blank?"a hidden deed":lbl);return `<span class="rq-verb">${verb}:</span> <span class="${ok?'ok':'flagno'}">${shown}</span>`;});rows.push(parts.join("<br>"));}
     if(n.reqText && !n.levelReq)rows.push(`<span class="rq-label">Other</span> ${n.reqText}`);
     if(n.levelReq){const ok=(state.level||1)>=n.levelReq;rows.push(`<span class="rq-label">Level</span> <span class="${ok?'ok':'no'}">GTO level ${n.levelReq}+</span>`);}
+    if(n.roleReq){const ok=state.role===n.roleReq;const r=(typeof roleById!=="undefined")?roleById[n.roleReq]:null;rows.push(`<span class="rq-label">Role</span> <span class="${ok?'ok':'no'}">${r?r.name:n.roleReq}</span>`);}
+    if(n.region && n.region.startsWith("heritage:")){const bgId=n.region.split(":")[1];const ok=state.background===bgId;const b=(typeof bgById!=="undefined")?bgById[bgId]:null;rows.push(`<span class="rq-label">Background</span> <span class="${ok?'ok':'no'}">${b?b.name:bgId}</span>`);}
     if(!rows.length)return `<div class="rq-head">Requirements</div><div class="rq-none">None &mdash; a root node.</div>`;
     return `<div class="rq-head">Requirements</div>`+rows.map(r=>`<div class="rq-row">${r}</div>`).join("");
   }
@@ -529,26 +714,70 @@ function makeTree(opts){
     if(blank){
       detail.innerHTML=`<div class="rar" style="color:#8b82ad"><span class="dot" style="background:#4a3f63"></span>Secret</div><h3 style="color:#8b82ad">Undiscovered</h3><div class="sub">${n.branch}</div><p>${n.hint?("<em>"+n.hint+"</em>"):"A hidden node lies here. Meet its requirements to reveal it."}</p><div class="reqs">${reqLines(n,true)}</div>`;
     } else {
-      const c=rarColor(n.rarity),unlocked=opts.getUnlocked().has(n.id),met=fullyMet(n),afford=opts.getPts()>=n.cost,unit=opts.isSoul?'SP':'TP';
-      let btns=unlocked?`<button class="refund" data-act="refund" data-id="${n.id}">Refund (${n.cost} ${unit})</button>`:`<button class="primary ${opts.isSoul?'soul':''}" data-act="buy" data-id="${n.id}" ${(!met||!afford)?"disabled":""}>Unlock &middot; ${n.cost} ${unit}</button>`;
-      detail.innerHTML=`<div class="rar" style="color:${c}"><span class="dot" style="background:${c}"></span>${n.rarity}</div><h3>${n.name}</h3><div class="sub">${n.branch} &middot; ${n.cost} ${unit}</div><p>${n.desc}</p><div class="reqs">${reqLines(n,false)}</div><div class="act">${btns}</div>`;
-      const btn=detail.querySelector("button");
-      if(btn)btn.onclick=()=>{ const id=btn.dataset.id; if(btn.dataset.act==="buy")buy(id); else refund(id); };
+      const c=rarColor(n.rarity);
+      const unlocked=opts.getUnlocked().has(n.id);
+      const bypassed=!opts.isSoul && state.bypassed && state.bypassed.has(n.id);
+      const roleCore=!opts.isSoul && isRoleCore(n);
+      const autoCore=roleCore && autoUnlockedRoleCore(n);
+      const met=fullyMet(n),afford=opts.getPts()>=n.cost,unit=opts.isSoul?'SP':'TP';
+      const bypassAllowed=!opts.isSoul && n.bypassable!==false && !roleCore;
+      const bypassCost=n.cost*2;
+      const bypassAfford=opts.getPts()>=bypassCost;
+      let btns='';
+      if(roleCore){
+        btns = autoCore ? `<div class="corebadge">Granted by your Role</div>` : `<div class="corebadge locked">Requires role ${regionLabel(n.region)} and level ${n.levelReq||1}</div>`;
+      } else if(unlocked){
+        btns = `<button class="refund" data-act="refund" data-id="${n.id}">Refund (${n.cost} ${unit})</button>`;
+      } else if(bypassed){
+        btns = `<button class="primary" data-act="upgrade" data-id="${n.id}" ${!afford?"disabled":""}>Upgrade to full (${n.cost} ${unit})</button><button class="refund" data-act="refund-bypass" data-id="${n.id}">Refund bypass (${bypassCost} ${unit})</button>`;
+      } else {
+        btns = `<button class="primary ${opts.isSoul?'soul':''}" data-act="buy" data-id="${n.id}" ${(!met||!afford)?"disabled":""}>Unlock &middot; ${n.cost} ${unit}</button>`;
+        if(bypassAllowed){
+          btns += `<button class="bypass" data-act="bypass" data-id="${n.id}" ${(!met||!bypassAfford)?"disabled":""} title="Pay 2x cost to gain only the gate (unlocks dependents), not the feature">Bypass &middot; ${bypassCost} ${unit}</button>`;
+        }
+      }
+      const evolveBadge=n.evolving?' <span class="evobadge" title="This node is part of a chain that grows stronger over time">evolving</span>':'';
+      const costSub=roleCore?'core':(n.cost===0?'free':`${n.cost} ${unit}`);
+      let chassisLine='';
+      if(n.chassisRole){
+        const r=(typeof roleById!=="undefined")?roleById[n.chassisRole]:null;
+        const rname=r?r.name:n.chassisRole;
+        const matches=state.role===n.chassisRole;
+        chassisLine=`<div class="chassis ${matches?'ok':''}">Chassis role: <b>${rname}</b>${matches?' &middot; you have the chassis':' &middot; you lack the chassis (features still work mechanically where applicable)'}</div>`;
+      }
+      detail.innerHTML=`<div class="rar" style="color:${c}"><span class="dot" style="background:${c}"></span>${n.rarity}${evolveBadge}</div><h3>${n.name}</h3><div class="sub">${regionLabel(n.region)||n.branch} &middot; ${costSub}</div>${chassisLine}<p>${n.desc}</p><div class="reqs">${reqLines(n,false)}</div><div class="act">${btns}</div>`;
+      detail.querySelectorAll("button[data-act]").forEach(btn=>{
+        btn.onclick=()=>{
+          const id=btn.dataset.id, act=btn.dataset.act;
+          if(act==="buy") buy(id);
+          else if(act==="bypass") buyBypass(id);
+          else if(act==="upgrade") upgradeBypass(id);
+          else if(act==="refund") refund(id);
+          else if(act==="refund-bypass") refundBypass(id);
+        };
+      });
     }
     const r=el.getBoundingClientRect(); let x=r.right+12,y=r.top;
     if(x+330>window.innerWidth)x=r.left-324; if(x<8)x=8;
-    if(y+280>window.innerHeight)y=window.innerHeight-290; if(y<120)y=120;
+    if(y+300>window.innerHeight)y=window.innerHeight-310; if(y<120)y=120;
     detail.style.left=x+"px";detail.style.top=y+"px";detail.style.display="block";
   }
-  function buy(id){const n=nodeById[id];if(!n||!fullyMet(n)||opts.getPts()<n.cost)return;opts.getUnlocked().add(id);opts.setPts(opts.getPts()-n.cost);closeDetail();api.refresh()}
-  function refund(id){const n=nodeById[id];if(!n)return;const dep=opts.nodes.filter(o=>opts.getUnlocked().has(o.id)&&(o.prereq||[]).includes(id));if(dep.length){alert("Refund "+dep.map(d=>d.name).join(", ")+" first \u2014 they depend on this.");return;}opts.getUnlocked().delete(id);opts.setPts(opts.getPts()+n.cost);closeDetail();api.refresh()}
+  function buy(id){const n=nodeById[id];if(!n||!fullyMet(n)||opts.getPts()<n.cost)return;opts.getUnlocked().add(id);if(state.bypassed)state.bypassed.delete(id);opts.setPts(opts.getPts()-n.cost);closeDetail();api.refresh()}
+  function buyBypass(id){const n=nodeById[id];if(!n||!fullyMet(n))return;const cost=n.cost*2;if(opts.getPts()<cost)return;if(!state.bypassed)state.bypassed=new Set();state.bypassed.add(id);opts.setPts(opts.getPts()-cost);closeDetail();api.refresh()}
+  function upgradeBypass(id){const n=nodeById[id];if(!n)return;if(opts.getPts()<n.cost)return;if(state.bypassed)state.bypassed.delete(id);opts.getUnlocked().add(id);opts.setPts(opts.getPts()-n.cost);closeDetail();api.refresh()}
+  function refund(id){const n=nodeById[id];if(!n)return;const dep=opts.nodes.filter(o=>(opts.getUnlocked().has(o.id)||(state.bypassed&&state.bypassed.has(o.id)))&&(o.prereq||[]).includes(id));if(dep.length){alert("Refund "+dep.map(d=>d.name).join(", ")+" first \u2014 they depend on this.");return;}opts.getUnlocked().delete(id);opts.setPts(opts.getPts()+n.cost);closeDetail();api.refresh()}
+  function refundBypass(id){const n=nodeById[id];if(!n)return;const dep=opts.nodes.filter(o=>(opts.getUnlocked().has(o.id)||(state.bypassed&&state.bypassed.has(o.id)))&&(o.prereq||[]).includes(id));if(dep.length){alert("Refund "+dep.map(d=>d.name).join(", ")+" first \u2014 they depend on this.");return;}state.bypassed.delete(id);opts.setPts(opts.getPts()+n.cost*2);closeDetail();api.refresh()}
   function applyFilter(){
     const f=(opts.isSoul?null:state.filter);
     if(opts.isSoul){ [...opts.worldEl.querySelectorAll(".node")].forEach(el=>el.style.display=""); [...opts.wiresEl.querySelectorAll(".wire")].forEach(w=>w.style.display=""); return; }
-    [...opts.worldEl.querySelectorAll(".node")].forEach(el=>{const nm=el.querySelector(".br")?.textContent;el.style.display=(!f||nm===f)?"":"none"});
-    [...opts.wiresEl.querySelectorAll(".wire")].forEach(w=>{const b=w.getAttribute("data-branch");w.style.display=(!f||b===f)?"":"none"});
+    [...opts.worldEl.querySelectorAll(".node")].forEach(el=>{
+      const r=el.getAttribute("data-region");
+      el.style.display=(!f||r===f)?"":"none";
+    });
+    [...opts.wiresEl.querySelectorAll(".wire")].forEach(w=>{const r=w.getAttribute("data-region");w.style.display=(!f||r===f)?"":"none";});
   }
-  const api={ render, spent, branches, applyFilter, refresh:null, fit:null,
+  function firstNodeInRegion(region){ return opts.nodes.find(n=>n.region===region); }
+  const api={ render, spent, branches, applyFilter, firstNodeInRegion, refresh:null, fit:null,
     fitTo(stage){ const maxX=PAD_X+(Math.max(...opts.nodes.map(n=>n._depth),0)+1)*COL_W;const maxY=opts.worldEl._height;const vw=stage.clientWidth-80,vh=stage.clientHeight-80;let s=Math.max(Math.min(vw/maxX,vh/maxY,1.2),.35);return {scale:s}; } };
   return api;
 }
@@ -842,35 +1071,71 @@ function openReslot(eid){
 }
 
 
-/* ---------- TRAIT tab ---------- */
-const traitWrap=document.getElementById("traitWrap");
-function renderTrait(){
-  if(!state.trait){
-    traitWrap.innerHTML=`<h2>Choose Your Trait</h2><p class="note">A Trait is who you were before the story began. You pick one, and it deepens in rarity as you spend Trait Points &mdash; it never changes into something else, it only grows truer.</p>
-      <div class="traitpick">`+TRAITS.map(t=>`<button data-trait="${t.id}"><span class="tn">${t.name}</span><span class="tc">${t.category} &middot; starts ${t.tiers[0].rarity}</span></button>`).join("")+`</div>`;
-    traitWrap.querySelectorAll("[data-trait]").forEach(b=>b.onclick=()=>{state.trait=b.dataset.trait;state.traitTier=0;renderTrait();saveState();});
-    return;
-  }
-  const t=traitById[state.trait]; const cur=state.traitTier||0; const tier=t.tiers[cur];
-  const c=rarColor(tier.rarity);
-  const next=t.tiers[cur+1];
-  const pips=t.tiers.map((ti,i)=>`<span class="tierpip ${i<cur?'have':''} ${i===cur?'cur':''}">${ti.rarity}</span>`).join("");
-  let upg;
-  if(next){ const afford=state.trp>=(next.cost||0);
-    upg=`<div class="upg"><button data-upg ${afford?'':'disabled'}>Deepen to ${next.rarity} &middot; ${next.cost} TrP</button>${afford?'':'<span class="max">Not enough Trait Points</span>'}</div>`;
-  } else { upg=`<div class="upg"><span class="max">Fully realized &mdash; this Trait has reached its deepest tier.</span></div>`; }
-  traitWrap.innerHTML=`<h2>Your Trait</h2><p class="note">Spend Trait Points to deepen your Trait. It grows stronger in place; it does not branch or change identity.</p>
-    <div class="traitcard">
-      <div class="trar"><span class="dot" style="background:${c}"></span>${tier.rarity}</div>
-      <h3>${t.name}</h3><div class="cat">${t.category}</div>
-      <p>${tier.desc}</p>
-      <div class="tiers">${pips}</div>
-      ${upg}
-      <div style="margin-top:16px"><button class="tool" data-change style="font-size:11px">Change Trait</button></div>
-    </div>`;
-  const ub=traitWrap.querySelector("[data-upg]");
-  if(ub)ub.onclick=()=>{ if(!next)return; if(state.trp<(next.cost||0))return; state.trp-=(next.cost||0); state.traitTier=cur+1; renderTrait(); refreshPts(); saveState(); };
-  traitWrap.querySelector("[data-change]").onclick=()=>{ const refund=traitSpent(); if(confirm("Change your Trait? This refunds the "+refund+" Trait Points you spent deepening "+t.name+", and you'll pick a new Trait at its starting tier.")){ state.trp+=refund; state.trait=null; state.traitTier=0; renderTrait(); refreshPts(); saveState(); } };
+/* ---------- Role / Background selectors ---------- */
+function initRoleBgSelectors(){
+  const roleSel=document.getElementById("roleInput");
+  const bgSel=document.getElementById("bgInput");
+  roleSel.innerHTML='<option value="">—</option>'+ROLES.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
+  bgSel.innerHTML='<option value="">—</option>'+BACKGROUNDS.map(b=>`<option value="${b.id}">${b.name}</option>`).join("");
+  roleSel.value=state.role||"";
+  bgSel.value=state.background||"";
+  // Info popover buttons
+  document.getElementById("roleInfo").onclick=(ev)=>{ev.stopPropagation();showRoleInfo(ev.currentTarget);};
+  document.getElementById("bgInfo").onclick=(ev)=>{ev.stopPropagation();showBgInfo(ev.currentTarget);};
+  roleSel.addEventListener("change",()=>{
+    const prevRole=state.role;
+    const newRole=roleSel.value||null;
+    if(prevRole && newRole!==prevRole){
+      // Warn about class progress
+      const classNodesUnlocked=[...state.talentUnlocked].filter(id=>{
+        const n=TALENT_NODES.find(x=>x.id===id); return n && (n.roleReq===prevRole);
+      });
+      if(classNodesUnlocked.length && !confirm("Switching your Role will leave "+classNodesUnlocked.length+" purchased class node(s) orphaned (their role no longer matches). They stay purchased but may no longer function correctly. Continue?")){
+        roleSel.value=prevRole||"";
+        return;
+      }
+    }
+    state.role=newRole;
+    talentTree.render(); saveState();
+  });
+  bgSel.addEventListener("change",()=>{
+    const prevBg=state.background;
+    const newBg=bgSel.value||null;
+    if(prevBg && newBg!==prevBg){
+      // Refund all heritage nodes (full-purchase AND bypassed) from the previous background
+      const inPrev=(id)=>{const n=TALENT_NODES.find(x=>x.id===id);return n && n.region===`heritage:${prevBg}`;};
+      const unlockedPrev=[...state.talentUnlocked].filter(inPrev);
+      const bypassedPrev=[...(state.bypassed||[])].filter(inPrev);
+      const total=unlockedPrev.length+bypassedPrev.length;
+      if(total){
+        const refund=unlockedPrev.reduce((s,id)=>s+((TALENT_NODES.find(x=>x.id===id)||{}).cost||0),0)
+                   + bypassedPrev.reduce((s,id)=>s+(((TALENT_NODES.find(x=>x.id===id)||{}).cost||0)*2),0);
+        if(!confirm("Switching your Background will refund "+total+" previous heritage node(s), returning "+refund+" TP. Continue?")){
+          bgSel.value=prevBg||"";
+          return;
+        }
+        unlockedPrev.forEach(id=>{
+          const n=TALENT_NODES.find(x=>x.id===id);
+          state.talentUnlocked.delete(id);
+          if(n) state.tp+=(n.cost||0);
+        });
+        bypassedPrev.forEach(id=>{
+          const n=TALENT_NODES.find(x=>x.id===id);
+          state.bypassed.delete(id);
+          if(n) state.tp+=(n.cost||0)*2;
+        });
+      }
+    }
+    state.background=newBg;
+    // Auto-unlock the newly selected background's tier-1 heritage node (its cost is 0).
+    if(newBg){
+      const tier1=TALENT_NODES.find(n=>n.region===`heritage:${newBg}` && (!n.prereq||!n.prereq.length));
+      if(tier1 && !state.talentUnlocked.has(tier1.id)){
+        state.talentUnlocked.add(tier1.id);
+      }
+    }
+    talentTree.render(); refreshPts(); saveState();
+  });
 }
 
 /* ---------- tabs ---------- */
@@ -881,35 +1146,46 @@ function setTab(tab){
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
   document.getElementById("talentView").classList.toggle("active",tab==="talents");
   document.getElementById("soulView").classList.toggle("active",tab==="soul");
-  document.getElementById("traitView").classList.toggle("active",tab==="trait");
   document.getElementById("ptsTalent").style.display=tab==="talents"?"":"none";
   document.getElementById("ptsSoul").style.display=tab==="soul"?"":"none";
-  document.getElementById("ptsTrait").style.display=tab==="trait"?"":"none";
-  const showZoom=(tab!=="trait");
-  document.getElementById("zoomBox").style.display=showZoom?"":"none";
-  document.getElementById("hint").style.display=showZoom?"":"none";
+  document.getElementById("zoomBox").style.display="";
+  document.getElementById("hint").style.display="";
   buildSubbar();
   closeDetail();
   if(tab==="talents"){ talentTree.render(); }
   if(tab==="soul"){ renderSoul(); }
-  if(tab==="trait"){ renderTrait(); }
   saveState();
 }
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setTab(t.dataset.tab));
 
 function buildSubbar(){
   if(activeTab==="talents"){
-    let html=`<button class="chip ${!state.filter?'active':''}" data-f="">All Branches</button>`;
-    talentTree.branches.forEach(b=>html+=`<button class="chip ${state.filter===b?'active':''}" data-f="${b}">${b}</button>`);
+    // Group regions by family for readable chips
+    const regions=talentTree.branches; // these are region ids now
+    const families=[
+      {label:"Role", match:r=>r.startsWith("role:"), tag:"role"},
+      {label:"Class", match:r=>r.startsWith("class:"), tag:"class"},
+      {label:"Heritage", match:r=>r.startsWith("heritage:"), tag:"heritage"},
+      {label:"", match:r=>r==="feats"||r==="general", tag:"general"},
+    ];
+    let html=`<button class="chip ${!state.filter?'active':''}" data-f="">All</button>`;
+    families.forEach(fam=>{
+      const members=regions.filter(fam.match);
+      if(!members.length) return;
+      if(fam.label) html+=`<span class="famlabel">${fam.label}</span>`;
+      members.forEach(r=>{
+        const label=regionDisplayName(r);
+        html+=`<button class="chip reg-${fam.tag} ${state.filter===r?'active':''}" data-f="${r}">${label}</button>`;
+      });
+    });
     html+=`<div class="legend">`+RARITY_ORDER.map(r=>`<div class="l"><span class="dot" style="background:${rarColor(r)}"></span>${r}</div>`).join("")+`</div>`;
     subbar.innerHTML=html;
     subbar.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
       state.filter=c.dataset.f||"";
       buildSubbar();
       talentTree.applyFilter();
-      // Scroll/pan to the first node of the selected branch.
       if(state.filter){
-        const first=TALENT_NODES.find(n=>n.branch===state.filter);
+        const first=talentTree.firstNodeInRegion(state.filter);
         if(first && first._y!==undefined){
           const cur=talentPZ.get();
           const wantX=stage.clientWidth*0.25;
@@ -921,25 +1197,22 @@ function buildSubbar(){
     });
     subbar.style.display="";
   } else if(activeTab==="soul"){
-    subbar.innerHTML=`<span class="soulpicker">Pick a Soul above &mdash; the chosen one's tree appears below. Greyed souls are unchosen.</span><div class="legend">`+RARITY_ORDER.map(r=>`<div class="l"><span class="dot" style="background:${rarColor(r)}"></span>${r}</div>`).join("")+`</div>`;
+    subbar.innerHTML=`<span class="soulpicker">Compose your Soul below. Slot effects from the library into your Passive, Active, and Sign slots.</span><div class="legend">`+RARITY_ORDER.map(r=>`<div class="l"><span class="dot" style="background:${rarColor(r)}"></span>${r}</div>`).join("")+`</div>`;
     subbar.style.display="";
   } else { subbar.innerHTML=""; subbar.style.display="none"; }
 }
 
 /* ---------- points header ---------- */
-const tpInput=document.getElementById("tpInput"), spInput=document.getElementById("spInput"), trpInput=document.getElementById("trpInput");
+const tpInput=document.getElementById("tpInput"), spInput=document.getElementById("spInput");
 const lvlInput=document.getElementById("lvlInput");
 function refreshPts(){
   lvlInput.value=state.level||1;
   tpInput.value=state.tp; document.getElementById("tpSpent").innerHTML="<b>"+talentTree.spent()+"</b> spent";
   spInput.value=state.sp; document.getElementById("spSpent").innerHTML="<b>"+(state.spSpent||0)+"</b> spent";
-  trpInput.value=state.trp; document.getElementById("trpSpent").innerHTML="<b>"+traitSpent()+"</b> spent";
 }
-function traitSpent(){ if(!state.trait)return 0; const t=traitById[state.trait]; let s=0; for(let i=1;i<=(state.traitTier||0);i++){ s+=(t.tiers[i]?.cost||0);} return s; }
 lvlInput.addEventListener("change",()=>{let v=parseInt(lvlInput.value,10);if(isNaN(v)||v<1)v=1;if(v>100)v=100;state.level=v;talentTree.render();if(activeTab==="soul")renderSoul();saveState();});
 tpInput.addEventListener("change",()=>{let v=parseInt(tpInput.value,10);if(isNaN(v)||v<0)v=0;state.tp=v;refreshPts();saveState();});
 spInput.addEventListener("change",()=>{let v=parseInt(spInput.value,10);if(isNaN(v)||v<0)v=0;state.sp=v;if(activeTab==="soul")renderSoul();refreshPts();saveState();});
-trpInput.addEventListener("change",()=>{let v=parseInt(trpInput.value,10);if(isNaN(v)||v<0)v=0;state.trp=v;renderTrait();saveState();});
 
 /* wire refresh callbacks */
 talentTree.refresh=()=>{ talentTree.render(); refreshPts(); saveState(); };
@@ -974,12 +1247,11 @@ document.getElementById("zFit").onclick=()=>{if(activeTab==="talents")fitTalent(
 /* ---------- persistence ---------- */
 function saveState(){try{
   localStorage.setItem("gto_feattree",JSON.stringify({
-    talentUnlocked:[...state.talentUnlocked], flags:[...state.flags],
-    level:state.level||1,
-    tp:state.tp, sp:state.sp, trp:state.trp, spSpent:state.spSpent||0,
+    talentUnlocked:[...state.talentUnlocked], bypassed:[...state.bypassed], flags:[...state.flags],
+    level:state.level||1, role:state.role||null, background:state.background||null,
+    tp:state.tp, sp:state.sp, spSpent:state.spSpent||0,
     soulName:state.soulName||"", soulSlots:state.soulSlots, soulLibFilter:state.soulLibFilter||{type:"",cat:"",theme:""},
     synergyChoices:state.synergyChoices||{},
-    trait:state.trait, traitTier:state.traitTier,
     filter:state.filter, tab:activeTab
   }));
 }catch(e){}}
@@ -987,16 +1259,14 @@ function loadState(){
   let o={};
   try{const raw=localStorage.getItem("gto_feattree");if(raw)o=JSON.parse(raw);}catch(e){}
   const slots=o.soulSlots||{passive:[],active:[],sign:[]};
-  // Legacy migration: old saves used 'aura' key; move to 'sign'
   const signSlots=slots.sign||slots.aura||[];
   return {
-    talentUnlocked:new Set(o.talentUnlocked||[]), flags:new Set(o.flags||[]),
-    level:o.level||1,
-    tp:o.tp??0, sp:o.sp??0, trp:o.trp??0, spSpent:o.spSpent||0,
+    talentUnlocked:new Set(o.talentUnlocked||[]), bypassed:new Set(o.bypassed||[]), flags:new Set(o.flags||[]),
+    level:o.level||1, role:o.role||null, background:o.background||null,
+    tp:o.tp??0, sp:o.sp??0, spSpent:o.spSpent||0,
     soulName:o.soulName||"", soulSlots:{passive:slots.passive||[],active:slots.active||[],sign:signSlots},
     soulLibFilter:o.soulLibFilter||{type:"",cat:"",theme:""},
     synergyChoices:o.synergyChoices||{},
-    trait:o.trait||null, traitTier:o.traitTier||0,
     filter:o.filter||"", tab:o.tab||"talents"
   };
 }
@@ -1005,12 +1275,11 @@ function loadState(){
 const fileIn=document.getElementById("fileIn");
 document.getElementById("btnExport").onclick=()=>{
   const data=JSON.stringify({
-    talentUnlocked:[...state.talentUnlocked], flags:[...state.flags],
-    level:state.level||1,
-    tp:state.tp, sp:state.sp, trp:state.trp, spSpent:state.spSpent||0,
+    talentUnlocked:[...state.talentUnlocked], bypassed:[...state.bypassed], flags:[...state.flags],
+    level:state.level||1, role:state.role||null, background:state.background||null,
+    tp:state.tp, sp:state.sp, spSpent:state.spSpent||0,
     soulName:state.soulName||"", soulSlots:state.soulSlots,
-    synergyChoices:state.synergyChoices||{},
-    trait:state.trait, traitTier:state.traitTier
+    synergyChoices:state.synergyChoices||{}
   },null,2);
   const b=new Blob([data],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="gto-build.json";a.click();
 };
@@ -1018,18 +1287,21 @@ document.getElementById("btnImport").onclick=()=>fileIn.click();
 fileIn.onchange=()=>{const f=fileIn.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{
   const o=JSON.parse(rd.result);
   state.talentUnlocked=new Set(o.talentUnlocked||[]);
+  state.bypassed=new Set(o.bypassed||[]);
   state.flags=new Set(o.flags||[]);
-  state.level=o.level||1;
-  state.tp=o.tp??state.tp; state.sp=o.sp??state.sp; state.trp=o.trp??state.trp; state.spSpent=o.spSpent||0;
+  state.level=o.level||1; state.role=o.role||null; state.background=o.background||null;
+  state.tp=o.tp??state.tp; state.sp=o.sp??state.sp; state.spSpent=o.spSpent||0;
   state.soulName=o.soulName||"";
   const s=o.soulSlots||{}; state.soulSlots={passive:s.passive||[],active:s.active||[],sign:s.sign||s.aura||[]};
   state.synergyChoices=o.synergyChoices||{};
-  state.trait=o.trait||null; state.traitTier=o.traitTier||0;
-  buildSubbar(); talentTree.render(); renderSoul(); renderTrait(); refreshPts(); fitTalent();
+  document.getElementById("roleInput").value=state.role||"";
+  document.getElementById("bgInput").value=state.background||"";
+  buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); fitTalent();
 }catch(e){alert("That file couldn't be read as a build.")}};rd.readAsText(f);fileIn.value="";};
-document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? Unlocked talents clear, your Soul is emptied, and the Trait resets to unchosen. Story flags are kept.")){
-  state.talentUnlocked=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.trait=null; state.traitTier=0; state.level=1;
-  talentTree.render(); renderSoul(); renderTrait(); refreshPts(); saveState();
+document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? Unlocked talents and bypasses clear, your Soul is emptied, Role and Background reset. Story flags are kept.")){
+  state.talentUnlocked=new Set(); state.bypassed=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.level=1; state.role=null; state.background=null; state.filter="";
+  document.getElementById("roleInput").value=""; document.getElementById("bgInput").value="";
+  buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); saveState();
 }};
 
 /* ---------- global popover dismissal ---------- */
@@ -1037,10 +1309,10 @@ document.addEventListener("click",e=>{if(!e.target.closest("#detail")&&!e.target
 window.addEventListener("resize",()=>{if(detail.style.display==="block")closeDetail()});
 
 /* ---------- boot ---------- */
+initRoleBgSelectors();
 buildSubbar();
 talentTree.render();
 renderSoul();
-renderTrait();
 refreshPts();
 setTab(state.tab||"talents");
 setTimeout(fitTalent,60);

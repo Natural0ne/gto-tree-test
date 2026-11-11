@@ -13,10 +13,10 @@
       "skillOptions": ["Acrobatics", "Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]
     },
     "coreFeatures": [
-      { "level": 5, "name": "Martial Chassis", "desc": "You use a d10 hit die. You begin with the armor and weapon proficiencies listed in your role. Your saves are with STR and CON." },
-      { "level": 25, "name": "Extra Attack", "desc": "When you take the Attack action, you may make one additional weapon attack." },
-      { "level": 55, "name": "Extra Attack (2)", "desc": "When you take the Attack action, you may make two additional weapon attacks." },
-      { "level": 90, "name": "Extra Attack (3)", "desc": "When you take the Attack action, you may make three additional weapon attacks." }
+      { "level": 1, "name": "Martial Chassis", "desc": "You use a d10 hit die. You begin with the armor and weapon proficiencies listed in your role." },
+      { "level": 5, "name": "Extra Attack", "desc": "When you take the Attack action, you may make one additional weapon attack." },
+      { "level": 50, "name": "Extra Attack (2)", "desc": "When you take the Attack action, you may make two additional weapon attacks." },
+      { "level": 85, "name": "Extra Attack (3)", "desc": "When you take the Attack action, you may make three additional weapon attacks." }
     ]
   },
   {
@@ -33,12 +33,11 @@
       "skillOptions": ["Acrobatics", "Athletics", "Deception", "Insight", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"]
     },
     "coreFeatures": [
-      { "level": 5, "name": "Agile Chassis", "desc": "You use a d8 hit die. You begin with the armor and weapon proficiencies listed in your role. Your saves are with DEX and INT." },
-      { "level": 5, "name": "Precise Blow (1d6)", "desc": "Once per turn when you hit a creature with a weapon attack and either have advantage or an ally is within 5 ft. of the target, deal an extra 1d6 damage of the weapon's type." },
+      { "level": 1, "name": "Precise Blow", "desc": "Once per turn when you hit a creature with a weapon attack and you have advantage, or an ally is within 5 ft. of the target, you deal an extra 1d6 damage." },
       { "level": 15, "name": "Precise Blow (2d6)", "desc": "Your Precise Blow damage increases to 2d6." },
       { "level": 30, "name": "Precise Blow (3d6)", "desc": "Your Precise Blow damage increases to 3d6." },
       { "level": 50, "name": "Precise Blow (4d6)", "desc": "Your Precise Blow damage increases to 4d6." },
-      { "level": 75, "name": "Precise Blow (5d6)", "desc": "Your Precise Blow damage increases to 5d6." }
+      { "level": 70, "name": "Precise Blow (5d6)", "desc": "Your Precise Blow damage increases to 5d6." }
     ]
   },
   {
@@ -55,11 +54,12 @@
       "skillOptions": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Nature", "Perception", "Religion"]
     },
     "coreFeatures": [
-      { "level": 5, "name": "Arcane Chassis", "desc": "You use a d6 hit die. You begin with the proficiencies listed in your role. Your saves are with CON and INT. You gain a spellcasting ability (your class subtree specifies which stat and what list)." },
-      { "level": 5, "name": "MP Pool", "desc": "You have an MP pool of 10 + your casting modifier. Spend MP to cast spells per the standard MP cost table." },
-      { "level": 25, "name": "MP Expansion I", "desc": "Your MP maximum increases by 15." },
-      { "level": 55, "name": "MP Expansion II", "desc": "Your MP maximum increases by 20." },
-      { "level": 85, "name": "MP Expansion III", "desc": "Your MP maximum increases by 25." }
+      { "level": 1, "name": "Spellcasting", "desc": "You can cast spells. Your spellcasting ability is set by your class subtree. You begin with an MP pool of 10 + your casting modifier." },
+      { "level": 1, "name": "Cantrips", "desc": "You know two cantrips, chosen from a list your class subtree provides." },
+      { "level": 10, "name": "MP Expansion", "desc": "Your MP maximum increases by 15." },
+      { "level": 25, "name": "Third Cantrip", "desc": "You learn an additional cantrip from your class list." },
+      { "level": 50, "name": "MP Expansion", "desc": "Your MP maximum increases by 20." },
+      { "level": 75, "name": "Fourth Cantrip", "desc": "You learn an additional cantrip from your class list." }
     ]
   },
   {
@@ -76,11 +76,11 @@
       "skillOptions": ["History", "Insight", "Medicine", "Nature", "Persuasion", "Religion", "Survival"]
     },
     "coreFeatures": [
-      { "level": 5, "name": "Divine Chassis", "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with WIS and CHA. You gain a spellcasting ability (your class subtree specifies which stat and what list)." },
-      { "level": 5, "name": "MP Pool", "desc": "You have an MP pool of 10 + your casting modifier. Spend MP to cast spells per the standard MP cost table." },
-      { "level": 25, "name": "MP Expansion I", "desc": "Your MP maximum increases by 15." },
-      { "level": 55, "name": "MP Expansion II", "desc": "Your MP maximum increases by 20." },
-      { "level": 85, "name": "MP Expansion III", "desc": "Your MP maximum increases by 25." }
+      { "level": 1, "name": "Channeled Power", "desc": "You can cast spells. Your spellcasting ability is set by your class subtree. You begin with an MP pool of 10 + your casting modifier." },
+      { "level": 1, "name": "Divine Focus", "desc": "You can use a holy symbol, druidic focus, or appropriate object as a spellcasting focus." },
+      { "level": 10, "name": "Grace", "desc": "Once per short rest, when you fail a saving throw you may reroll it. You must take the new result." },
+      { "level": 25, "name": "MP Expansion", "desc": "Your MP maximum increases by 20." },
+      { "level": 50, "name": "Greater Grace", "desc": "You may use Grace twice per short rest." }
     ]
   },
   {
@@ -97,11 +97,11 @@
       "skillOptions": ["any"]
     },
     "coreFeatures": [
-      { "level": 5, "name": "Support Chassis", "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with DEX and CHA." },
-      { "level": 5, "name": "Inspiration (d6)", "desc": "You have Inspiration dice (d6). As a bonus action, grant one to an ally within 30 ft. who can hear you. They may add it to any one check, attack, or save in the next minute. You have a number equal to your prof bonus, regained on a long rest." },
-      { "level": 25, "name": "Inspiration (d8)", "desc": "Your Inspiration dice become d8s." },
-      { "level": 50, "name": "Inspiration (d10)", "desc": "Your Inspiration dice become d10s." },
-      { "level": 75, "name": "Inspiration (d12)", "desc": "Your Inspiration dice become d12s." }
+      { "level": 1, "name": "Inspiration", "desc": "You have Inspiration dice (d6). As a bonus action, grant one to an ally within 30 ft. who can hear you. They may add it to any one check, attack, or save in the next minute. You have a number equal to your prof bonus, regained on a long rest." },
+      { "level": 20, "name": "Inspiration (d8)", "desc": "Your Inspiration dice become d8s." },
+      { "level": 40, "name": "Inspiration (d10)", "desc": "Your Inspiration dice become d10s." },
+      { "level": 60, "name": "Inspiration (d12)", "desc": "Your Inspiration dice become d12s." },
+      { "level": 25, "name": "Jack of All Trades", "desc": "You add half your proficiency bonus (rounded down) to any ability check that doesn't already include it." }
     ]
   },
   {
@@ -118,10 +118,10 @@
       "skillOptions": ["Arcana", "History", "Investigation", "Medicine", "Nature", "Perception", "Religion", "Sleight of Hand"]
     },
     "coreFeatures": [
-      { "level": 5, "name": "Specialist Chassis", "desc": "You use a d8 hit die. You begin with the proficiencies listed in your role. Your saves are with CON and INT. You gain a spellcasting-adjacent ability (your class subtree specifies the shape)." },
-      { "level": 5, "name": "Flex MP Pool", "desc": "You have an MP pool of 8 + your choice of INT, WIS, or CHA modifier. Spend MP for spells, invocations, or infusions per your class subtree." },
-      { "level": 30, "name": "MP Expansion I", "desc": "Your MP maximum increases by 15." },
-      { "level": 70, "name": "MP Expansion II", "desc": "Your MP maximum increases by 20." }
+      { "level": 1, "name": "Signature Craft", "desc": "You have one signature practice (a spell, a construct, a ritual, a device) defined by your class subtree. The specifics are set by what you pick." },
+      { "level": 1, "name": "Flex MP", "desc": "You begin with an MP pool of 8 + your choice of INT, WIS, or CHA modifier." },
+      { "level": 25, "name": "MP Expansion", "desc": "Your MP maximum increases by 15." },
+      { "level": 50, "name": "Second Signature", "desc": "You gain a second signature practice from your class subtree." }
     ]
   }
 ]

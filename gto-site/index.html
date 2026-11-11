@@ -58,8 +58,6 @@
   .pts.rolepts .idsel{color:#e8a37a}
   .pts.bgpts .idsel{color:#8ccfc7}
   .pts .idsel option{background:#15111f;color:var(--ink)}
-  .infobtn{font:inherit;width:18px;height:18px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;font-size:10px;padding:0;line-height:1;transition:.15s}
-  .infobtn:hover{border-color:var(--ink);color:var(--ink)}
   .pts .sp{font-size:11px;color:var(--ink);letter-spacing:.04em;padding-left:7px;border-left:1px solid var(--line);opacity:.85}
   .pts .sp b{color:var(--gold);font-weight:700}
   .pts.soulpts .sp b{color:var(--soul)} .pts.traitpts .sp b{color:var(--trait)}
@@ -122,18 +120,6 @@
   #detail .evobadge{display:inline-block;margin-left:6px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#8ccfc7;background:rgba(140,207,199,.1);padding:1px 6px;border-radius:3px;border:1px solid rgba(140,207,199,.4)}
   #detail .corebadge{padding:10px;border:1px solid #e8a37a;border-radius:4px;background:rgba(232,163,122,.08);color:#e8a37a;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:center}
   #detail .corebadge.locked{border-color:var(--line);color:var(--ink-dim);background:rgba(0,0,0,.2)}
-  #detail .chassis{font-size:11px;color:var(--ink-dim);border:1px dashed var(--line);border-radius:4px;padding:6px 9px;margin:6px 0 10px;background:rgba(216,120,90,.06)}
-  #detail .chassis.ok{color:#e8a37a;border-color:#7a4a32;background:rgba(216,120,90,.1)}
-  #detail .chassis b{color:#e8a37a}
-  #detail .infopop h3{margin:0 0 6px;font-size:18px}
-  #detail .infopop p{margin:0 0 10px;font-size:13px;color:#cfc7b4;line-height:1.5}
-  #detail .infopop .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:11.5px;color:var(--ink-dim);padding:8px 10px;background:rgba(0,0,0,.2);border-radius:5px;border:1px solid var(--line-dim);margin-bottom:10px}
-  #detail .infopop .info-grid b{color:var(--ink);text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;margin-right:6px;display:inline-block;min-width:60px}
-  #detail .infopop .info-cores{max-height:300px;overflow-y:auto}
-  #detail .infopop .info-core{padding:7px 9px;border:1px solid var(--line-dim);border-radius:4px;margin-bottom:6px;background:rgba(0,0,0,.15)}
-  #detail .infopop .info-core.ok{border-color:var(--r-uncommon);background:rgba(95,158,107,.08)}
-  #detail .infopop .info-core b{display:block;font-size:11.5px;color:var(--ink);margin-bottom:3px}
-  #detail .infopop .info-core span{font-size:11.5px;color:#cfc7b4;line-height:1.45}
   .node.unlocked .cost{color:var(--r-uncommon)}
   .node.unlocked::after{content:"\2713";position:absolute;top:-9px;right:-9px;width:22px;height:22px;border-radius:50%;background:var(--r-uncommon);color:#08120b;font-size:13px;font-weight:800;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.5)}
   .node.secret{border-style:dashed;border-color:#4a3f63;background:repeating-linear-gradient(45deg,#141020,#141020 8px,#171227 8px,#171227 16px)}
@@ -319,8 +305,8 @@
     <button class="tab soul" data-tab="soul">Soul</button>
   </div>
   <div class="pts levelpts" id="ptsLevel"><small>Level</small><input id="lvlInput" type="number" min="1" max="100" value="1"/></div>
-  <div class="pts rolepts" id="ptsRole"><small>Role</small><select id="roleInput" class="idsel"><option value="">—</option></select><button class="infobtn" id="roleInfo" title="Role details">?</button></div>
-  <div class="pts bgpts" id="ptsBg"><small>Background</small><select id="bgInput" class="idsel"><option value="">—</option></select><button class="infobtn" id="bgInfo" title="Background details">?</button></div>
+  <div class="pts rolepts" id="ptsRole"><small>Role</small><select id="roleInput" class="idsel"><option value="">—</option></select></div>
+  <div class="pts bgpts" id="ptsBg"><small>Background</small><select id="bgInput" class="idsel"><option value="">—</option></select></div>
   <div class="pts" id="ptsTalent"><small>Talent&nbsp;Pts</small><input id="tpInput" type="number" min="0" value="20"/><span class="sp" id="tpSpent">0 spent</span></div>
   <div class="pts soulpts" id="ptsSoul" style="display:none"><small>Soul&nbsp;Pts</small><input id="spInput" type="number" min="0" value="10"/><span class="sp" id="spSpent">0 spent</span></div>
   <div class="spacer"></div>
@@ -442,72 +428,6 @@ const effectById={}; SOUL_EFFECTS.forEach(e=>effectById[e.id]=e);
 const roleById={}; ROLES.forEach(r=>roleById[r.id]=r);
 const bgById={}; BACKGROUNDS.forEach(b=>bgById[b.id]=b);
 const classById={}; CLASSES.forEach(c=>classById[c.id]=c);
-
-function showRoleInfo(anchorEl){
-  if(!state.role){
-    openInfoAt(anchorEl, `<h3>No Role chosen</h3><p>Pick a Role in the header to see its chassis details. Your Role sets your hit die, saves, and base proficiencies. Role Core features marked with the orange tag auto-grant when your level reaches them.</p>`);
-    return;
-  }
-  const r=roleById[state.role]; if(!r){openInfoAt(anchorEl,`<h3>Role not found</h3>`);return;}
-  const prof=r.proficiencies||{};
-  const armor=(prof.armor&&prof.armor.length)?prof.armor.join(", "):"none";
-  const weapons=(prof.weapons||[]).join(", ")||"none";
-  const skillOpts=(prof.skillOptions||[]).join(", ")||"any";
-  const cores=(r.coreFeatures||[]).map(f=>{
-    const ok=(state.level||1)>=f.level;
-    return `<div class="info-core ${ok?'ok':''}"><b>GTO ${f.level} &middot; ${f.name}</b><span>${f.desc}</span></div>`;
-  }).join("");
-  openInfoAt(anchorEl, `
-    <h3 style="color:#e8a37a">${r.name}</h3>
-    <p style="margin-bottom:10px">${r.desc}</p>
-    <div class="info-grid">
-      <div><b>Hit die</b> d${r.hitDie}</div>
-      <div><b>Primary</b> ${(r.primaryStats||[]).join("/")}</div>
-      <div><b>Saves</b> ${(r.saves||[]).join(", ")}</div>
-      <div><b>Skills</b> ${prof.skills||0} from ${skillOpts.length>80?skillOpts.slice(0,80)+"...":skillOpts}</div>
-      <div style="grid-column:1/-1"><b>Armor</b> ${armor}</div>
-      <div style="grid-column:1/-1"><b>Weapons</b> ${weapons}</div>
-    </div>
-    <div class="info-cores">
-      <div class="rq-head">Core features (auto-granted by level)</div>
-      ${cores}
-    </div>
-  `);
-}
-function showBgInfo(anchorEl){
-  if(!state.background){
-    openInfoAt(anchorEl, `<h3>No Background chosen</h3><p>Pick a Background in the header. Picking one auto-grants its tier-1 Heritage node (free). You can deepen the chain by spending Talent Points on its later tiers.</p>`);
-    return;
-  }
-  const b=bgById[state.background]; if(!b){openInfoAt(anchorEl,`<h3>Background not found</h3>`);return;}
-  const chain=TALENT_NODES.filter(n=>n.region===`heritage:${b.id}`).sort((a,c)=>{
-    // Follow prereq chain order
-    const ai=a.prereq&&a.prereq.length?1:0, ci=c.prereq&&c.prereq.length?1:0;
-    return ai-ci;
-  });
-  const tiers=chain.map(n=>{
-    const have=state.talentUnlocked.has(n.id);
-    const c=rarColor(n.rarity);
-    return `<div class="info-core ${have?'ok':''}"><b><span class="dot" style="background:${c};display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px"></span>${n.rarity} &middot; ${n.name}${have?' (owned)':''}</b><span>${n.desc}</span></div>`;
-  }).join("");
-  openInfoAt(anchorEl, `
-    <h3 style="color:#8ccfc7">${b.name}</h3>
-    <p style="margin-bottom:10px">${b.desc}</p>
-    <div class="info-cores">
-      <div class="rq-head">Heritage chain</div>
-      ${tiers}
-    </div>
-  `);
-}
-function openInfoAt(anchorEl, html){
-  const detailEl=document.getElementById("detail");
-  detailEl.innerHTML=`<div class="infopop">${html}</div>`;
-  const r=anchorEl.getBoundingClientRect();
-  let x=r.right+12,y=r.bottom+8;
-  if(x+380>window.innerWidth)x=Math.max(8,window.innerWidth-390);
-  if(y+400>window.innerHeight)y=Math.max(120,window.innerHeight-410);
-  detailEl.style.left=x+"px";detailEl.style.top=y+"px";detailEl.style.display="block";
-}
 
 function regionDisplayName(region){
   if(!region) return "";
@@ -647,7 +567,7 @@ function makeTree(opts){
       if(hiddenSecret(n)&&(n.hideStyle||"blank")==="invisible")return;
       (n.prereq||[]).forEach(pid=>{const p=nodeById[pid];if(!p)return;if(hiddenSecret(p)&&(p.hideStyle||"blank")==="invisible")return;
         const met=opts.getUnlocked().has(pid)||(state.bypassed&&state.bypassed.has(pid)),x1=p._x,y1=p._y,x2=n._x,y2=n._y,mx=(x1+x2)/2;
-        svg+=`<path class="wire ${met?'met':''}" data-region="${n.region||n.branch}" d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}"/>`;});
+        svg+=`<path class="wire ${met?'met':''}" data-region="${n.region||n.branch}" data-branch="${n.branch}" d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}"/>`;});
     });
     opts.wiresEl.innerHTML=svg;
     opts.wiresEl.setAttribute("width",PAD_X+(maxDepth+1)*COL_W+200);
@@ -676,7 +596,7 @@ function makeTree(opts){
       const regionTag=n.region?regionLabel(n.region):n.branch;
       if(blank){ el.innerHTML=`<div class="rar"><span class="dot"></span>Secret</div><div class="nm">${n.hint?"&#10022;":"? ? ?"}</div><div class="meta"><span class="cost">&mdash;</span><span class="br">${regionTag}</span></div>`; }
       else { const c=rarColor(n.rarity);
-        const costText=isRoleCore(n)?'core':(n.cost===0?'free':`${n.cost} ${opts.isSoul?'SP':'TP'}`);
+        const costText=isRoleCore(n)?'core':`${n.cost} ${opts.isSoul?'SP':'TP'}`;
         el.innerHTML=`<div class="rar"><span class="dot" style="background:${c}"></span>${n.rarity}${n.evolving?' &middot; <span class="evo">evolving</span>':''}</div><div class="nm">${n.name}</div><div class="meta"><span class="cost">${costText}</span><span class="br">${regionTag}</span></div>`;
       }
       el.onclick=ev=>{ev.stopPropagation();openDetail(n,el,blank)};
@@ -737,15 +657,7 @@ function makeTree(opts){
         }
       }
       const evolveBadge=n.evolving?' <span class="evobadge" title="This node is part of a chain that grows stronger over time">evolving</span>':'';
-      const costSub=roleCore?'core':(n.cost===0?'free':`${n.cost} ${unit}`);
-      let chassisLine='';
-      if(n.chassisRole){
-        const r=(typeof roleById!=="undefined")?roleById[n.chassisRole]:null;
-        const rname=r?r.name:n.chassisRole;
-        const matches=state.role===n.chassisRole;
-        chassisLine=`<div class="chassis ${matches?'ok':''}">Chassis role: <b>${rname}</b>${matches?' &middot; you have the chassis':' &middot; you lack the chassis (features still work mechanically where applicable)'}</div>`;
-      }
-      detail.innerHTML=`<div class="rar" style="color:${c}"><span class="dot" style="background:${c}"></span>${n.rarity}${evolveBadge}</div><h3>${n.name}</h3><div class="sub">${regionLabel(n.region)||n.branch} &middot; ${costSub}</div>${chassisLine}<p>${n.desc}</p><div class="reqs">${reqLines(n,false)}</div><div class="act">${btns}</div>`;
+      detail.innerHTML=`<div class="rar" style="color:${c}"><span class="dot" style="background:${c}"></span>${n.rarity}${evolveBadge}</div><h3>${n.name}</h3><div class="sub">${regionLabel(n.region)||n.branch} &middot; ${roleCore?'core':`${n.cost} ${unit}`}</div><p>${n.desc}</p><div class="reqs">${reqLines(n,false)}</div><div class="act">${btns}</div>`;
       detail.querySelectorAll("button[data-act]").forEach(btn=>{
         btn.onclick=()=>{
           const id=btn.dataset.id, act=btn.dataset.act;
@@ -1079,9 +991,6 @@ function initRoleBgSelectors(){
   bgSel.innerHTML='<option value="">—</option>'+BACKGROUNDS.map(b=>`<option value="${b.id}">${b.name}</option>`).join("");
   roleSel.value=state.role||"";
   bgSel.value=state.background||"";
-  // Info popover buttons
-  document.getElementById("roleInfo").onclick=(ev)=>{ev.stopPropagation();showRoleInfo(ev.currentTarget);};
-  document.getElementById("bgInfo").onclick=(ev)=>{ev.stopPropagation();showBgInfo(ev.currentTarget);};
   roleSel.addEventListener("change",()=>{
     const prevRole=state.role;
     const newRole=roleSel.value||null;
@@ -1102,38 +1011,21 @@ function initRoleBgSelectors(){
     const prevBg=state.background;
     const newBg=bgSel.value||null;
     if(prevBg && newBg!==prevBg){
-      // Refund all heritage nodes (full-purchase AND bypassed) from the previous background
-      const inPrev=(id)=>{const n=TALENT_NODES.find(x=>x.id===id);return n && n.region===`heritage:${prevBg}`;};
-      const unlockedPrev=[...state.talentUnlocked].filter(inPrev);
-      const bypassedPrev=[...(state.bypassed||[])].filter(inPrev);
-      const total=unlockedPrev.length+bypassedPrev.length;
-      if(total){
-        const refund=unlockedPrev.reduce((s,id)=>s+((TALENT_NODES.find(x=>x.id===id)||{}).cost||0),0)
-                   + bypassedPrev.reduce((s,id)=>s+(((TALENT_NODES.find(x=>x.id===id)||{}).cost||0)*2),0);
-        if(!confirm("Switching your Background will refund "+total+" previous heritage node(s), returning "+refund+" TP. Continue?")){
+      // Refund all heritage nodes from the previous background
+      const prev=[...state.talentUnlocked].filter(id=>{const n=TALENT_NODES.find(x=>x.id===id);return n && n.region===`heritage:${prevBg}`;});
+      if(prev.length){
+        if(!confirm("Switching your Background will refund "+prev.length+" purchased heritage node(s) ("+prev.reduce((s,id)=>s+((TALENT_NODES.find(x=>x.id===id)||{}).cost||0),0)+" TP). Continue?")){
           bgSel.value=prevBg||"";
           return;
         }
-        unlockedPrev.forEach(id=>{
+        prev.forEach(id=>{
           const n=TALENT_NODES.find(x=>x.id===id);
           state.talentUnlocked.delete(id);
           if(n) state.tp+=(n.cost||0);
         });
-        bypassedPrev.forEach(id=>{
-          const n=TALENT_NODES.find(x=>x.id===id);
-          state.bypassed.delete(id);
-          if(n) state.tp+=(n.cost||0)*2;
-        });
       }
     }
     state.background=newBg;
-    // Auto-unlock the newly selected background's tier-1 heritage node (its cost is 0).
-    if(newBg){
-      const tier1=TALENT_NODES.find(n=>n.region===`heritage:${newBg}` && (!n.prereq||!n.prereq.length));
-      if(tier1 && !state.talentUnlocked.has(tier1.id)){
-        state.talentUnlocked.add(tier1.id);
-      }
-    }
     talentTree.render(); refreshPts(); saveState();
   });
 }
@@ -1197,7 +1089,7 @@ function buildSubbar(){
     });
     subbar.style.display="";
   } else if(activeTab==="soul"){
-    subbar.innerHTML=`<span class="soulpicker">Compose your Soul below. Slot effects from the library into your Passive, Active, and Sign slots.</span><div class="legend">`+RARITY_ORDER.map(r=>`<div class="l"><span class="dot" style="background:${rarColor(r)}"></span>${r}</div>`).join("")+`</div>`;
+    subbar.innerHTML=`<span class="soulpicker">Pick a Soul above &mdash; the chosen one's tree appears below. Greyed souls are unchosen.</span><div class="legend">`+RARITY_ORDER.map(r=>`<div class="l"><span class="dot" style="background:${rarColor(r)}"></span>${r}</div>`).join("")+`</div>`;
     subbar.style.display="";
   } else { subbar.innerHTML=""; subbar.style.display="none"; }
 }
@@ -1298,10 +1190,10 @@ fileIn.onchange=()=>{const f=fileIn.files[0];if(!f)return;const rd=new FileReade
   document.getElementById("bgInput").value=state.background||"";
   buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); fitTalent();
 }catch(e){alert("That file couldn't be read as a build.")}};rd.readAsText(f);fileIn.value="";};
-document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? Unlocked talents and bypasses clear, your Soul is emptied, Role and Background reset. Story flags are kept.")){
-  state.talentUnlocked=new Set(); state.bypassed=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.level=1; state.role=null; state.background=null; state.filter="";
+document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? Unlocked talents clear, your Soul is emptied, and the Trait resets to unchosen. Story flags are kept.")){
+  state.talentUnlocked=new Set(); state.bypassed=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.level=1; state.role=null; state.background=null;
   document.getElementById("roleInput").value=""; document.getElementById("bgInput").value="";
-  buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); saveState();
+  talentTree.render(); renderSoul(); refreshPts(); saveState();
 }};
 
 /* ---------- global popover dismissal ---------- */
