@@ -964,5 +964,113 @@
       "Physical"
     ],
     "desc": "Your footfalls sound slightly heavier than they should, in a way skilled ears can identify. Cosmetic."
+  },
+  {
+    "id": "ef_ms_rebellion",
+    "name": "The First Refusal",
+    "type": "passive",
+    "rarity": "epic",
+    "cats": [
+      "Defense",
+      "Meta"
+    ],
+    "themes": [
+      "Radiant",
+      "Shadow"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "You are immune to being charmed by any creature of your level or lower. You cannot be compelled to submit by magical means (e.g., Suggestion, Dominate). Angels and devils recognize what you bear and react strongly."
+  },
+  {
+    "id": "ef_ms_firstlight",
+    "name": "Firstlight",
+    "type": "active",
+    "rarity": "epic",
+    "cats": [
+      "Offense"
+    ],
+    "themes": [
+      "Fire",
+      "Radiant"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "1/short rest (action): unleash a lance of pre-dawn fire at a point within 120 ft. Each creature in a 10-ft.-radius makes a DEX save (DC 8 + prof + CHA); on fail, takes 6d8 fire damage, half if resistance applies. On a nat 1, also pushed 10 ft. and blinded until end of their next turn."
+  },
+  {
+    "id": "ef_ms_halo",
+    "name": "Broken Halo",
+    "type": "sign",
+    "rarity": "epic",
+    "cats": [
+      "Meta"
+    ],
+    "themes": [
+      "Radiant"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "A fractured ring of pale light hangs behind you, visible in all lighting. Fragments of it drift slowly, like glass that never finishes falling. Creatures that know what Morning Star is recognize you on sight."
+  },
+  {
+    "id": "ef_ms_shadowed_wings",
+    "name": "Shadowed Wings",
+    "type": "passive",
+    "rarity": "legendary",
+    "cats": [
+      "Mobility",
+      "Defense"
+    ],
+    "themes": [
+      "Shadow",
+      "Air"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "Fly speed 40 ft. When you take damage, roll d6; on 4+, half the damage is absorbed into shadow around you and dealt back to the attacker as necrotic damage (max once per round)."
+  },
+  {
+    "id": "ef_ms_commanding_light",
+    "name": "Commanding Light",
+    "type": "active",
+    "rarity": "legendary",
+    "cats": [
+      "Social",
+      "Offense"
+    ],
+    "themes": [
+      "Radiant",
+      "Mind"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "1/long rest (action): speak a single word of command to all creatures within 60 ft. who can hear and understand you. Each makes a WIS save (DC 8 + prof + CHA). On fail, they must obey the command (as the Command spell, no longer limited to one-word) for 1 minute. Hostile creatures of CR equal to your character level or lower have disadvantage."
+  },
+  {
+    "id": "ef_ms_final_refusal",
+    "name": "The Final Refusal",
+    "type": "passive",
+    "rarity": "legendary",
+    "cats": [
+      "Defense",
+      "Recovery"
+    ],
+    "themes": [
+      "Radiant",
+      "Shadow"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "When you would be reduced to 0 HP by an attack, you may choose to refuse it: you take only half the damage and are reduced to 1 HP instead. Once per long rest. The entity that attacked you must make a WIS save (DC 8 + prof + CHA) or be frightened of you for 1 minute."
+  },
+  {
+    "id": "ef_ms_dawnbreaker",
+    "name": "Dawnbreaker",
+    "type": "active",
+    "rarity": "legendary",
+    "cats": [
+      "Offense"
+    ],
+    "themes": [
+      "Fire",
+      "Radiant"
+    ],
+    "namedSoul": "morning_star",
+    "desc": "1/long rest (action): the sky above you splits for a moment. A 60-ft.-radius column of light descends on a point within 300 ft. Each creature in it makes a CON save (DC 8 + prof + CHA); fiends and undead have disadvantage. On fail: 12d10 radiant damage and blinded for 1 minute (save ends). On success: half damage, not blinded. On a nat 1 against undead or fiends, destroyed outright (no save)."
   }
 ]

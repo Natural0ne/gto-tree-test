@@ -48,5 +48,11 @@
     "id": "charlatan",
     "name": "Charlatan",
     "desc": "You lived by your wits and a smile. The art of becoming someone else at will grows subtler and more absolute the longer you practice."
+  },
+  {
+    "id": "monkey_king",
+    "name": "Monkey King",
+    "legendary": true,
+    "desc": "You are not merely descended from Sun Wukong. You carry his spirit, his mischief, and his refusal to submit. The heavens notice, in time."
   }
 ]

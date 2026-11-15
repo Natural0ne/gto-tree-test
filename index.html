@@ -77,9 +77,13 @@
   .chip.reg-role{border-color:#7a4a32;color:#e8a37a}
   .chip.reg-class{border-color:#5a4a7a;color:#b9a6dc}
   .chip.reg-heritage{border-color:#3a5078;color:#8ccfc7}
+  .chip.reg-boon{border-color:#7a4a32;color:#e8a37a}
+  .chip.reg-patron{border-color:#5a3a3a;color:#d8706a}
   .chip.reg-role.active{background:#e8a37a;color:#2a1510;border-color:#e8a37a;font-weight:700}
   .chip.reg-class.active{background:#b9a6dc;color:#15102a;border-color:#b9a6dc;font-weight:700}
   .chip.reg-heritage.active{background:#8ccfc7;color:#102a28;border-color:#8ccfc7;font-weight:700}
+  .chip.reg-boon.active{background:#e8a37a;color:#2a1510;border-color:#e8a37a;font-weight:700}
+  .chip.reg-patron.active{background:#d8706a;color:#2a1510;border-color:#d8706a;font-weight:700}
   .chip:hover{color:var(--ink)}
   .chip.active{color:var(--bg);background:var(--gold);border-color:var(--gold);font-weight:700}
   .legend{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
@@ -243,6 +247,31 @@
   .libcard .src.flag{color:#b9a6dc;font-style:normal}
   .libcard .req{font-size:10.5px;color:#b9a6dc;margin-top:5px}
   .signflavor{font-size:11px;color:var(--soul);margin:4px 0 8px;padding:5px 8px;background:rgba(122,95,174,.07);border-left:2px solid var(--soul-deep);border-radius:0 4px 4px 0;line-height:1.35}
+  /* Named Soul display */
+  .ns-picker{display:flex;flex-direction:column;gap:3px;margin-left:16px;align-self:center}
+  .ns-picker small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--soul-deep)}
+  .namedsoul-head{display:flex;gap:20px;align-items:flex-start;padding:16px 20px;background:linear-gradient(90deg,rgba(185,166,220,.06),rgba(216,120,90,.04));border:1px solid var(--soul-deep);border-radius:8px;flex-wrap:wrap}
+  .ns-title{flex:1;min-width:260px}
+  .ns-title small{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--soul-deep)}
+  .ns-title h2{margin:3px 0 6px;font-size:22px;color:var(--soul);letter-spacing:.02em}
+  .ns-title .ns-theme{font-size:12.5px;color:#cfc7b4;font-style:italic;line-height:1.5}
+  .ns-seals{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:140px}
+  .ns-seals small{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--soul-deep)}
+  .ns-seal-stepper{display:flex;align-items:center;gap:10px}
+  .ns-seal-btn{font:inherit;width:28px;height:28px;border-radius:4px;border:1px solid var(--soul-deep);background:rgba(122,95,174,.12);color:var(--soul);cursor:pointer;font-size:16px;padding:0;line-height:1}
+  .ns-seal-btn:hover:not(:disabled){background:rgba(122,95,174,.22)}
+  .ns-seal-btn:disabled{opacity:.3;cursor:not-allowed}
+  .ns-seal-count{display:flex;flex-direction:column;align-items:center;min-width:48px}
+  .ns-seal-count b{font-size:26px;color:var(--soul);font-weight:600;line-height:1}
+  .ns-seal-count span{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:2px}
+  .ns-next{font-size:10.5px;color:var(--ink-dim);text-align:center;font-style:italic;max-width:200px}
+  .ns-actions{align-self:center}
+  .namedsoul-granted{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+  .ns-block{border:1px solid var(--line-dim);border-radius:7px;padding:12px 14px;background:rgba(122,95,174,.04)}
+  .ns-block h3{margin:0 0 10px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--soul)}
+  .ns-block.empty p{margin:0;font-size:11.5px;color:var(--ink-dim);font-style:italic}
+  .ns-granted{position:relative}
+  .ns-granted::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--soul-deep);border-radius:4px 0 0 4px}
 
   /* reslot confirm modal */
   #reslotModal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);padding:20px}
@@ -381,7 +410,7 @@
   document.body.appendChild(d);
 })();
 
-let FLAGS, TALENT_NODES, SOUL_CATEGORIES, SOUL_THEMES, SOUL_EFFECTS, SOUL_SYNERGIES, SOUL_SLOT_AUTO, SOUL_SLOT_FLAGS, ROLES, BACKGROUNDS, CLASSES;
+let FLAGS, TALENT_NODES, SOUL_CATEGORIES, SOUL_THEMES, SOUL_EFFECTS, SOUL_SYNERGIES, SOUL_SLOT_AUTO, SOUL_SLOT_FLAGS, ROLES, BACKGROUNDS, CLASSES, NAMED_SOULS;
 
 async function bootData(){
   const files=[
@@ -395,6 +424,7 @@ async function bootData(){
     ['roles.json','ROLES'],
     ['backgrounds.json','BACKGROUNDS'],
     ['classes.json','CLASSES'],
+    ['named-souls.json','NAMED_SOULS'],
   ];
   const bootMsg=document.getElementById('bootMsg');
   const results={};
@@ -420,6 +450,7 @@ async function bootData(){
   ROLES=results.ROLES;
   BACKGROUNDS=results.BACKGROUNDS;
   CLASSES=results.CLASSES;
+  NAMED_SOULS=results.NAMED_SOULS;
   // Remove loading screen
   const loader=document.getElementById('bootLoader');
   if(loader)loader.remove();
@@ -514,9 +545,26 @@ function regionDisplayName(region){
   if(region.startsWith("role:")){const r=roleById[region.split(":")[1]]; return r?r.name:"Role";}
   if(region.startsWith("class:")){const c=classById[region.split(":")[1]]; return c?c.name:"Class";}
   if(region.startsWith("heritage:")){const b=bgById[region.split(":")[1]]; return b?b.name:"Heritage";}
+  if(region.startsWith("boon:")){return region.split(":")[1].replace(/^./,c=>c.toUpperCase())+" (Boon)";}
+  if(region.startsWith("patron:")){return region.split(":")[1].replace(/^./,c=>c.toUpperCase())+" (Patron)";}
   if(region==="feats") return "Feats";
   if(region==="general") return "General";
   return region;
+}
+
+// A region is "visible" if every node in it is either not flag-gated, or its flag is set.
+// For boon:* and patron:* regions, we hide them entirely from the chip bar until their
+// representative flag is active. The player simply doesn't know they exist.
+function regionIsVisible(region){
+  if(!region) return true;
+  if(region.startsWith("boon:") || region.startsWith("patron:")){
+    // Find any node in this region; if it has flagRequired, that flag must be set.
+    const sample=TALENT_NODES.find(n=>n.region===region);
+    if(sample && sample.flagRequired){
+      return state.flags.has(sample.flagRequired);
+    }
+  }
+  return true;
 }
 
 const FLAG_TYPE_LABEL={quest:"Complete",boss:"Defeat",deed:"Accomplish",item:"Obtain",rank:"Reach",location:"Discover",story:"Story"};
@@ -633,6 +681,9 @@ function makeTree(opts){
   }
   function fullyMet(n){return prereqMet(n)&&flagsMet(n)&&levelMet(n)&&roleMet(n)&&bgMet(n)}
   function hiddenSecret(n){return n.secret&&!fullyMet(n)}
+  // Nodes with flagRequired are entirely hidden until that flag is set.
+  // Use for boon:*/patron:* regions whose existence is secret until the DM grants it.
+  function hiddenByFlag(n){return n.flagRequired && !state.flags.has(n.flagRequired);}
   function isGated(n){return n.flags&&n.flags.length>0}
 
   function isRoleCore(n){ return n.roleCore===true; }
@@ -645,7 +696,8 @@ function makeTree(opts){
     let svg="";
     opts.nodes.forEach(n=>{
       if(hiddenSecret(n)&&(n.hideStyle||"blank")==="invisible")return;
-      (n.prereq||[]).forEach(pid=>{const p=nodeById[pid];if(!p)return;if(hiddenSecret(p)&&(p.hideStyle||"blank")==="invisible")return;
+      if(hiddenByFlag(n))return;
+      (n.prereq||[]).forEach(pid=>{const p=nodeById[pid];if(!p)return;if(hiddenSecret(p)&&(p.hideStyle||"blank")==="invisible")return;if(hiddenByFlag(p))return;
         const met=opts.getUnlocked().has(pid)||(state.bypassed&&state.bypassed.has(pid)),x1=p._x,y1=p._y,x2=n._x,y2=n._y,mx=(x1+x2)/2;
         svg+=`<path class="wire ${met?'met':''}" data-region="${n.region||n.branch}" d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}"/>`;});
     });
@@ -655,6 +707,7 @@ function makeTree(opts){
     [...opts.worldEl.querySelectorAll(".node")].forEach(e=>e.remove());
     opts.nodes.forEach(n=>{
       if(hiddenSecret(n)&&(n.hideStyle||"blank")==="invisible")return;
+      if(hiddenByFlag(n))return;
       const el=document.createElement("div");
       const blank=hiddenSecret(n);
       const unlocked=opts.getUnlocked().has(n.id) || (!opts.isSoul && autoUnlockedRoleCore(n));
@@ -859,18 +912,120 @@ function reslotCost(eff){
   return {sp:5,label:"Unique rite",desc:"A unique NPC, deity-touched ritual, or quest-gated rite. Removing this is a major event."};
 }
 
-function renderSoul(){renderSoulHeader();renderSoulSynergies();renderSoulSlotsView();renderSoulLibrary();}
+function renderSoul(){
+  if(state.namedSoul){
+    renderNamedSoul();
+    // Hide the composer-specific regions below the header
+    soulSynergies.innerHTML="";
+    soulSlotsEl.innerHTML="";
+    soulLibraryEl.innerHTML="";
+  } else {
+    renderSoulHeader();
+    renderSoulSynergies();
+    renderSoulSlotsView();
+    renderSoulLibrary();
+  }
+}
+
+// Named Soul mode: replace the composer with a preset named-soul display.
+function renderNamedSoul(){
+  const ns=(NAMED_SOULS||[]).find(s=>s.id===state.namedSoul);
+  if(!ns){ state.namedSoul=null; renderSoul(); return; }
+  const seals=state.seals||ns.startingSeals||1;
+  // All effects granted at current seal count or lower.
+  const granted=[];
+  (ns.evolution||[]).forEach(evo=>{
+    if(evo.seals<=seals) (evo.effects||[]).forEach(eid=>granted.push({eid, sealEarned:evo.seals, evoName:evo.name}));
+  });
+  const nextEvo=(ns.evolution||[]).find(evo=>evo.seals>seals);
+  const grantedByType={passive:[],active:[],sign:[]};
+  granted.forEach(g=>{const e=effectById[g.eid];if(e){grantedByType[e.type]=grantedByType[e.type]||[];grantedByType[e.type].push({effect:e, sealEarned:g.sealEarned});}});
+
+  soulHeader.innerHTML=`
+    <div class="namedsoul-head">
+      <div class="ns-title">
+        <small>Named Soul</small>
+        <h2>${ns.name}</h2>
+        <div class="ns-theme">${ns.theme}</div>
+      </div>
+      <div class="ns-seals">
+        <small>Seals</small>
+        <div class="ns-seal-stepper">
+          <button class="ns-seal-btn" data-seal-delta="-1" ${seals<=1?'disabled':''}>&minus;</button>
+          <div class="ns-seal-count"><b>${seals}</b><span>of ${ns.maxSeals||'?'}</span></div>
+          <button class="ns-seal-btn" data-seal-delta="1" ${(ns.maxSeals&&seals>=ns.maxSeals)?'disabled':''}>+</button>
+        </div>
+        ${nextEvo?`<div class="ns-next">Next: Seal ${nextEvo.seals} &mdash; ${nextEvo.name}</div>`:''}
+      </div>
+      <div class="ns-actions">
+        <button class="tool danger" id="ns-revert">Revert to Vessel</button>
+      </div>
+    </div>
+    <div class="namedsoul-granted">
+      ${renderGrantedBlock("Passive", grantedByType.passive)}
+      ${renderGrantedBlock("Active", grantedByType.active)}
+      ${renderGrantedBlock("Sign", grantedByType.sign)}
+    </div>
+  `;
+  document.querySelectorAll(".ns-seal-btn").forEach(b=>b.onclick=()=>{
+    const d=parseInt(b.dataset.sealDelta,10);
+    let s=(state.seals||ns.startingSeals||1)+d;
+    if(s<1)s=1;
+    if(ns.maxSeals && s>ns.maxSeals)s=ns.maxSeals;
+    state.seals=s;
+    renderSoul(); saveState();
+  });
+  document.getElementById("ns-revert").onclick=()=>{
+    if(confirm("Revert "+ns.name+" and return to vessel composition? Your Named Soul and its granted effects will be cleared; you can resume them later by picking the Named Soul again.")){
+      state.namedSoul=null; state.seals=0;
+      renderSoul(); saveState();
+    }
+  };
+}
+function renderGrantedBlock(label, items){
+  if(!items || !items.length) return `<div class="ns-block empty"><h3>${label}</h3><p>No ${label.toLowerCase()} effects at this seal count.</p></div>`;
+  const cards=items.map(({effect:e, sealEarned})=>{
+    const c=rarColor(e.rarity);
+    const tags=[...(e.cats||[]).map(x=>`<span class="tagchip">${x}</span>`),...(e.themes||[]).map(x=>`<span class="tagchip theme">${x}</span>`)].join("");
+    return `<div class="slotbox filled ns-granted">
+      <div class="er"><span class="dot" style="background:${c}"></span>${e.rarity} &middot; ${e.type} &middot; <span style="color:var(--soul)">Seal ${sealEarned}</span></div>
+      <div class="ename">${e.name}</div>
+      <div class="edesc">${e.desc}</div>
+      <div class="etags">${tags}</div>
+    </div>`;
+  }).join("");
+  return `<div class="ns-block"><h3>${label}</h3><div class="slotgrid">${cards}</div></div>`;
+}
 
 function renderSoulHeader(){
   const caps=soulSlotCaps(); const rar=soulRarity();
   const rDot=rar?`<span class="dot" style="background:${rarColor(rar)}"></span>${rar}`:`<span class="dot" style="background:#3a3350"></span>unawakened`;
   const slottedCount=state.soulSlots.passive.length+state.soulSlots.active.length+state.soulSlots.sign.length;
   const capTotal=caps.passive+caps.active+caps.sign;
+  const namedPicker=((NAMED_SOULS||[]).length)?`<div class="ns-picker"><small>Named Soul</small><select id="namedSoulPicker" class="idsel"><option value="">— (compose your own)</option>${(NAMED_SOULS||[]).map(s=>`<option value="${s.id}">${s.name}</option>`).join("")}</select></div>`:'';
   soulHeader.innerHTML=`
     <div class="nm"><small>Soul Name</small><input id="soulNameIn" type="text" placeholder="Name your Soul..." value="${(state.soulName||'').replace(/"/g,'&quot;')}"/></div>
     <div class="rarbadge">${rDot}</div>
-    <div class="stats"><div><b>${slottedCount} / ${capTotal}</b>slots filled</div><div><b>${activeSynergies().filter(s=>s.chosen).length} / ${activeSynergies().length}</b>synergies</div></div>`;
+    <div class="stats"><div><b>${slottedCount} / ${capTotal}</b>slots filled</div><div><b>${activeSynergies().filter(s=>s.chosen).length} / ${activeSynergies().length}</b>synergies</div></div>
+    ${namedPicker}`;
   document.getElementById("soulNameIn").oninput=e=>{state.soulName=e.target.value;saveState();};
+  const nsPick=document.getElementById("namedSoulPicker");
+  if(nsPick){
+    nsPick.value=state.namedSoul||"";
+    nsPick.onchange=()=>{
+      const id=nsPick.value||null;
+      if(id){
+        const ns=NAMED_SOULS.find(s=>s.id===id);
+        if(!confirm("Adopt "+ns.name+"? While a Named Soul is active, the vessel-composition system is hidden and this Soul's preset effects are granted automatically based on your current seal count.")) {
+          nsPick.value="";
+          return;
+        }
+        state.namedSoul=id;
+        state.seals=ns.startingSeals||1;
+        renderSoul(); saveState();
+      }
+    };
+  }
 }
 
 function renderSoulSynergies(){
@@ -982,6 +1137,8 @@ function renderSoulLibrary(){
   const catChips=SOUL_CATEGORIES.map(c=>`<button class="chip ${f.cat===c?'active':''}" data-flt="cat" data-v="${c}">${c}</button>`).join("");
   const themeChips=SOUL_THEMES.map(t=>`<button class="chip ${f.theme===t?'active':''}" data-flt="theme" data-v="${t}">${t}</button>`).join("");
   const visible=SOUL_EFFECTS.filter(e=>{
+    // Named-soul effects are exclusive to their soul; never show them in the general library.
+    if(e.namedSoul)return false;
     if(f.type&&e.type!==f.type)return false;
     if(f.cat&&!(e.cats||[]).includes(f.cat))return false;
     if(f.theme&&!(e.themes||[]).includes(f.theme))return false;
@@ -1076,7 +1233,20 @@ function initRoleBgSelectors(){
   const roleSel=document.getElementById("roleInput");
   const bgSel=document.getElementById("bgInput");
   roleSel.innerHTML='<option value="">—</option>'+ROLES.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
-  bgSel.innerHTML='<option value="">—</option>'+BACKGROUNDS.map(b=>`<option value="${b.id}">${b.name}</option>`).join("");
+  const mundane=BACKGROUNDS.filter(b=>!b.legendary);
+  const legendary=BACKGROUNDS.filter(b=>b.legendary);
+  let bgHTML='<option value="">—</option>';
+  if(mundane.length){
+    bgHTML+='<optgroup label="Backgrounds">';
+    mundane.forEach(b=>bgHTML+=`<option value="${b.id}">${b.name}</option>`);
+    bgHTML+='</optgroup>';
+  }
+  if(legendary.length){
+    bgHTML+='<optgroup label="Legendary Heritage">';
+    legendary.forEach(b=>bgHTML+=`<option value="${b.id}">${b.name}</option>`);
+    bgHTML+='</optgroup>';
+  }
+  bgSel.innerHTML=bgHTML;
   roleSel.value=state.role||"";
   bgSel.value=state.background||"";
   // Info popover buttons
@@ -1166,11 +1336,13 @@ function buildSubbar(){
       {label:"Role", match:r=>r.startsWith("role:"), tag:"role"},
       {label:"Class", match:r=>r.startsWith("class:"), tag:"class"},
       {label:"Heritage", match:r=>r.startsWith("heritage:"), tag:"heritage"},
+      {label:"Boon", match:r=>r.startsWith("boon:"), tag:"boon"},
+      {label:"Patron", match:r=>r.startsWith("patron:"), tag:"patron"},
       {label:"", match:r=>r==="feats"||r==="general", tag:"general"},
     ];
     let html=`<button class="chip ${!state.filter?'active':''}" data-f="">All</button>`;
     families.forEach(fam=>{
-      const members=regions.filter(fam.match);
+      const members=regions.filter(fam.match).filter(regionIsVisible);
       if(!members.length) return;
       if(fam.label) html+=`<span class="famlabel">${fam.label}</span>`;
       members.forEach(r=>{
@@ -1222,7 +1394,7 @@ const dmPanel=document.getElementById("dmPanel"), flagList=document.getElementBy
 function buildFlagPanel(){
   if(!FLAGS.length){flagList.innerHTML=`<p class="note">No story flags defined.</p>`;return;}
   flagList.innerHTML=FLAGS.map(f=>{const on=state.flags.has(f.id);return `<label class="flag ${on?'on':''}" data-fid="${f.id}"><input type="checkbox" ${on?'checked':''}/><span><span class="ft">${f.type||'flag'}</span><span class="fl">${f.label}</span>${f.hint?`<span class="fh">${f.hint}</span>`:''}</span></label>`;}).join("");
-  flagList.querySelectorAll(".flag").forEach(el=>{el.querySelector("input").onchange=e=>{const fid=el.dataset.fid;if(e.target.checked)state.flags.add(fid);else state.flags.delete(fid);buildFlagPanel();talentTree.render();if(activeTab==="soul")renderSoul();saveState();};});
+  flagList.querySelectorAll(".flag").forEach(el=>{el.querySelector("input").onchange=e=>{const fid=el.dataset.fid;if(e.target.checked)state.flags.add(fid);else state.flags.delete(fid);buildFlagPanel();buildSubbar();talentTree.render();if(activeTab==="soul")renderSoul();saveState();};});
 }
 document.getElementById("btnDM").onclick=()=>{buildFlagPanel();dmPanel.classList.add("open")};
 document.getElementById("dmClose").onclick=()=>dmPanel.classList.remove("open");
@@ -1252,6 +1424,7 @@ function saveState(){try{
     tp:state.tp, sp:state.sp, spSpent:state.spSpent||0,
     soulName:state.soulName||"", soulSlots:state.soulSlots, soulLibFilter:state.soulLibFilter||{type:"",cat:"",theme:""},
     synergyChoices:state.synergyChoices||{},
+    namedSoul:state.namedSoul||null, seals:state.seals||0,
     filter:state.filter, tab:activeTab
   }));
 }catch(e){}}
@@ -1267,6 +1440,7 @@ function loadState(){
     soulName:o.soulName||"", soulSlots:{passive:slots.passive||[],active:slots.active||[],sign:signSlots},
     soulLibFilter:o.soulLibFilter||{type:"",cat:"",theme:""},
     synergyChoices:o.synergyChoices||{},
+    namedSoul:o.namedSoul||null, seals:o.seals||0,
     filter:o.filter||"", tab:o.tab||"talents"
   };
 }
@@ -1279,7 +1453,8 @@ document.getElementById("btnExport").onclick=()=>{
     level:state.level||1, role:state.role||null, background:state.background||null,
     tp:state.tp, sp:state.sp, spSpent:state.spSpent||0,
     soulName:state.soulName||"", soulSlots:state.soulSlots,
-    synergyChoices:state.synergyChoices||{}
+    synergyChoices:state.synergyChoices||{},
+    namedSoul:state.namedSoul||null, seals:state.seals||0
   },null,2);
   const b=new Blob([data],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="gto-build.json";a.click();
 };
@@ -1294,12 +1469,13 @@ fileIn.onchange=()=>{const f=fileIn.files[0];if(!f)return;const rd=new FileReade
   state.soulName=o.soulName||"";
   const s=o.soulSlots||{}; state.soulSlots={passive:s.passive||[],active:s.active||[],sign:s.sign||s.aura||[]};
   state.synergyChoices=o.synergyChoices||{};
+  state.namedSoul=o.namedSoul||null; state.seals=o.seals||0;
   document.getElementById("roleInput").value=state.role||"";
   document.getElementById("bgInput").value=state.background||"";
   buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); fitTalent();
 }catch(e){alert("That file couldn't be read as a build.")}};rd.readAsText(f);fileIn.value="";};
 document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? Unlocked talents and bypasses clear, your Soul is emptied, Role and Background reset. Story flags are kept.")){
-  state.talentUnlocked=new Set(); state.bypassed=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.level=1; state.role=null; state.background=null; state.filter="";
+  state.talentUnlocked=new Set(); state.bypassed=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.level=1; state.role=null; state.background=null; state.filter=""; state.namedSoul=null; state.seals=0;
   document.getElementById("roleInput").value=""; document.getElementById("bgInput").value="";
   buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); saveState();
 }};

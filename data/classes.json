@@ -28,5 +28,11 @@
     "name": "Rogue",
     "role": "striker",
     "desc": "Shadow-walkers, lockpickers, and sudden knives in the dark. Rogues trade raw power for precision and versatility."
+  },
+  {
+    "id": "fighter",
+    "name": "Fighter",
+    "role": "frontliner",
+    "desc": "A disciplined warrior and tactician. Fighters are defined by Fighting Styles, Action Surge, and the raw number of attacks they bring to a fight. Subclasses offer very different roads: brute mastery, calculated maneuvers, or blade-and-spell fusion."
   }
 ]

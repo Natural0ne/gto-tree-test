@@ -3658,5 +3658,500 @@
       "cls_rogue_assassin_infiltrate"
     ],
     "desc": "When you hit a surprised creature, it makes a CON save (DC 8 + prof + DEX). On fail, the damage is doubled."
+  },
+  {
+    "id": "cls_ftr_entry",
+    "name": "Fighter Initiate",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "common",
+    "cost": 1,
+    "levelReq": 5,
+    "chassisRole": "frontliner",
+    "desc": "You are a disciplined practitioner of war. Picking this node unlocks further Fighter features. Chassis role: Frontliner (d10, martial proficiencies, STR+CON saves). A character of another role may still take Fighter features, but will lack the chassis."
+  },
+  {
+    "id": "cls_ftr_fighting_style",
+    "name": "Fighting Style",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "common",
+    "cost": 1,
+    "levelReq": 5,
+    "prereq": [
+      "cls_ftr_entry"
+    ],
+    "desc": "Choose a Fighting Style at purchase: Archery (+2 to ranged attack rolls), Defense (+1 AC in armor), Dueling (+2 damage with a one-handed melee weapon and no other weapon), Great Weapon Fighting (reroll 1s and 2s on two-handed melee damage), Protection (reaction to impose disadvantage on an attack against an ally within 5 ft. if you hold a shield), Two-Weapon Fighting (add ability mod to off-hand damage)."
+  },
+  {
+    "id": "cls_ftr_second_wind",
+    "name": "Second Wind",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "common",
+    "cost": 1,
+    "levelReq": 5,
+    "prereq": [
+      "cls_ftr_entry"
+    ],
+    "desc": "On your turn, use a bonus action to regain HP equal to 1d10 + your character level. Once per short rest."
+  },
+  {
+    "id": "cls_ftr_action_surge",
+    "name": "Action Surge",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 10,
+    "prereq": [
+      "cls_ftr_second_wind"
+    ],
+    "desc": "On your turn, take one additional action on top of your regular action and a possible bonus action. Uses: 1 at GTO 10, 2 at GTO 85. Recovers on short or long rest."
+  },
+  {
+    "id": "cls_ftr_extra_attack_2",
+    "name": "Extra Attack (2)",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 55,
+    "prereq": [
+      "cls_ftr_entry"
+    ],
+    "desc": "When you take the Attack action, you may make two additional weapon attacks. This stacks with the Frontliner role's Extra Attack to give you three attacks total; if your chassis is not Frontliner, grants two attacks total."
+  },
+  {
+    "id": "cls_ftr_extra_attack_3",
+    "name": "Extra Attack (3)",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "epic",
+    "cost": 12,
+    "levelReq": 90,
+    "prereq": [
+      "cls_ftr_extra_attack_2"
+    ],
+    "desc": "When you take the Attack action, you may make three additional weapon attacks total (four attacks per Attack action, independent of role)."
+  },
+  {
+    "id": "cls_ftr_indomitable",
+    "name": "Indomitable",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 45,
+    "prereq": [
+      "cls_ftr_second_wind"
+    ],
+    "desc": "Reroll a saving throw you fail. You must use the new result. Uses: 1 at GTO 45, 2 at GTO 65, 3 at GTO 85. Recovers on long rest."
+  },
+  {
+    "id": "cls_ftr_second_fighting_style",
+    "name": "Additional Fighting Style",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 50,
+    "prereq": [
+      "cls_ftr_fighting_style"
+    ],
+    "desc": "Choose a second Fighting Style from the list in Fighting Style."
+  },
+  {
+    "id": "cls_ftr_champ_entry",
+    "name": "Champion",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 15,
+    "prereq": [
+      "cls_ftr_fighting_style"
+    ],
+    "desc": "You pursue the simple, brutal art of raw martial supremacy. Improved Critical: your weapon attacks score a critical hit on a roll of 19 or 20."
+  },
+  {
+    "id": "cls_ftr_champ_remarkable",
+    "name": "Remarkable Athlete",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 35,
+    "prereq": [
+      "cls_ftr_champ_entry"
+    ],
+    "desc": "Add half your proficiency bonus (rounded up) to any STR, DEX, or CON check that doesn't already include your proficiency bonus. Running long jumps gain an extra distance equal to your STR modifier (ft.)."
+  },
+  {
+    "id": "cls_ftr_champ_superior_crit",
+    "name": "Superior Critical",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "epic",
+    "cost": 12,
+    "levelReq": 75,
+    "prereq": [
+      "cls_ftr_champ_remarkable"
+    ],
+    "desc": "Your weapon attacks score a critical hit on a roll of 18, 19, or 20."
+  },
+  {
+    "id": "cls_ftr_champ_survivor",
+    "name": "Survivor",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "legendary",
+    "cost": 45,
+    "levelReq": 90,
+    "prereq": [
+      "cls_ftr_champ_superior_crit"
+    ],
+    "desc": "At the start of each of your turns, if you have at least 1 HP and fewer than half your HP, regain HP equal to 5 + your CON modifier."
+  },
+  {
+    "id": "cls_ftr_bm_entry",
+    "name": "Battle Master",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 15,
+    "prereq": [
+      "cls_ftr_fighting_style"
+    ],
+    "desc": "You study the craft of war. Learn 3 maneuvers from the Battle Master list. Gain 4 superiority dice (d8). Maneuvers you use require a target save of DC 8 + prof + your choice of STR or DEX. Superiority dice recover on short or long rest."
+  },
+  {
+    "id": "cls_ftr_bm_student_war",
+    "name": "Student of War",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 15,
+    "prereq": [
+      "cls_ftr_bm_entry"
+    ],
+    "desc": "Gain proficiency with one type of artisan's tools of your choice."
+  },
+  {
+    "id": "cls_ftr_bm_know_enemy",
+    "name": "Know Your Enemy",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 35,
+    "prereq": [
+      "cls_ftr_bm_entry"
+    ],
+    "desc": "Spend 1 minute studying a creature outside combat. Learn two of the following about it compared to you: STR, DEX, CON scores, AC, current HP, total class levels (if any), fighter class levels (if any)."
+  },
+  {
+    "id": "cls_ftr_bm_improved_combat",
+    "name": "Improved Combat Superiority",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "epic",
+    "cost": 12,
+    "levelReq": 50,
+    "prereq": [
+      "cls_ftr_bm_entry"
+    ],
+    "desc": "Your superiority dice become d10s. At GTO 90, they become d12s. Gain 2 additional superiority dice (6 total)."
+  },
+  {
+    "id": "cls_ftr_bm_relentless",
+    "name": "Relentless",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "legendary",
+    "cost": 45,
+    "levelReq": 75,
+    "prereq": [
+      "cls_ftr_bm_improved_combat"
+    ],
+    "desc": "When you roll initiative and have no superiority dice remaining, regain 1 superiority die."
+  },
+  {
+    "id": "cls_ftr_ek_entry",
+    "name": "Eldritch Knight",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 15,
+    "prereq": [
+      "cls_ftr_fighting_style"
+    ],
+    "desc": "You fuse blade with arcane practice. INT is your spellcasting ability. You learn 3 wizard cantrips and 3 1st-level wizard spells (abjuration or evocation only, except 2 free picks). You have an MP pool of 4 + INT modifier, scaling with your Fighter chain. Prepare spells like a Wizard, using your spellbook. Half-caster progression (see rules addendum)."
+  },
+  {
+    "id": "cls_ftr_ek_weapon_bond",
+    "name": "Weapon Bond",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "uncommon",
+    "cost": 3,
+    "levelReq": 15,
+    "prereq": [
+      "cls_ftr_ek_entry"
+    ],
+    "desc": "Perform a 1-hour ritual to bond with up to two weapons. You cannot be disarmed of bonded weapons unless incapacitated. You can summon a bonded weapon to your hand as a bonus action if it's on the same plane."
+  },
+  {
+    "id": "cls_ftr_ek_war_magic",
+    "name": "War Magic",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 35,
+    "prereq": [
+      "cls_ftr_ek_entry"
+    ],
+    "desc": "When you take the Attack action, you may replace one attack with the casting of a wizard cantrip."
+  },
+  {
+    "id": "cls_ftr_ek_eldritch_strike",
+    "name": "Eldritch Strike",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "rare",
+    "cost": 6,
+    "levelReq": 50,
+    "prereq": [
+      "cls_ftr_ek_war_magic"
+    ],
+    "desc": "When you hit a creature with a weapon attack, that creature has disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn."
+  },
+  {
+    "id": "cls_ftr_ek_arcane_charge",
+    "name": "Arcane Charge",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "epic",
+    "cost": 12,
+    "levelReq": 70,
+    "prereq": [
+      "cls_ftr_ek_eldritch_strike"
+    ],
+    "desc": "When you use Action Surge, you may teleport up to 30 ft. to an unoccupied space you can see before or after the additional action."
+  },
+  {
+    "id": "cls_ftr_ek_improved_war_magic",
+    "name": "Improved War Magic",
+    "branch": "Fighter",
+    "region": "class:fighter",
+    "rarity": "legendary",
+    "cost": 45,
+    "levelReq": 90,
+    "prereq": [
+      "cls_ftr_ek_arcane_charge"
+    ],
+    "desc": "When you take the Attack action, you may replace one attack with the casting of a wizard spell of 1st level or higher (one action-cast spell per turn)."
+  },
+  {
+    "id": "bg_monkey_king_1",
+    "name": "Spirit of the Monkey",
+    "branch": "monkey_king",
+    "region": "heritage:monkey_king",
+    "rarity": "uncommon",
+    "cost": 0,
+    "evolving": true,
+    "desc": "You carry the spark of the Monkey King. Your climbing speed equals your walking speed and does not require a check. You have advantage on checks involving mischief, trickery, or escape. You can speak with primates."
+  },
+  {
+    "id": "bg_monkey_king_2",
+    "name": "Seventy-Two Transformations",
+    "branch": "monkey_king",
+    "region": "heritage:monkey_king",
+    "rarity": "rare",
+    "cost": 6,
+    "evolving": true,
+    "prereq": [
+      "bg_monkey_king_1"
+    ],
+    "desc": "You can assume minor transformations as an action: become a fly, a mouse, a cloud of mist, or another small shape. The form grants its natural movement but no combat capabilities. Lasts 10 minutes. Uses equal to your prof bonus per long rest."
+  },
+  {
+    "id": "bg_monkey_king_3",
+    "name": "Ruyi Jingu Bang",
+    "branch": "monkey_king",
+    "region": "heritage:monkey_king",
+    "rarity": "epic",
+    "cost": 12,
+    "evolving": true,
+    "prereq": [
+      "bg_monkey_king_2"
+    ],
+    "desc": "You carry (or can summon from nothing) a staff that counts as a magical martial weapon (1d10 bludgeoning, versatile 1d12). As a bonus action, change its size: tiny (fits behind the ear), normal, or massive (becomes a reach weapon dealing 2d10, requires two hands)."
+  },
+  {
+    "id": "bg_monkey_king_4",
+    "name": "Cloud-Somersault",
+    "branch": "monkey_king",
+    "region": "heritage:monkey_king",
+    "rarity": "epic",
+    "cost": 12,
+    "evolving": true,
+    "prereq": [
+      "bg_monkey_king_3"
+    ],
+    "desc": "Once per short rest, as an action, call a cloud that carries you up to 108,000 ft. (about 20 miles) in a direction of your choice. In combat, this grants a 60 ft. fly speed for 1 minute instead."
+  },
+  {
+    "id": "bg_monkey_king_5",
+    "name": "The Great Sage, Equal of Heaven",
+    "branch": "monkey_king",
+    "region": "heritage:monkey_king",
+    "rarity": "legendary",
+    "cost": 45,
+    "evolving": true,
+    "prereq": [
+      "bg_monkey_king_4"
+    ],
+    "desc": "You are recognized by the heavens. Immunity to the frightened condition. Resistance to necrotic and poison damage. Your Ruyi Jingu Bang's normal form deals 2d10 (versatile 2d12). Once per long rest, as an action, pull a hair from your head and multiply: create 1d4 + CHA mod duplicates of yourself (each 1 HP, your stats but half HP max). They act on your initiative for 1 minute or until destroyed."
+  },
+  {
+    "id": "boon_ifrit_1",
+    "name": "Ember of Ifrit",
+    "branch": "Ifrit",
+    "region": "boon:ifrit",
+    "rarity": "uncommon",
+    "cost": 3,
+    "evolving": true,
+    "flagRequired": "boon_ifrit",
+    "desc": "You bear the mark of the Spirit Lord. Resistance to fire damage. You produce no ash when you burn things, and small flames spring up around you when you are angered (cosmetic unless you will it so)."
+  },
+  {
+    "id": "boon_ifrit_2",
+    "name": "Flame-Clad",
+    "branch": "Ifrit",
+    "region": "boon:ifrit",
+    "rarity": "rare",
+    "cost": 6,
+    "evolving": true,
+    "flagRequired": "boon_ifrit",
+    "prereq": [
+      "boon_ifrit_1"
+    ],
+    "desc": "Your weapons and armor can be sheathed in flame as a bonus action, for 1 minute per long rest (uses = prof bonus). Weapons deal +1d6 fire damage; armor deals 1d4 fire damage to any creature that hits you with a melee attack."
+  },
+  {
+    "id": "boon_ifrit_3",
+    "name": "Ifrit's Favor",
+    "branch": "Ifrit",
+    "region": "boon:ifrit",
+    "rarity": "rare",
+    "cost": 6,
+    "evolving": true,
+    "flagRequired": "boon_ifrit",
+    "prereq": [
+      "boon_ifrit_1"
+    ],
+    "desc": "You are immune to fire damage of 10 or less per instance. You can speak with fire elementals as though sharing a language, and most will not initiate hostility."
+  },
+  {
+    "id": "boon_ifrit_4",
+    "name": "Herald of Ifrit",
+    "branch": "Ifrit",
+    "region": "boon:ifrit",
+    "rarity": "epic",
+    "cost": 12,
+    "evolving": true,
+    "flagRequired": "boon_ifrit",
+    "prereq": [
+      "boon_ifrit_2",
+      "boon_ifrit_3"
+    ],
+    "desc": "Once per long rest, summon Ifrit's blaze: a 30-ft.-radius sphere of flame centered on a point you can see within 120 ft. Creatures in it make a DEX save (DC 8 + prof + spellcasting mod); on fail, 8d6 fire and ongoing 2d6 fire at the start of each of their turns for 1 minute. You and allies you choose are unaffected."
+  },
+  {
+    "id": "boon_ifrit_5",
+    "name": "Vessel of the Spirit Lord",
+    "branch": "Ifrit",
+    "region": "boon:ifrit",
+    "rarity": "legendary",
+    "cost": 45,
+    "evolving": true,
+    "flagRequired": "boon_ifrit",
+    "prereq": [
+      "boon_ifrit_4"
+    ],
+    "desc": "Once per long rest, as an action, briefly manifest Ifrit through yourself for 1 minute: immunity to fire; your melee attacks deal an additional 2d10 fire; at the end of each of your turns, each creature within 15 ft. takes 2d6 fire damage; you may cast Fire Storm once during the duration at no MP cost."
+  },
+  {
+    "id": "patron_chaos_1",
+    "name": "Touched by Chaos",
+    "branch": "Chaos",
+    "region": "patron:chaos",
+    "rarity": "rare",
+    "cost": 6,
+    "evolving": true,
+    "flagRequired": "apostle_chaos",
+    "desc": "The primordial has marked you. At the start of your turn, roll 1d6: on a 6, gain a Chaos Die (d6) which you may add to any roll you make before your next turn starts. You may carry at most prof bonus Chaos Dice; extras are lost. Unused dice fade at end of combat."
+  },
+  {
+    "id": "patron_chaos_2",
+    "name": "Unmaking",
+    "branch": "Chaos",
+    "region": "patron:chaos",
+    "rarity": "rare",
+    "cost": 6,
+    "evolving": true,
+    "flagRequired": "apostle_chaos",
+    "prereq": [
+      "patron_chaos_1"
+    ],
+    "desc": "Spend a Chaos Die as a reaction when a creature within 30 ft. casts a spell or uses an ability with a save. Roll the die; on 4+, their roll is halved (round down). On 1-3, it is doubled instead. Chaos keeps its own counsel."
+  },
+  {
+    "id": "patron_chaos_3",
+    "name": "Fractured Form",
+    "branch": "Chaos",
+    "region": "patron:chaos",
+    "rarity": "epic",
+    "cost": 12,
+    "evolving": true,
+    "flagRequired": "apostle_chaos",
+    "prereq": [
+      "patron_chaos_1"
+    ],
+    "desc": "Your form is no longer wholly stable. As a bonus action, spend 2 Chaos Dice: you become partially out of phase for 1 minute. Attacks against you have disadvantage, and when you are hit, roll d6: on 1, you take no damage; on 6, you take double. All other results, you take normal damage."
+  },
+  {
+    "id": "patron_chaos_4",
+    "name": "Wild Decree",
+    "branch": "Chaos",
+    "region": "patron:chaos",
+    "rarity": "epic",
+    "cost": 12,
+    "evolving": true,
+    "flagRequired": "apostle_chaos",
+    "prereq": [
+      "patron_chaos_2",
+      "patron_chaos_3"
+    ],
+    "desc": "Once per long rest, as an action, declare Wild Decree on a 60-ft.-radius area. For 1 minute, each creature in it (including you) rolls 2d20 and uses the higher for every attack roll, check, and save, but every natural 1 also triggers an additional effect on a d10: 1 take 4d6 force, 2 drop prone, 3 teleport 30 ft. random, 4 polymorph into a rat 1 round, 5 gain 10 temp HP, 6 cast Confusion on self, 7 cantrip triggers, 8-10 nothing happens."
+  },
+  {
+    "id": "patron_chaos_5",
+    "name": "Apostle Ascendant",
+    "branch": "Chaos",
+    "region": "patron:chaos",
+    "rarity": "legendary",
+    "cost": 45,
+    "evolving": true,
+    "flagRequired": "apostle_chaos",
+    "prereq": [
+      "patron_chaos_4"
+    ],
+    "desc": "You are, in moments, Chaos itself. Once per long rest, as an action, enter Chaos Form for 1 minute: fly 60 ft., immunity to psychic damage, your physical form is uncertain (ignore the first instance of damage each round completely), and once per turn you may rewrite one die result of your choice (yours or an enemy's) to any value on its die. The cost is severe: at the end of the duration, roll d6; on 1-2, suffer one level of exhaustion that will not heal until next long rest."
   }
 ]

@@ -22,5 +22,17 @@
     "type": "deed",
     "label": "Survive the Trial of Embers",
     "hint": "Walk into the fire and do not flinch."
+  },
+  {
+    "id": "boon_ifrit",
+    "type": "story",
+    "label": "Blessed by the Spirit Lord Ifrit",
+    "hint": "The Spirit Lord of Flame marks their chosen. The fire never truly burns them again."
+  },
+  {
+    "id": "apostle_chaos",
+    "type": "story",
+    "label": "Became an Apostle of Chaos",
+    "hint": "The primordial accepts few. Those it does are changed forever."
   }
 ]

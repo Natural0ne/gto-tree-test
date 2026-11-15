@@ -1,0 +1,15 @@
+[
+  {
+    "id": "morning_star",
+    "name": "Morning Star",
+    "theme": "Fallen light, the first refusal, the pride that chose its own fall. The Luciferian archetype.",
+    "startingSeals": 4,
+    "maxSeals": 7,
+    "evolution": [
+      { "seals": 4, "name": "Fourth Seal: The Mark", "effects": ["ef_ms_rebellion", "ef_ms_firstlight", "ef_ms_halo"] },
+      { "seals": 5, "name": "Fifth Seal: The Fall", "effects": ["ef_ms_shadowed_wings"] },
+      { "seals": 6, "name": "Sixth Seal: The Court of One", "effects": ["ef_ms_commanding_light"] },
+      { "seals": 7, "name": "Seventh Seal: Morning Star Unbound", "effects": ["ef_ms_final_refusal", "ef_ms_dawnbreaker"] }
+    ]
+  }
+]
