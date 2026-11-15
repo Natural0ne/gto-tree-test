@@ -2012,7 +2012,8 @@ function stateSnapshot(){
     soulName:state.soulName||"", soulSlots:state.soulSlots, soulLibFilter:state.soulLibFilter||{type:"",cat:"",theme:""},
     synergyChoices:state.synergyChoices||{},
     namedSoul:state.namedSoul||null, soulStage:state.soulStage||0,
-    filter:state.filter, tab:activeTab
+    // Never persist 'dm' — it's a per-tab mode set by URL, not a build-level preference.
+    filter:state.filter, tab: (activeTab==='dm' ? 'talents' : activeTab)
   };
 }
 
@@ -2137,7 +2138,8 @@ function loadState(){
     soulLibFilter:o.soulLibFilter||{type:"",cat:"",theme:""},
     synergyChoices:o.synergyChoices||{},
     namedSoul:o.namedSoul||null, soulStage,
-    filter:o.filter||"", tab:o.tab||"talents"
+    // Coerce any stale 'dm' saved tab back to talents — DM mode comes from URL, not saved state.
+    filter:o.filter||"", tab:(o.tab==='dm'?'talents':(o.tab||'talents'))
   };
 }
 
