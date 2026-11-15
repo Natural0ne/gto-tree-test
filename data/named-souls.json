@@ -3,13 +3,15 @@
     "id": "morning_star",
     "name": "Morning Star",
     "theme": "Fallen light, the first refusal, the pride that chose its own fall. The Luciferian archetype.",
-    "startingSeals": 4,
-    "maxSeals": 7,
-    "evolution": [
-      { "seals": 4, "name": "Fourth Seal: The Mark", "effects": ["ef_ms_rebellion", "ef_ms_firstlight", "ef_ms_halo"] },
-      { "seals": 5, "name": "Fifth Seal: The Fall", "effects": ["ef_ms_shadowed_wings"] },
-      { "seals": 6, "name": "Sixth Seal: The Court of One", "effects": ["ef_ms_commanding_light"] },
-      { "seals": 7, "name": "Seventh Seal: Morning Star Unbound", "effects": ["ef_ms_final_refusal", "ef_ms_dawnbreaker"] }
+    "stageUnit": "Seals",
+    "stageUnitPlacement": "before",
+    "startingStage": 0,
+    "stages": [
+      { "value": 4, "name": "Four Seals: The Mark", "desc": "Four seals still bind the Morning Star. Its first gifts are given.", "effects": ["ef_ms_rebellion", "ef_ms_firstlight", "ef_ms_halo"] },
+      { "value": 3, "name": "Three Seals: The First Break", "desc": "The first seal breaks. Something inside begins to answer.", "effects": ["ef_ms_shadowed_wings"] },
+      { "value": 2, "name": "Two Seals: The Falling", "desc": "Half-bound now. The pride beneath the Morning Star makes itself heard.", "effects": ["ef_ms_commanding_light"] },
+      { "value": 1, "name": "One Seal: The Final Threshold", "desc": "Only the last seal remains. Everything within presses against it.", "effects": ["ef_ms_final_refusal"] },
+      { "value": 0, "name": "Zero Seals: Unbound", "desc": "The Morning Star walks free. The sky itself knows the one who bears this soul.", "effects": ["ef_ms_dawnbreaker"] }
     ]
   }
 ]
