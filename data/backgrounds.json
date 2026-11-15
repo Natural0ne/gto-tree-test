@@ -53,6 +53,7 @@
     "id": "monkey_king",
     "name": "Monkey King",
     "legendary": true,
-    "desc": "You are not merely descended from Sun Wukong. You carry his spirit, his mischief, and his refusal to submit. The heavens notice, in time."
+    "desc": "You are not merely descended from Sun Wukong. You carry his spirit, his mischief, and his refusal to submit. The heavens notice, in time.",
+    "requiresFlag": "legendary_monkey_king"
   }
 ]

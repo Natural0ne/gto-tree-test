@@ -46,6 +46,7 @@
   .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
   .tab.soul.active{color:var(--soul);border-bottom-color:var(--soul)}
   .tab.trait.active{color:var(--trait);border-bottom-color:var(--trait)}
+  .tab.build.active{color:#e8a37a;border-bottom-color:#e8a37a}
 
   .pts{display:flex;align-items:baseline;gap:7px;padding:6px 12px;border:1px solid var(--line);border-radius:3px;background:rgba(216,177,90,.06)}
   .pts small{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
@@ -247,6 +248,35 @@
   .libcard .src.flag{color:#b9a6dc;font-style:normal}
   .libcard .req{font-size:10.5px;color:#b9a6dc;margin-top:5px}
   .signflavor{font-size:11px;color:var(--soul);margin:4px 0 8px;padding:5px 8px;background:rgba(122,95,174,.07);border-left:2px solid var(--soul-deep);border-radius:0 4px 4px 0;line-height:1.35}
+  /* Build (owned summary) view */
+  #buildView{position:absolute;inset:0;overflow-y:auto;padding:24px 28px 60px}
+  #buildSheet{max-width:1000px;margin:0 auto}
+  .build-top{display:flex;align-items:flex-start;gap:20px;padding:16px 20px;background:rgba(216,120,90,.06);border:1px solid #7a4a32;border-radius:8px;margin-bottom:18px;flex-wrap:wrap}
+  .build-top h2{margin:0 0 4px;font-size:22px;color:#e8a37a}
+  .build-top .bt-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:4px 14px;font-size:11.5px;color:var(--ink-dim);min-width:300px;flex:1}
+  .build-top .bt-stats b{color:var(--ink);text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;margin-right:6px}
+  .build-top .bt-pts{display:flex;gap:12px;align-self:center}
+  .build-top .bt-pts .box{padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:rgba(0,0,0,.2);text-align:center;min-width:70px}
+  .build-top .bt-pts .box small{display:block;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+  .build-top .bt-pts .box b{display:block;font-size:16px;color:var(--gold)}
+  .build-section{border:1px solid var(--line-dim);border-radius:7px;padding:12px 16px 14px;background:rgba(0,0,0,.15);margin-bottom:14px}
+  .build-section > h3{margin:0 0 10px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line-dim);padding-bottom:7px}
+  .build-section > h3 .count{font-size:9.5px;color:var(--ink-dim);letter-spacing:.1em;font-weight:400}
+  .build-section.empty > h3{color:var(--ink-dim)}
+  .build-section.empty .empty-note{font-size:11.5px;color:var(--ink-dim);font-style:italic;padding:4px 0}
+  .build-group{margin-bottom:10px}
+  .build-group:last-child{margin-bottom:0}
+  .build-group h4{margin:8px 0 6px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);border-bottom:1px dashed var(--line-dim);padding-bottom:3px}
+  .build-item{display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;padding:7px 10px;border-radius:4px;background:rgba(0,0,0,.18);margin-bottom:5px;align-items:start}
+  .build-item .bi-rar{display:flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);min-width:68px;padding-top:2px}
+  .build-item .bi-rar .dot{width:8px;height:8px;border-radius:50%}
+  .build-item .bi-main b{display:block;font-size:13px;color:var(--ink);margin-bottom:2px}
+  .build-item .bi-main span{font-size:11.5px;color:#cfc7b4;line-height:1.4}
+  .build-item .bi-tags{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);text-align:right;padding-top:2px;max-width:140px}
+  .build-item.bypassed{border-left:3px solid #d8b15a;padding-left:7px}
+  .build-item.bypassed .bi-main b::after{content:" (bypass)";color:#d8b15a;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;margin-left:6px}
+  .build-item.rolecore .bi-main b::after{content:" (role core)";color:#e8a37a;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;margin-left:6px}
+  .build-item.named-granted .bi-main b::after{content:attr(data-badge);color:var(--soul);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;margin-left:6px}
   /* Named Soul display */
   .ns-picker{display:flex;flex-direction:column;gap:3px;margin-left:16px;align-self:center}
   .ns-picker small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--soul-deep)}
@@ -346,6 +376,7 @@
   <div class="tabs">
     <button class="tab active" data-tab="talents">Talents</button>
     <button class="tab soul" data-tab="soul">Soul</button>
+    <button class="tab build" data-tab="build">Build</button>
   </div>
   <div class="pts levelpts" id="ptsLevel"><small>Level</small><input id="lvlInput" type="number" min="1" max="100" value="1"/></div>
   <div class="pts rolepts" id="ptsRole"><small>Role</small><select id="roleInput" class="idsel"><option value="">—</option></select><button class="infobtn" id="roleInfo" title="Role details">?</button></div>
@@ -377,7 +408,11 @@
   </div>
 </div>
 
-<!-- TRAIT view -->
+<!-- BUILD view (owned summary) -->
+<div class="view" id="buildView">
+  <div id="buildSheet"></div>
+</div>
+
 <div id="detail"></div>
 
 <div id="reslotModal"></div>
@@ -473,6 +508,29 @@ const effectById={}; SOUL_EFFECTS.forEach(e=>effectById[e.id]=e);
 const roleById={}; ROLES.forEach(r=>roleById[r.id]=r);
 const bgById={}; BACKGROUNDS.forEach(b=>bgById[b.id]=b);
 const classById={}; CLASSES.forEach(c=>classById[c.id]=c);
+
+// Rebuilds the Background dropdown. Legendary heritages with a requiresFlag only show
+// when that flag is active; before then they are invisible, like the boon/patron regions.
+function rebuildBgDropdown(){
+  const bgSel=document.getElementById("bgInput");
+  if(!bgSel) return;
+  const mundane=BACKGROUNDS.filter(b=>!b.legendary);
+  const legendary=BACKGROUNDS.filter(b=>b.legendary && (!b.requiresFlag || state.flags.has(b.requiresFlag)));
+  let bgHTML='<option value="">—</option>';
+  if(mundane.length){
+    bgHTML+='<optgroup label="Backgrounds">';
+    mundane.forEach(b=>bgHTML+=`<option value="${b.id}">${b.name}</option>`);
+    bgHTML+='</optgroup>';
+  }
+  if(legendary.length){
+    bgHTML+='<optgroup label="Legendary Heritage">';
+    legendary.forEach(b=>bgHTML+=`<option value="${b.id}">${b.name}</option>`);
+    bgHTML+='</optgroup>';
+  }
+  bgSel.innerHTML=bgHTML;
+  // If the currently selected background has been un-flagged, keep it selected but it's still allowed.
+  bgSel.value=state.background||"";
+}
 
 function showRoleInfo(anchorEl){
   if(!state.role){
@@ -1233,20 +1291,7 @@ function initRoleBgSelectors(){
   const roleSel=document.getElementById("roleInput");
   const bgSel=document.getElementById("bgInput");
   roleSel.innerHTML='<option value="">—</option>'+ROLES.map(r=>`<option value="${r.id}">${r.name}</option>`).join("");
-  const mundane=BACKGROUNDS.filter(b=>!b.legendary);
-  const legendary=BACKGROUNDS.filter(b=>b.legendary);
-  let bgHTML='<option value="">—</option>';
-  if(mundane.length){
-    bgHTML+='<optgroup label="Backgrounds">';
-    mundane.forEach(b=>bgHTML+=`<option value="${b.id}">${b.name}</option>`);
-    bgHTML+='</optgroup>';
-  }
-  if(legendary.length){
-    bgHTML+='<optgroup label="Legendary Heritage">';
-    legendary.forEach(b=>bgHTML+=`<option value="${b.id}">${b.name}</option>`);
-    bgHTML+='</optgroup>';
-  }
-  bgSel.innerHTML=bgHTML;
+  rebuildBgDropdown();
   roleSel.value=state.role||"";
   bgSel.value=state.background||"";
   // Info popover buttons
@@ -1308,6 +1353,172 @@ function initRoleBgSelectors(){
   });
 }
 
+/* ---------- Build (owned summary) view ----------
+   One-page summary of everything the character currently owns, grouped by region family.
+   Shows role, background, level, class purchases, feats, boons, patrons, heritage, soul, etc.
+*/
+function renderBuild(){
+  const out=[];
+  const level=state.level||1;
+  const roleObj=state.role?roleById[state.role]:null;
+  const bgObj=state.background?bgById[state.background]:null;
+  const role=roleObj?roleObj.name:"— (not chosen)";
+  const bg=bgObj?bgObj.name:"— (not chosen)";
+  const unlockedCount=state.talentUnlocked.size;
+  const bypassedCount=state.bypassed.size;
+
+  // Top summary header
+  out.push(`<div class="build-top">
+    <div class="bt-stats">
+      <div><b>Level</b> ${level}</div>
+      <div><b>Role</b> ${role}</div>
+      <div><b>Background</b> ${bg}</div>
+      <div><b>Talents owned</b> ${unlockedCount}</div>
+      <div><b>Bypasses</b> ${bypassedCount}</div>
+      <div><b>Hit die</b> ${roleObj?('d'+roleObj.hitDie):'—'}</div>
+      <div><b>Saves</b> ${roleObj?((roleObj.saves||[]).join(", ")):'—'}</div>
+      <div><b>Role name</b> ${role}</div>
+    </div>
+    <div class="bt-pts">
+      <div class="box"><small>TP left</small><b>${state.tp}</b></div>
+      <div class="box"><small>SP left</small><b>${state.sp}</b></div>
+    </div>
+  </div>`);
+
+  // Collect owned talent/heritage/class/boon/patron nodes.
+  const ownedIds=new Set(state.talentUnlocked);
+  const bypassedIds=new Set(state.bypassed);
+  const roleCoreIds=new Set(
+    TALENT_NODES.filter(n=>n.roleCore && state.role && n.region===`role:${state.role}` && (state.level||1)>=(n.levelReq||0)).map(n=>n.id)
+  );
+
+  function nodeItem(n, extraClass){
+    const c=rarColor(n.rarity);
+    const tags=[];
+    if(n.evolving) tags.push("evolving");
+    const tagStr=tags.length?tags.join(" · "):"";
+    return `<div class="build-item ${extraClass||""}">
+      <div class="bi-rar"><span class="dot" style="background:${c}"></span>${n.rarity}</div>
+      <div class="bi-main"><b>${n.name}</b><span>${n.desc||""}</span></div>
+      <div class="bi-tags">${tagStr}</div>
+    </div>`;
+  }
+
+  // Section builder
+  function section(label, items, opts){
+    opts=opts||{};
+    if(!items.length){
+      if(opts.hideWhenEmpty) return "";
+      return `<div class="build-section empty"><h3>${label} <span class="count">0</span></h3><div class="empty-note">${opts.emptyNote||"Nothing here yet."}</div></div>`;
+    }
+    const body=items.map(i=>typeof i==='string'?i:nodeItem(i.node, i.cls)).join("");
+    return `<div class="build-section"><h3>${label} <span class="count">${items.length}</span></h3>${body}</div>`;
+  }
+
+  // Role core section
+  if(state.role){
+    const coreNodes=TALENT_NODES.filter(n=>n.roleCore && n.region===`role:${state.role}`).sort((a,c)=>(a.levelReq||0)-(c.levelReq||0));
+    const coreItems=coreNodes.map(n=>{
+      const earned=(state.level||1)>=(n.levelReq||0);
+      return `<div class="build-item ${earned?'rolecore':''}" style="${earned?'':'opacity:.5'}">
+        <div class="bi-rar">GTO ${n.levelReq||1}</div>
+        <div class="bi-main"><b>${n.name}</b><span>${n.desc||""}</span></div>
+        <div class="bi-tags">${earned?"":"not yet granted"}</div>
+      </div>`;
+    });
+    out.push(section("Role Core", coreItems, { emptyNote:"Pick a role to see its chassis features." }));
+  } else {
+    out.push(section("Role Core", [], { emptyNote:"No role chosen — your character has no chassis yet." }));
+  }
+
+  // Class purchases, grouped per class
+  const classRegions=[...new Set(TALENT_NODES.filter(n=>n.region && n.region.startsWith("class:")).map(n=>n.region))];
+  const classGroups=[];
+  classRegions.forEach(reg=>{
+    const classId=reg.split(":")[1];
+    const classObj=classById[classId];
+    const nodes=TALENT_NODES.filter(n=>n.region===reg && (ownedIds.has(n.id) || bypassedIds.has(n.id)));
+    if(!nodes.length) return;
+    const items=nodes.map(n=>({node:n, cls:bypassedIds.has(n.id)?"bypassed":""}));
+    classGroups.push(`<div class="build-group"><h4>${classObj?classObj.name:classId}</h4>${items.map(i=>nodeItem(i.node, i.cls)).join("")}</div>`);
+  });
+  if(classGroups.length){
+    out.push(`<div class="build-section"><h3>Classes <span class="count">${classGroups.length} class${classGroups.length===1?'':'es'}</span></h3>${classGroups.join("")}</div>`);
+  } else {
+    out.push(section("Classes", [], { emptyNote:"No class features purchased yet." }));
+  }
+
+  // Heritage
+  const heritageNodes=TALENT_NODES.filter(n=>n.region && n.region.startsWith("heritage:") && (ownedIds.has(n.id)||bypassedIds.has(n.id)));
+  const heritageItems=heritageNodes.map(n=>({node:n, cls:bypassedIds.has(n.id)?"bypassed":""}));
+  out.push(section(bgObj?`Heritage — ${bgObj.name}`:"Heritage", heritageItems.map(i=>nodeItem(i.node, i.cls)), { emptyNote: state.background ? "Buy heritage tiers on the Talents tab to deepen your background." : "No background chosen." }));
+
+  // Boons (only show section if any owned)
+  const boonNodes=TALENT_NODES.filter(n=>n.region && n.region.startsWith("boon:") && (ownedIds.has(n.id)||bypassedIds.has(n.id)));
+  if(boonNodes.length){
+    out.push(section("Boons", boonNodes.map(n=>nodeItem(n, bypassedIds.has(n.id)?"bypassed":""))));
+  }
+
+  // Patrons
+  const patronNodes=TALENT_NODES.filter(n=>n.region && n.region.startsWith("patron:") && (ownedIds.has(n.id)||bypassedIds.has(n.id)));
+  if(patronNodes.length){
+    out.push(section("Patrons", patronNodes.map(n=>nodeItem(n, bypassedIds.has(n.id)?"bypassed":""))));
+  }
+
+  // Feats
+  const featNodes=TALENT_NODES.filter(n=>n.region==="feats" && (ownedIds.has(n.id)||bypassedIds.has(n.id)));
+  if(featNodes.length){
+    out.push(section("Feats", featNodes.map(n=>nodeItem(n, bypassedIds.has(n.id)?"bypassed":""))));
+  }
+
+  // General (everything else)
+  const generalNodes=TALENT_NODES.filter(n=>n.region==="general" && (ownedIds.has(n.id)||bypassedIds.has(n.id)));
+  if(generalNodes.length){
+    out.push(section("General", generalNodes.map(n=>nodeItem(n, bypassedIds.has(n.id)?"bypassed":""))));
+  }
+
+  // Soul section
+  if(state.namedSoul){
+    const ns=(NAMED_SOULS||[]).find(s=>s.id===state.namedSoul);
+    if(ns){
+      const seals=state.seals||ns.startingSeals||1;
+      const grantedIds=[];
+      (ns.evolution||[]).forEach(evo=>{
+        if(evo.seals<=seals) (evo.effects||[]).forEach(eid=>grantedIds.push({eid, sealEarned:evo.seals}));
+      });
+      const soulItems=grantedIds.map(({eid, sealEarned})=>{
+        const e=effectById[eid];
+        if(!e) return "";
+        const c=rarColor(e.rarity);
+        return `<div class="build-item named-granted" data-badge="Seal ${sealEarned}">
+          <div class="bi-rar"><span class="dot" style="background:${c}"></span>${e.rarity}</div>
+          <div class="bi-main"><b>${e.name}</b><span>${e.desc}</span></div>
+          <div class="bi-tags">${e.type}</div>
+        </div>`;
+      });
+      out.push(`<div class="build-section"><h3>Soul — ${ns.name} (${seals} / ${ns.maxSeals} seals) <span class="count">${soulItems.length} granted</span></h3>${soulItems.join("")}</div>`);
+    }
+  } else {
+    const slotted=[...state.soulSlots.passive, ...state.soulSlots.active, ...state.soulSlots.sign];
+    const soulItems=slotted.map(eid=>{
+      const e=effectById[eid]; if(!e) return "";
+      const c=rarColor(e.rarity);
+      return `<div class="build-item">
+        <div class="bi-rar"><span class="dot" style="background:${c}"></span>${e.rarity}</div>
+        <div class="bi-main"><b>${e.name}</b><span>${e.desc}</span></div>
+        <div class="bi-tags">${e.type}</div>
+      </div>`;
+    });
+    if(soulItems.length){
+      out.push(`<div class="build-section"><h3>Soul ${state.soulName?('— '+state.soulName):''} <span class="count">${soulItems.length} slotted</span></h3>${soulItems.join("")}</div>`);
+    } else {
+      out.push(section("Soul", [], { emptyNote: "No effects slotted." }));
+    }
+  }
+
+  document.getElementById("buildSheet").innerHTML=out.join("");
+}
+
 /* ---------- tabs ---------- */
 let activeTab="talents";
 const subbar=document.getElementById("subbar");
@@ -1316,14 +1527,17 @@ function setTab(tab){
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
   document.getElementById("talentView").classList.toggle("active",tab==="talents");
   document.getElementById("soulView").classList.toggle("active",tab==="soul");
+  document.getElementById("buildView").classList.toggle("active",tab==="build");
   document.getElementById("ptsTalent").style.display=tab==="talents"?"":"none";
   document.getElementById("ptsSoul").style.display=tab==="soul"?"":"none";
-  document.getElementById("zoomBox").style.display="";
-  document.getElementById("hint").style.display="";
+  const treeOnly=(tab==="talents");
+  document.getElementById("zoomBox").style.display=treeOnly?"":"none";
+  document.getElementById("hint").style.display=treeOnly?"":"none";
   buildSubbar();
   closeDetail();
   if(tab==="talents"){ talentTree.render(); }
   if(tab==="soul"){ renderSoul(); }
+  if(tab==="build"){ renderBuild(); }
   saveState();
 }
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setTab(t.dataset.tab));
@@ -1394,7 +1608,7 @@ const dmPanel=document.getElementById("dmPanel"), flagList=document.getElementBy
 function buildFlagPanel(){
   if(!FLAGS.length){flagList.innerHTML=`<p class="note">No story flags defined.</p>`;return;}
   flagList.innerHTML=FLAGS.map(f=>{const on=state.flags.has(f.id);return `<label class="flag ${on?'on':''}" data-fid="${f.id}"><input type="checkbox" ${on?'checked':''}/><span><span class="ft">${f.type||'flag'}</span><span class="fl">${f.label}</span>${f.hint?`<span class="fh">${f.hint}</span>`:''}</span></label>`;}).join("");
-  flagList.querySelectorAll(".flag").forEach(el=>{el.querySelector("input").onchange=e=>{const fid=el.dataset.fid;if(e.target.checked)state.flags.add(fid);else state.flags.delete(fid);buildFlagPanel();buildSubbar();talentTree.render();if(activeTab==="soul")renderSoul();saveState();};});
+  flagList.querySelectorAll(".flag").forEach(el=>{el.querySelector("input").onchange=e=>{const fid=el.dataset.fid;if(e.target.checked)state.flags.add(fid);else state.flags.delete(fid);buildFlagPanel();buildSubbar();rebuildBgDropdown();talentTree.render();if(activeTab==="soul")renderSoul();saveState();};});
 }
 document.getElementById("btnDM").onclick=()=>{buildFlagPanel();dmPanel.classList.add("open")};
 document.getElementById("dmClose").onclick=()=>dmPanel.classList.remove("open");

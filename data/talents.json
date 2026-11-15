@@ -3964,7 +3964,8 @@
     "rarity": "uncommon",
     "cost": 0,
     "evolving": true,
-    "desc": "You carry the spark of the Monkey King. Your climbing speed equals your walking speed and does not require a check. You have advantage on checks involving mischief, trickery, or escape. You can speak with primates."
+    "desc": "You carry the spark of the Monkey King. Your climbing speed equals your walking speed and does not require a check. You have advantage on checks involving mischief, trickery, or escape. You can speak with primates.",
+    "flagRequired": "legendary_monkey_king"
   },
   {
     "id": "bg_monkey_king_2",
@@ -3977,7 +3978,8 @@
     "prereq": [
       "bg_monkey_king_1"
     ],
-    "desc": "You can assume minor transformations as an action: become a fly, a mouse, a cloud of mist, or another small shape. The form grants its natural movement but no combat capabilities. Lasts 10 minutes. Uses equal to your prof bonus per long rest."
+    "desc": "You can assume minor transformations as an action: become a fly, a mouse, a cloud of mist, or another small shape. The form grants its natural movement but no combat capabilities. Lasts 10 minutes. Uses equal to your prof bonus per long rest.",
+    "flagRequired": "legendary_monkey_king"
   },
   {
     "id": "bg_monkey_king_3",
@@ -3990,7 +3992,8 @@
     "prereq": [
       "bg_monkey_king_2"
     ],
-    "desc": "You carry (or can summon from nothing) a staff that counts as a magical martial weapon (1d10 bludgeoning, versatile 1d12). As a bonus action, change its size: tiny (fits behind the ear), normal, or massive (becomes a reach weapon dealing 2d10, requires two hands)."
+    "desc": "You carry (or can summon from nothing) a staff that counts as a magical martial weapon (1d10 bludgeoning, versatile 1d12). As a bonus action, change its size: tiny (fits behind the ear), normal, or massive (becomes a reach weapon dealing 2d10, requires two hands).",
+    "flagRequired": "legendary_monkey_king"
   },
   {
     "id": "bg_monkey_king_4",
@@ -4003,7 +4006,8 @@
     "prereq": [
       "bg_monkey_king_3"
     ],
-    "desc": "Once per short rest, as an action, call a cloud that carries you up to 108,000 ft. (about 20 miles) in a direction of your choice. In combat, this grants a 60 ft. fly speed for 1 minute instead."
+    "desc": "Once per short rest, as an action, call a cloud that carries you up to 108,000 ft. (about 20 miles) in a direction of your choice. In combat, this grants a 60 ft. fly speed for 1 minute instead.",
+    "flagRequired": "legendary_monkey_king"
   },
   {
     "id": "bg_monkey_king_5",
@@ -4016,7 +4020,8 @@
     "prereq": [
       "bg_monkey_king_4"
     ],
-    "desc": "You are recognized by the heavens. Immunity to the frightened condition. Resistance to necrotic and poison damage. Your Ruyi Jingu Bang's normal form deals 2d10 (versatile 2d12). Once per long rest, as an action, pull a hair from your head and multiply: create 1d4 + CHA mod duplicates of yourself (each 1 HP, your stats but half HP max). They act on your initiative for 1 minute or until destroyed."
+    "desc": "You are recognized by the heavens. Immunity to the frightened condition. Resistance to necrotic and poison damage. Your Ruyi Jingu Bang's normal form deals 2d10 (versatile 2d12). Once per long rest, as an action, pull a hair from your head and multiply: create 1d4 + CHA mod duplicates of yourself (each 1 HP, your stats but half HP max). They act on your initiative for 1 minute or until destroyed.",
+    "flagRequired": "legendary_monkey_king"
   },
   {
     "id": "boon_ifrit_1",

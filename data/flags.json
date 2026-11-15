@@ -34,5 +34,11 @@
     "type": "story",
     "label": "Became an Apostle of Chaos",
     "hint": "The primordial accepts few. Those it does are changed forever."
+  },
+  {
+    "id": "legendary_monkey_king",
+    "type": "story",
+    "label": "Reveal: Spirit of the Monkey King",
+    "hint": "The Great Sage's spirit chooses few. When it does, they know."
   }
 ]
