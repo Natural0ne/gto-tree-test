@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=4" />
 <title>Grand Terra Online — Talent · Soul · Trait</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
 <style>
   /* ============================================================
      GRAND TERRA ONLINE — TALENT / SOUL / TRAIT BUILDER
@@ -35,7 +36,8 @@
 
   header{position:fixed;top:0;left:0;right:0;height:64px;z-index:20;display:flex;align-items:center;gap:14px;padding:0 22px;
     background:linear-gradient(180deg, rgba(13,11,20,.96), rgba(13,11,20,.7));border-bottom:1px solid var(--line-dim);backdrop-filter:blur(6px)}
-  .brand{display:flex;flex-direction:column;line-height:1.05}
+  .brand{display:flex;flex-direction:column;line-height:1.05;flex-shrink:0}
+  .brand b,.brand span{white-space:nowrap}
   .brand b{font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-family:"Trajan Pro","Iowan Old Style",Georgia,serif}
   .brand span{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-dim)}
 
@@ -65,7 +67,7 @@
   .pts .sp b{color:var(--gold);font-weight:700}
   .pts.soulpts .sp b{color:var(--soul)} .pts.traitpts .sp b{color:var(--trait)}
   .spacer{flex:1}
-  button.tool{font:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:8px 11px;border-radius:3px;cursor:pointer;transition:.15s}
+  button.tool{font:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:8px 11px;border-radius:3px;cursor:pointer;transition:.15s;white-space:nowrap}
   button.tool:hover{border-color:var(--gold);color:var(--gold)}
   button.tool.danger:hover{border-color:var(--r-mythical);color:var(--r-mythical)}
   button.tool.dm{border-color:#5a4a7a;color:#b9a6dc}
@@ -383,6 +385,59 @@
   .zoom button{width:38px;height:38px;font-size:18px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
   .zoom button:hover{border-color:var(--gold);color:var(--gold)}
   #fileIn{display:none}
+
+  /* cloud status button */
+  button.tool.cloud{border-color:#3a5078;color:#8ccfc7}
+  button.tool.cloud:hover{border-color:#8ccfc7;color:#cdeeea}
+  button.tool.cloud.offline{border-color:#4a3a2a;color:#9b927f}
+  button.tool.cloud.syncing{border-color:#5a6a8a;color:#9bb3cc}
+  button.tool.cloud.error{border-color:#8a3a3a;color:#d8706a}
+  button.tool.cloud .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:7px;vertical-align:middle;opacity:.9}
+
+  /* cloud settings panel */
+  #cloudPanel{position:fixed;top:72px;right:22px;width:360px;max-width:calc(100vw - 44px);z-index:30;background:linear-gradient(180deg,var(--bg2),var(--panel));border:1px solid var(--line);border-radius:7px;padding:18px 20px 20px;box-shadow:0 20px 50px rgba(0,0,0,.55);display:none}
+  #cloudPanel.open{display:block}
+  #cloudPanel h3{margin:0 0 14px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-family:"Trajan Pro","Iowan Old Style",Georgia,serif}
+  #cloudPanel .row{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+  #cloudPanel label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
+  #cloudPanel input{font:inherit;font-size:14px;background:transparent;border:none;color:var(--ink);padding:5px 0;border-bottom:1px solid var(--line);outline:none;letter-spacing:.08em}
+  #cloudPanel input:focus{border-bottom-color:var(--gold)}
+  #cloudPanel .btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+  #cloudPanel .btnrow button{font:inherit;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:7px 10px;border-radius:3px;cursor:pointer}
+  #cloudPanel .btnrow button:hover{border-color:var(--gold);color:var(--gold)}
+  #cloudPanel .btnrow button.primary{border-color:var(--gold);color:var(--gold);background:rgba(216,177,90,.08)}
+  #cloudPanel .btnrow button.primary:hover{background:rgba(216,177,90,.16)}
+  #cloudPanel .status{font-size:11px;color:var(--ink-dim);margin-top:10px;padding-top:10px;border-top:1px solid var(--line-dim);line-height:1.5}
+  #cloudPanel .status b{color:var(--ink)}
+  #cloudPanel .status.ok b{color:#8ccfc7}
+  #cloudPanel .status.err b{color:#d8706a}
+  #cloudPanel .sharelink{font-size:11px;color:var(--ink-dim);word-break:break-all;margin-top:8px;padding:8px 10px;background:rgba(0,0,0,.25);border:1px dashed var(--line-dim);border-radius:3px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  #cloudPanel .closeX{position:absolute;top:8px;right:10px;background:transparent;border:none;color:var(--ink-dim);font-size:22px;cursor:pointer;line-height:1}
+  #cloudPanel .closeX:hover{color:var(--ink)}
+  #cloudPanel .note{font-size:11px;color:var(--ink-dim);line-height:1.5;margin:0 0 12px}
+
+  /* DM tab styling */
+  .tab.dm{display:none}
+  .tab.dm.visible{display:inline-block}
+  .tab.dm.active{color:#b9a6dc;border-bottom-color:#b9a6dc}
+  #dmView{overflow-y:auto;padding:24px 28px 60px}
+  #dmRoster{max-width:1000px;margin:0 auto}
+  #dmRoster .dmhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line-dim);padding-bottom:14px;margin-bottom:22px}
+  #dmRoster .dmhead h2{margin:0;font-size:16px;letter-spacing:.2em;text-transform:uppercase;color:#b9a6dc;font-family:"Trajan Pro","Iowan Old Style",Georgia,serif}
+  #dmRoster .dmhead .code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--gold);letter-spacing:.14em;font-size:14px}
+  #dmRoster .dmhead .count{font-size:11px;color:var(--ink-dim);letter-spacing:.14em;text-transform:uppercase;margin-left:auto}
+  #dmRoster .dmhead button{font:inherit;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:7px 10px;border-radius:3px;cursor:pointer}
+  #dmRoster .dmhead button:hover{border-color:var(--gold);color:var(--gold)}
+  #dmRoster .buildcard{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-bottom:14px}
+  #dmRoster .buildcard .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  #dmRoster .buildcard .nm{font-size:15px;color:var(--gold);font-weight:600}
+  #dmRoster .buildcard .scode{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink-dim);letter-spacing:.14em}
+  #dmRoster .buildcard .meta{font-size:12px;color:var(--ink-dim);display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+  #dmRoster .buildcard .meta b{color:var(--ink)}
+  #dmRoster .buildcard .actions{display:flex;gap:7px;flex-wrap:wrap}
+  #dmRoster .buildcard .actions button,#dmRoster .buildcard .actions a{font:inherit;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:6px 10px;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-block}
+  #dmRoster .buildcard .actions button:hover,#dmRoster .buildcard .actions a:hover{border-color:var(--gold);color:var(--gold)}
+  #dmRoster .empty{color:var(--ink-dim);font-style:italic;text-align:center;padding:40px 20px}
 </style>
 </head>
 <body>
@@ -393,6 +448,7 @@
     <button class="tab active" data-tab="talents">Talents</button>
     <button class="tab soul" data-tab="soul">Soul</button>
     <button class="tab build" data-tab="build">Build</button>
+    <button class="tab dm" data-tab="dm" id="tabDM">DM</button>
   </div>
   <div class="pts levelpts" id="ptsLevel"><small>Level</small><input id="lvlInput" type="number" min="1" max="100" value="1"/></div>
   <div class="pts rolepts" id="ptsRole"><small>Role</small><select id="roleInput" class="idsel"><option value="">—</option></select><button class="infobtn" id="roleInfo" title="Role details">?</button></div>
@@ -400,12 +456,39 @@
   <div class="pts" id="ptsTalent"><small>Talent&nbsp;Pts</small><input id="tpInput" type="number" min="0" value="20"/><span class="sp" id="tpSpent">0 spent</span></div>
   <div class="pts soulpts" id="ptsSoul" style="display:none"><small>Soul&nbsp;Pts</small><input id="spInput" type="number" min="0" value="10"/><span class="sp" id="spSpent">0 spent</span></div>
   <div class="spacer"></div>
+  <button class="tool cloud offline" id="btnCloud" title="Cloud sync"><span class="dot"></span>Local</button>
   <button class="tool dm" id="btnDM">DM &middot; Flags</button>
   <button class="tool" id="btnExport">Export</button>
   <button class="tool" id="btnImport">Import</button>
   <button class="tool danger" id="btnReset">Reset</button>
   <input type="file" id="fileIn" accept=".json,application/json"/>
 </header>
+
+<!-- CLOUD sync panel -->
+<div id="cloudPanel">
+  <button class="closeX" id="cloudClose">&times;</button>
+  <h3>Cloud Sync</h3>
+  <p class="note">Enter the campaign code your DM gave you. Share your build code with the party so it saves across devices. Leave the build code blank to generate a new one.</p>
+  <div class="row">
+    <label for="cloudCampaignIn">Campaign Code</label>
+    <input id="cloudCampaignIn" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. DRAGON" maxlength="24"/>
+  </div>
+  <div class="row">
+    <label for="cloudBuildIn">Build Code <span style="color:var(--ink-dim);text-transform:none;letter-spacing:0;font-size:9px">(leave blank to generate)</span></label>
+    <input id="cloudBuildIn" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. ELMER" maxlength="24"/>
+  </div>
+  <div class="row">
+    <label for="cloudNameIn">Build Name (shown to your DM)</label>
+    <input id="cloudNameIn" type="text" autocomplete="off" placeholder="e.g. Kael the Monk" maxlength="80"/>
+  </div>
+  <div class="btnrow">
+    <button class="primary" id="cloudConnect">Connect</button>
+    <button id="cloudDisconnect">Disconnect</button>
+    <button id="cloudCopyLink">Copy Share Link</button>
+  </div>
+  <div class="status" id="cloudStatus"><b>Not connected.</b></div>
+  <div class="sharelink" id="cloudShareLink" style="display:none"></div>
+</div>
 
 <div class="subbar" id="subbar"></div>
 
@@ -427,6 +510,11 @@
 <!-- BUILD view (owned summary) -->
 <div class="view" id="buildView">
   <div id="buildSheet"></div>
+</div>
+
+<!-- DM view (campaign roster, DM-only) -->
+<div class="view" id="dmView">
+  <div id="dmRoster"></div>
 </div>
 
 <div id="detail"></div>
@@ -462,6 +550,51 @@
 })();
 
 let FLAGS, TALENT_NODES, SOUL_CATEGORIES, SOUL_THEMES, SOUL_EFFECTS, SOUL_SYNERGIES, SOUL_SLOT_AUTO, SOUL_SLOT_FLAGS, ROLES, BACKGROUNDS, CLASSES, NAMED_SOULS;
+
+// Cloud sync globals. These are set during bootData and consumed in runApp.
+let APP_CONFIG = null;        // config.json contents, or null if absent
+let SUPA = null;              // Supabase client, or null in local-only mode
+let BOOT_QUERY = null;        // parsed URL query {dm, c, b}
+let BOOT_BUILD = null;        // { campaignId, campaignCode, buildRowId, buildCode, buildName, data } if pulled during boot
+let BOOT_DM = null;           // { campaignId, campaignCode } if DM mode
+
+async function fetchConfig(){
+  try{
+    const r=await fetch('config.json',{cache:'no-cache'});
+    if(!r.ok) return null;
+    return await r.json();
+  }catch(e){ return null; }
+}
+
+function parseBootQuery(){
+  try{
+    const u=new URL(location.href);
+    return {
+      dm: (u.searchParams.get('dm')||'').trim().toUpperCase() || null,
+      c:  (u.searchParams.get('c') ||'').trim().toUpperCase() || null,
+      b:  (u.searchParams.get('b') ||'').trim().toUpperCase() || null,
+    };
+  }catch(e){ return {dm:null,c:null,b:null}; }
+}
+
+async function waitForSupabaseLib(timeoutMs){
+  const t0=Date.now();
+  while(!window.supabase && Date.now()-t0<timeoutMs){
+    await new Promise(r=>setTimeout(r,40));
+  }
+  return !!window.supabase;
+}
+
+async function initSupabaseClient(cfg){
+  if(!cfg||!cfg.supabase||!cfg.supabase.url||!cfg.supabase.anonKey) return null;
+  const ok=await waitForSupabaseLib(5000);
+  if(!ok){ console.warn('Supabase JS library did not load in time.'); return null; }
+  try{
+    return window.supabase.createClient(cfg.supabase.url, cfg.supabase.anonKey, {
+      auth:{persistSession:false, autoRefreshToken:false}
+    });
+  }catch(e){ console.error('Supabase init failed',e); return null; }
+}
 
 async function bootData(){
   const files=[
@@ -502,6 +635,54 @@ async function bootData(){
   BACKGROUNDS=results.BACKGROUNDS;
   CLASSES=results.CLASSES;
   NAMED_SOULS=results.NAMED_SOULS;
+
+  // Cloud phase: config, Supabase client, URL query, and pre-fetch of share-linked builds.
+  if(bootMsg) bootMsg.textContent='preparing cloud sync...';
+  BOOT_QUERY = parseBootQuery();
+  APP_CONFIG = await fetchConfig();
+  SUPA = await initSupabaseClient(APP_CONFIG);
+
+  // Determine which campaign/build codes to try at boot time.
+  // Priority: URL query > localStorage saved codes.
+  let savedCodes=null;
+  try{ const raw=localStorage.getItem('gto_cloudcodes'); if(raw) savedCodes=JSON.parse(raw); }catch(e){}
+  const campaignCode = BOOT_QUERY.dm || BOOT_QUERY.c || (savedCodes && savedCodes.campaignCode) || null;
+  const buildCode    = BOOT_QUERY.b  ||                 (savedCodes && savedCodes.buildCode)    || null;
+  const buildName    =                                   (savedCodes && savedCodes.buildName)    || '';
+
+  if(SUPA && campaignCode){
+    try{
+      if(bootMsg) bootMsg.textContent='finding campaign...';
+      // Look up campaign (don't create yet — creation happens on explicit Connect).
+      const {data:camp} = await SUPA.from('campaigns').select('*').eq('code', campaignCode).maybeSingle();
+      if(camp){
+        if(BOOT_QUERY.dm){
+          BOOT_DM = {campaignId:camp.id, campaignCode:camp.code};
+        }
+        if(buildCode){
+          if(bootMsg) bootMsg.textContent='loading build...';
+          const {data:bld} = await SUPA.from('builds').select('*').eq('share_code', buildCode).maybeSingle();
+          if(bld){
+            BOOT_BUILD = {
+              campaignId:camp.id, campaignCode:camp.code,
+              buildRowId:bld.id, buildCode:bld.share_code,
+              buildName:bld.name||'', data:bld.data||null
+            };
+          } else {
+            // Build code was given but no row exists. We'll offer to create on Connect.
+            BOOT_BUILD = {
+              campaignId:camp.id, campaignCode:camp.code,
+              buildRowId:null, buildCode:buildCode,
+              buildName:buildName, data:null, pendingCreate:true
+            };
+          }
+        }
+      }
+    }catch(e){
+      console.error('Cloud pre-fetch failed', e);
+    }
+  }
+
   // Remove loading screen
   const loader=document.getElementById('bootLoader');
   if(loader)loader.remove();
@@ -1590,6 +1771,111 @@ function renderBuild(){
   document.getElementById("buildSheet").innerHTML=out.join("");
 }
 
+/* ---------- DM roster ---------- */
+function dmBuildSummaryHTML(bld){
+  const d=bld.data||{};
+  const level=d.level||1;
+  const roleName=d.role && roleById[d.role]?roleById[d.role].name:'—';
+  const bgName=d.background && bgById[d.background]?bgById[d.background].name:'—';
+  // Identify classes from talentUnlocked region prefixes "class:<id>:..."
+  const unlocked=new Set(d.talentUnlocked||[]);
+  const classIds=new Set();
+  (TALENT_NODES||[]).forEach(n=>{
+    if(!n.region) return;
+    if(!n.region.startsWith('class:')) return;
+    if(!unlocked.has(n.id)) return;
+    const parts=n.region.split(':');
+    if(parts[1]) classIds.add(parts[1]);
+  });
+  const classNames=[...classIds].map(cid=>classById[cid]?classById[cid].name:cid).join(', ')||'—';
+  const flagCount=(d.flags||[]).length;
+  const talentCount=(d.talentUnlocked||[]).length;
+  const soulCount=((d.soulSlots&&d.soulSlots.passive)||[]).length
+                 +((d.soulSlots&&d.soulSlots.active)||[]).length
+                 +((d.soulSlots&&d.soulSlots.sign)||[]).length;
+  let soulLabel='None';
+  if(d.namedSoul){
+    const ns=(NAMED_SOULS||[]).find(x=>x.id===d.namedSoul);
+    soulLabel=ns?ns.name:d.namedSoul;
+  } else if(d.soulName){ soulLabel=d.soulName; }
+  const when=bld.updated_at?new Date(bld.updated_at):null;
+  const whenStr=when?when.toLocaleString():'—';
+  return `
+    <div class="top">
+      <div class="nm">${escapeHtml(bld.name||'(unnamed)')}</div>
+      <div class="scode">${escapeHtml(bld.share_code||'')}</div>
+    </div>
+    <div class="meta">
+      <span>Level <b>${level}</b></span>
+      <span>Role <b>${escapeHtml(roleName)}</b></span>
+      <span>Heritage <b>${escapeHtml(bgName)}</b></span>
+      <span>Class <b>${escapeHtml(classNames)}</b></span>
+      <span>Talents <b>${talentCount}</b></span>
+      <span>Soul <b>${escapeHtml(soulLabel)}</b> (${soulCount})</span>
+      <span>Flags <b>${flagCount}</b></span>
+      <span>Updated <b>${escapeHtml(whenStr)}</b></span>
+    </div>`;
+}
+
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+
+async function renderDM(){
+  const el=document.getElementById('dmRoster');
+  if(!CLOUD.dmMode || !CLOUD.dmCampaignCode){
+    el.innerHTML=`<div class="empty">DM mode isn't active. Add <code>?dm=&lt;campaign_code&gt;</code> to the URL to see the roster for a campaign.</div>`;
+    return;
+  }
+  el.innerHTML=`<div class="dmhead">
+      <h2>Campaign Roster</h2>
+      <span class="code">${escapeHtml(CLOUD.dmCampaignCode)}</span>
+      <span class="count" id="dmCount">loading…</span>
+      <button id="dmRefresh">Refresh</button>
+    </div>
+    <div id="dmList"><div class="empty">Loading builds…</div></div>`;
+  document.getElementById('dmRefresh').onclick=()=>renderDM();
+  if(!SUPA){
+    document.getElementById('dmList').innerHTML=`<div class="empty">Cloud sync is not configured. Add <code>config.json</code> to use DM mode.</div>`;
+    document.getElementById('dmCount').textContent='';
+    return;
+  }
+  let builds=[];
+  try{
+    if(!CLOUD.dmCampaignId){
+      const camp=await cloudEnsureCampaign(CLOUD.dmCampaignCode).catch(()=>null);
+      if(camp){ CLOUD.dmCampaignId=camp.id; }
+    }
+    if(CLOUD.dmCampaignId){ builds=await cloudListCampaignBuilds(CLOUD.dmCampaignId); }
+  }catch(e){
+    document.getElementById('dmList').innerHTML=`<div class="empty">Error loading roster: ${escapeHtml(e.message||e)}</div>`;
+    document.getElementById('dmCount').textContent='';
+    return;
+  }
+  const countEl=document.getElementById('dmCount');
+  if(countEl) countEl.textContent=builds.length+' build'+(builds.length===1?'':'s');
+  if(!builds.length){
+    document.getElementById('dmList').innerHTML=`<div class="empty">No builds yet in this campaign. Players who connect with this campaign code will appear here.</div>`;
+    return;
+  }
+  const base=location.origin+location.pathname;
+  document.getElementById('dmList').innerHTML=builds.map(b=>{
+    const link=base+'?c='+encodeURIComponent(CLOUD.dmCampaignCode)+'&b='+encodeURIComponent(b.share_code||'');
+    return `<div class="buildcard">
+      ${dmBuildSummaryHTML(b)}
+      <div class="actions">
+        <a href="${link}" target="_blank" rel="noopener">Open in new tab</a>
+        <button data-copy="${escapeHtml(link)}">Copy link</button>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('dmList').querySelectorAll('button[data-copy]').forEach(btn=>{
+    btn.onclick=async ()=>{
+      const link=btn.getAttribute('data-copy')||'';
+      try{ await navigator.clipboard.writeText(link); btn.textContent='Copied'; setTimeout(()=>btn.textContent='Copy link', 1200); }
+      catch(e){ alert('Link: '+link); }
+    };
+  });
+}
+
 /* ---------- tabs ---------- */
 let activeTab="talents";
 const subbar=document.getElementById("subbar");
@@ -1599,6 +1885,7 @@ function setTab(tab){
   document.getElementById("talentView").classList.toggle("active",tab==="talents");
   document.getElementById("soulView").classList.toggle("active",tab==="soul");
   document.getElementById("buildView").classList.toggle("active",tab==="build");
+  document.getElementById("dmView").classList.toggle("active",tab==="dm");
   document.getElementById("ptsTalent").style.display=tab==="talents"?"":"none";
   document.getElementById("ptsSoul").style.display=tab==="soul"?"":"none";
   const treeOnly=(tab==="talents");
@@ -1609,6 +1896,7 @@ function setTab(tab){
   if(tab==="talents"){ talentTree.render(); }
   if(tab==="soul"){ renderSoul(); }
   if(tab==="build"){ renderBuild(); }
+  if(tab==="dm"){ renderDM(); }
   saveState();
 }
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setTab(t.dataset.tab));
@@ -1656,6 +1944,9 @@ function buildSubbar(){
   } else if(activeTab==="soul"){
     subbar.innerHTML=`<span class="soulpicker">Compose your Soul below. Slot effects from the library into your Passive, Active, and Sign slots.</span><div class="legend">`+RARITY_ORDER.map(r=>`<div class="l"><span class="dot" style="background:${rarColor(r)}"></span>${r}</div>`).join("")+`</div>`;
     subbar.style.display="";
+  } else if(activeTab==="dm"){
+    subbar.innerHTML=`<span class="soulpicker">Campaign roster. All builds tagged with this campaign code.</span>`;
+    subbar.style.display="";
   } else { subbar.innerHTML=""; subbar.style.display="none"; }
 }
 
@@ -1701,9 +1992,20 @@ document.getElementById("zIn").onclick=()=>{if(activeTab==="talents")talentPZ.zo
 document.getElementById("zOut").onclick=()=>{if(activeTab==="talents")talentPZ.zoom(.87);};
 document.getElementById("zFit").onclick=()=>{if(activeTab==="talents")fitTalent();};
 
-/* ---------- persistence ---------- */
-function saveState(){try{
-  localStorage.setItem("gto_feattree",JSON.stringify({
+/* ---------- cloud sync (Phase 1) ---------- */
+// CLOUD holds session-local sync state. BOOT_BUILD / BOOT_DM / SUPA are set by bootData.
+const CLOUD = {
+  connected: false,       // true once a build row is bound
+  campaignCode: null, campaignId: null,
+  buildCode: null, buildRowId: null, buildName: '',
+  lastSavedAt: null, lastError: null,
+  dmMode: false, dmCampaignCode: null, dmCampaignId: null,
+};
+let _cloudSnapshot = null;   // latest serialized state, for the debounced pusher
+let _cloudPushTimer = null;
+
+function stateSnapshot(){
+  return {
     talentUnlocked:[...state.talentUnlocked], bypassed:[...state.bypassed], flags:[...state.flags],
     level:state.level||1, role:state.role||null, background:state.background||null,
     tp:state.tp, sp:state.sp, spSpent:state.spSpent||0,
@@ -1711,11 +2013,110 @@ function saveState(){try{
     synergyChoices:state.synergyChoices||{},
     namedSoul:state.namedSoul||null, soulStage:state.soulStage||0,
     filter:state.filter, tab:activeTab
-  }));
+  };
+}
+
+function cloudSaveCodes(){
+  try{
+    if(CLOUD.connected){
+      localStorage.setItem('gto_cloudcodes', JSON.stringify({
+        campaignCode: CLOUD.campaignCode, buildCode: CLOUD.buildCode, buildName: CLOUD.buildName
+      }));
+    } else {
+      localStorage.removeItem('gto_cloudcodes');
+    }
+  }catch(e){}
+}
+
+function updateCloudBtn(mode){
+  const btn=document.getElementById('btnCloud');
+  if(!btn) return;
+  btn.classList.remove('offline','syncing','error');
+  let label='Local';
+  if(!SUPA){ btn.classList.add('offline'); label='Local'; }
+  else if(!CLOUD.connected){ btn.classList.add('offline'); label='Sign in'; }
+  else if(mode==='syncing'){ btn.classList.add('syncing'); label='Syncing…'; }
+  else if(mode==='error'){   btn.classList.add('error');   label='Sync error'; }
+  else{ label=CLOUD.buildCode || 'Synced'; }
+  btn.innerHTML='<span class="dot"></span>'+label;
+}
+
+async function cloudEnsureCampaign(code){
+  if(!SUPA) return null;
+  const c=(code||'').trim().toUpperCase();
+  if(!c) return null;
+  const r=await SUPA.from('campaigns').select('*').eq('code',c).maybeSingle();
+  if(r.error) throw r.error;
+  if(r.data) return r.data;
+  const ins=await SUPA.from('campaigns').insert({code:c, name:null}).select().maybeSingle();
+  if(ins.error) throw ins.error;
+  return ins.data;
+}
+
+async function cloudEnsureBuild(campaignId, shareCode, buildName){
+  if(!SUPA) return null;
+  const sc=(shareCode||'').trim().toUpperCase();
+  if(!sc) return null;
+  const r=await SUPA.from('builds').select('*').eq('share_code',sc).maybeSingle();
+  if(r.error) throw r.error;
+  if(r.data){
+    const patch={};
+    if(campaignId && r.data.campaign_id!==campaignId) patch.campaign_id=campaignId;
+    if(buildName && r.data.name!==buildName) patch.name=buildName;
+    if(Object.keys(patch).length){
+      await SUPA.from('builds').update(patch).eq('id',r.data.id);
+      Object.assign(r.data, patch);
+    }
+    return r.data;
+  }
+  const ins=await SUPA.from('builds').insert({
+    share_code:sc, campaign_id:campaignId, name:buildName||null, data:stateSnapshot()
+  }).select().maybeSingle();
+  if(ins.error) throw ins.error;
+  return ins.data;
+}
+
+async function cloudPushNow(){
+  if(!SUPA || !CLOUD.connected || !CLOUD.buildRowId) return;
+  const patch={data: _cloudSnapshot || stateSnapshot()};
+  if(CLOUD.buildName) patch.name = CLOUD.buildName;
+  const r=await SUPA.from('builds').update(patch).eq('id', CLOUD.buildRowId);
+  if(r.error) throw r.error;
+  CLOUD.lastSavedAt=Date.now(); CLOUD.lastError=null;
+}
+
+function cloudSchedulePush(){
+  if(!CLOUD.connected) return;
+  if(_cloudPushTimer) clearTimeout(_cloudPushTimer);
+  updateCloudBtn('syncing');
+  _cloudPushTimer=setTimeout(async ()=>{
+    _cloudPushTimer=null;
+    try{ await cloudPushNow(); updateCloudBtn('ok'); }
+    catch(e){ CLOUD.lastError=e; console.error('Cloud push failed',e); updateCloudBtn('error'); }
+  }, 1000);
+}
+
+async function cloudListCampaignBuilds(campaignId){
+  if(!SUPA || !campaignId) return [];
+  const r=await SUPA.from('builds').select('id, share_code, name, data, updated_at').eq('campaign_id', campaignId).order('updated_at',{ascending:false});
+  if(r.error) throw r.error;
+  return r.data||[];
+}
+
+/* ---------- persistence ---------- */
+function saveState(){try{
+  _cloudSnapshot = stateSnapshot();
+  localStorage.setItem("gto_feattree", JSON.stringify(_cloudSnapshot));
+  if(CLOUD.connected) cloudSchedulePush();
 }catch(e){}}
 function loadState(){
   let o={};
-  try{const raw=localStorage.getItem("gto_feattree");if(raw)o=JSON.parse(raw);}catch(e){}
+  // Cloud-pulled build (from boot) takes priority over localStorage.
+  if(BOOT_BUILD && BOOT_BUILD.data && typeof BOOT_BUILD.data === 'object' && Object.keys(BOOT_BUILD.data).length){
+    o = BOOT_BUILD.data;
+  } else {
+    try{const raw=localStorage.getItem("gto_feattree");if(raw)o=JSON.parse(raw);}catch(e){}
+  }
   const slots=o.soulSlots||{passive:[],active:[],sign:[]};
   const signSlots=slots.sign||slots.aura||[];
   // Migration: if an old save has `seals` (old Morning Star model), try to map it
@@ -1768,6 +2169,7 @@ fileIn.onchange=()=>{const f=fileIn.files[0];if(!f)return;const rd=new FileReade
   document.getElementById("roleInput").value=state.role||"";
   document.getElementById("bgInput").value=state.background||"";
   buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); fitTalent();
+  saveState();
 }catch(e){alert("That file couldn't be read as a build.")}};rd.readAsText(f);fileIn.value="";};
 document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? Unlocked talents and bypasses clear, your Soul is emptied, Role and Background reset. Story flags are kept.")){
   state.talentUnlocked=new Set(); state.bypassed=new Set(); state.soulSlots={passive:[],active:[],sign:[]}; state.soulName=""; state.spSpent=0; state.synergyChoices={}; state.level=1; state.role=null; state.background=null; state.filter=""; state.namedSoul=null; state.soulStage=0;
@@ -1775,17 +2177,211 @@ document.getElementById("btnReset").onclick=()=>{if(confirm("Reset this build? U
   buildSubbar(); talentTree.render(); renderSoul(); refreshPts(); saveState();
 }};
 
+/* ---------- cloud UI wiring ---------- */
+const cloudPanel=document.getElementById('cloudPanel');
+const cloudCampaignIn=document.getElementById('cloudCampaignIn');
+const cloudBuildIn=document.getElementById('cloudBuildIn');
+const cloudNameIn=document.getElementById('cloudNameIn');
+const cloudStatus=document.getElementById('cloudStatus');
+const cloudShareLink=document.getElementById('cloudShareLink');
+
+function makeShortCode(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s=''; for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+  return s;
+}
+
+function refreshCloudPanel(){
+  cloudCampaignIn.value = CLOUD.campaignCode || CLOUD.dmCampaignCode || '';
+  cloudBuildIn.value    = CLOUD.buildCode || '';
+  cloudNameIn.value     = CLOUD.buildName || '';
+  const base=location.origin+location.pathname;
+  if(CLOUD.connected){
+    const link = base + '?c=' + encodeURIComponent(CLOUD.campaignCode) + '&b=' + encodeURIComponent(CLOUD.buildCode);
+    cloudShareLink.textContent=link;
+    cloudShareLink.style.display='';
+    cloudStatus.classList.remove('err'); cloudStatus.classList.add('ok');
+    const when = CLOUD.lastSavedAt ? new Date(CLOUD.lastSavedAt).toLocaleTimeString() : 'not yet';
+    cloudStatus.innerHTML = `<b>Connected.</b> Saving to campaign <b>${escapeHtml(CLOUD.campaignCode)}</b> as build <b>${escapeHtml(CLOUD.buildCode)}</b>. Last save: ${escapeHtml(when)}.${CLOUD.lastError?('<br><b style="color:#d8706a">Last error:</b> '+escapeHtml(CLOUD.lastError.message||String(CLOUD.lastError))):''}`;
+  } else {
+    cloudShareLink.style.display='none';
+    cloudStatus.classList.remove('ok','err');
+    if(!SUPA){
+      cloudStatus.innerHTML=`<b>Local only.</b> No cloud sync — <code>config.json</code> is missing or doesn't have Supabase credentials. See <code>README.md</code> for setup.`;
+    } else {
+      cloudStatus.innerHTML=`<b>Not connected.</b> Enter a campaign code to sync this build to the cloud.`;
+    }
+  }
+}
+
+function openCloudPanel(){ refreshCloudPanel(); cloudPanel.classList.add('open'); }
+function closeCloudPanel(){ cloudPanel.classList.remove('open'); }
+
+async function cloudConnect(campaignCode, buildCode, buildName){
+  if(!SUPA){ throw new Error('Cloud sync is not configured. Set up config.json first.'); }
+  const cc=(campaignCode||'').trim().toUpperCase();
+  if(!cc) throw new Error('Campaign code is required.');
+  let bc=(buildCode||'').trim().toUpperCase();
+  const bn=(buildName||'').trim();
+  updateCloudBtn('syncing');
+  const camp=await cloudEnsureCampaign(cc);
+  if(!camp) throw new Error('Could not find or create campaign.');
+  if(!bc) bc=makeShortCode();
+  // Was this build already in cloud?
+  const r=await SUPA.from('builds').select('*').eq('share_code',bc).maybeSingle();
+  if(r.error) throw r.error;
+  let bld;
+  if(r.data){
+    // Existing build. Pull data in.
+    bld=r.data;
+    if(bld.data && typeof bld.data==='object' && Object.keys(bld.data).length){
+      applyCloudStateIntoApp(bld.data);
+    }
+    // Update campaign_id/name if different.
+    const patch={};
+    if(bld.campaign_id!==camp.id) patch.campaign_id=camp.id;
+    if(bn && bld.name!==bn) patch.name=bn;
+    if(Object.keys(patch).length){
+      await SUPA.from('builds').update(patch).eq('id',bld.id);
+      Object.assign(bld, patch);
+    }
+  } else {
+    // Create new build with current state as initial data.
+    const ins=await SUPA.from('builds').insert({
+      share_code:bc, campaign_id:camp.id, name:bn||null, data:stateSnapshot()
+    }).select().maybeSingle();
+    if(ins.error) throw ins.error;
+    bld=ins.data;
+  }
+  CLOUD.connected=true;
+  CLOUD.campaignCode=camp.code; CLOUD.campaignId=camp.id;
+  CLOUD.buildCode=bld.share_code; CLOUD.buildRowId=bld.id;
+  CLOUD.buildName=bld.name||bn||'';
+  CLOUD.lastSavedAt=Date.now(); CLOUD.lastError=null;
+  cloudSaveCodes();
+  updateCloudBtn('ok');
+  refreshCloudPanel();
+}
+
+function cloudDisconnect(){
+  CLOUD.connected=false;
+  CLOUD.campaignId=null; CLOUD.campaignCode=null;
+  CLOUD.buildRowId=null; CLOUD.buildCode=null; CLOUD.buildName='';
+  CLOUD.lastSavedAt=null; CLOUD.lastError=null;
+  cloudSaveCodes();
+  updateCloudBtn();
+  refreshCloudPanel();
+}
+
+// Replace current in-memory state with a cloud-pulled snapshot, then re-render.
+function applyCloudStateIntoApp(o){
+  if(!o || typeof o!=='object') return;
+  const slots=o.soulSlots||{passive:[],active:[],sign:[]};
+  const signSlots=slots.sign||slots.aura||[];
+  let soulStage=o.soulStage||0;
+  if(o.seals && !o.soulStage && o.namedSoul==='morning_star'){
+    soulStage=Math.max(0,Math.min(4,o.seals-4));
+  }
+  state.talentUnlocked = new Set(o.talentUnlocked||[]);
+  state.bypassed       = new Set(o.bypassed||[]);
+  state.flags          = new Set(o.flags||[]);
+  state.level=o.level||1; state.role=o.role||null; state.background=o.background||null;
+  state.tp=o.tp??state.tp; state.sp=o.sp??state.sp; state.spSpent=o.spSpent||0;
+  state.soulName=o.soulName||'';
+  state.soulSlots={passive:slots.passive||[], active:slots.active||[], sign:signSlots};
+  state.soulLibFilter=o.soulLibFilter||{type:'',cat:'',theme:''};
+  state.synergyChoices=o.synergyChoices||{};
+  state.namedSoul=o.namedSoul||null; state.soulStage=soulStage;
+  state.filter=o.filter||'';
+  // UI refresh
+  const roleInput=document.getElementById('roleInput'); if(roleInput) roleInput.value=state.role||'';
+  const bgInput=document.getElementById('bgInput'); if(bgInput) bgInput.value=state.background||'';
+  rebuildBgDropdown();
+  buildSubbar(); talentTree.render(); renderSoul(); refreshPts();
+  // Don't call saveState here — we just loaded from cloud and don't want to push back immediately.
+}
+
+document.getElementById('btnCloud').onclick=()=>{
+  if(cloudPanel.classList.contains('open')) closeCloudPanel();
+  else openCloudPanel();
+};
+document.getElementById('cloudClose').onclick=closeCloudPanel;
+document.getElementById('cloudConnect').onclick=async ()=>{
+  try{
+    await cloudConnect(cloudCampaignIn.value, cloudBuildIn.value, cloudNameIn.value);
+  }catch(e){
+    cloudStatus.classList.add('err'); cloudStatus.classList.remove('ok');
+    cloudStatus.innerHTML=`<b>Error:</b> ${escapeHtml(e.message||String(e))}`;
+    updateCloudBtn('error');
+  }
+};
+document.getElementById('cloudDisconnect').onclick=()=>{
+  if(confirm('Disconnect from cloud sync? Your build stays on this device and in the cloud under its code. You can reconnect anytime.')){
+    cloudDisconnect();
+  }
+};
+document.getElementById('cloudCopyLink').onclick=async ()=>{
+  const txt=cloudShareLink.textContent;
+  if(!txt){ alert('Connect first to get a share link.'); return; }
+  try{ await navigator.clipboard.writeText(txt); cloudStatus.innerHTML='<b>Share link copied to clipboard.</b>'; cloudStatus.classList.remove('err'); cloudStatus.classList.add('ok'); }
+  catch(e){ alert('Could not copy. Link is: '+txt); }
+};
+// Keep the build name in sync as the player types.
+cloudNameIn.addEventListener('input', ()=>{
+  CLOUD.buildName = cloudNameIn.value.trim();
+  if(CLOUD.connected) cloudSchedulePush();
+});
+// Uppercase codes as entered.
+[cloudCampaignIn, cloudBuildIn].forEach(inp=>{
+  inp.addEventListener('input', ()=>{
+    const start=inp.selectionStart, end=inp.selectionEnd;
+    inp.value=inp.value.toUpperCase();
+    try{ inp.setSelectionRange(start,end); }catch(e){}
+  });
+});
+
 /* ---------- global popover dismissal ---------- */
 document.addEventListener("click",e=>{if(!e.target.closest("#detail")&&!e.target.closest(".node"))closeDetail()});
 window.addEventListener("resize",()=>{if(detail.style.display==="block")closeDetail()});
 
 /* ---------- boot ---------- */
 initRoleBgSelectors();
+
+// Apply any cloud/DM boot state before the first setTab.
+let initialTab = state.tab || "talents";
+if(BOOT_DM){
+  CLOUD.dmMode = true;
+  CLOUD.dmCampaignCode = BOOT_DM.campaignCode;
+  CLOUD.dmCampaignId   = BOOT_DM.campaignId;
+  // Reveal DM tab.
+  const t=document.getElementById('tabDM'); if(t) t.classList.add('visible');
+  initialTab = 'dm';
+}
+if(BOOT_BUILD && BOOT_BUILD.buildRowId){
+  // We pulled an existing build during boot. Mark CLOUD as connected so saves push.
+  CLOUD.connected = true;
+  CLOUD.campaignCode = BOOT_BUILD.campaignCode;
+  CLOUD.campaignId   = BOOT_BUILD.campaignId;
+  CLOUD.buildCode    = BOOT_BUILD.buildCode;
+  CLOUD.buildRowId   = BOOT_BUILD.buildRowId;
+  CLOUD.buildName    = BOOT_BUILD.buildName || '';
+  CLOUD.lastSavedAt  = Date.now();
+  cloudSaveCodes();
+} else if(BOOT_BUILD && BOOT_BUILD.pendingCreate){
+  // Share link used a build code that doesn't exist yet. Pre-fill the cloud panel so
+  // the user can click Connect to create it.
+  cloudCampaignIn.value = BOOT_BUILD.campaignCode || '';
+  cloudBuildIn.value    = BOOT_BUILD.buildCode    || '';
+  cloudNameIn.value     = BOOT_BUILD.buildName    || '';
+  setTimeout(openCloudPanel, 150);
+}
+updateCloudBtn();
+
 buildSubbar();
 talentTree.render();
 renderSoul();
 refreshPts();
-setTab(state.tab||"talents");
+setTab(initialTab);
 setTimeout(fitTalent,60);
 }
 </script>
